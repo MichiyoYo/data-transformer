@@ -1,0 +1,21 @@
+# Node.js / npm / TypeScript
+node_modules/
+dist/
+build/
+.env
+.env.local
+.env.*.local
+coverage/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+.DS_Store
+*.tsbuildinfo
+
+# Optional: VS Code settings
+.vscode/
+
+# Optional: OS files
+Thumbs.db
