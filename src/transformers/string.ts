@@ -8,6 +8,20 @@ import _ from 'lodash';
 export const trim: Transformer<string, string> = _.trim;
 
 /**
+ * Capitalizes the first letter of a string.
+ * Uses Lodash's capitalize for consistent behavior.
+ *
+ * @param str - The input string to capitalize
+ * @returns The string with the first letter capitalized
+ *
+ * @example
+ * ```typescript
+ * capitalize('hello world') // returns 'Hello world'
+ * ```
+ */
+export const capitalize: Transformer<string, string> = _.capitalize;
+
+/**
  * Converts string to uppercase.
  * Uses Lodash's toUpper implementation.
  */

@@ -2,6 +2,31 @@ import { Transformer } from '@/types';
 import _ from 'lodash';
 
 /**
+ * Creates a transformer that applies a transformation to a specific field in an object.
+ * Uses Lodash's set and get for safe object manipulation.
+ *
+ * @param fieldName - The name of the field to transform
+ * @param fieldTransformer - The transformer to apply to the field
+ * @returns A transformer that works on objects
+ *
+ * @example
+ * ```typescript
+ * const transformCreatedAt = transformField('createdAt', isoDateToLocal);
+ * transformCreatedAt({id: 1, createdAt: '2023-01-01T00:00:00Z'})
+ * // returns {id: 1, createdAt: Date object}
+ * ```
+ */
+export const transformField = <TObject, TKey extends keyof TObject, TOutput>(
+  fieldName: TKey,
+  fieldTransformer: Transformer<TObject[TKey], TOutput>
+): Transformer<TObject, TObject & { [K in TKey]: TOutput }> => {
+  return (obj: TObject) => ({
+    ...obj,
+    [fieldName]: fieldTransformer(_.get(obj, fieldName as string)),
+  });
+};
+
+/**
  * Creates a transformer that picks specified fields from an object.
  * Uses Lodash's pick for robust object field selection.
  *

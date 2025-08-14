@@ -19,12 +19,30 @@ import {
   formatTimestampRelative,
   isValidDate,
   formatDateSmart,
+  isoDateToLocal,
 } from '../date';
 
 describe('Date Transformers', () => {
   const testDate = new Date('2023-12-25T10:30:00Z');
   const testTimestamp = testDate.getTime(); // This ensures they match exactly
   const testTimestampSeconds = Math.floor(testTimestamp / 1000); // Convert to seconds
+
+  describe('isoDateToLocal', () => {
+    it('should convert ISO date string to Date object', () => {
+      const isoString = '2023-12-25T10:30:00Z';
+      const result = isoDateToLocal(isoString);
+      expect(result).toBeInstanceOf(Date);
+      expect(result.getFullYear()).toBe(2023);
+      expect(result.getMonth()).toBe(11); // December is month 11
+      expect(result.getDate()).toBe(25);
+    });
+
+    it('should handle different ISO formats', () => {
+      const result = isoDateToLocal('2023-01-15T08:30:00.000Z');
+      expect(result).toBeInstanceOf(Date);
+      expect(result.getFullYear()).toBe(2023);
+    });
+  });
 
   describe('formatDate', () => {
     it('should format date with default format', () => {

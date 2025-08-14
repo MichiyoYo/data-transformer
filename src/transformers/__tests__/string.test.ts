@@ -1,4 +1,11 @@
-import { trim, toUpperCase, toLowerCase, slugify, truncate } from '../string';
+import {
+  trim,
+  toUpperCase,
+  toLowerCase,
+  slugify,
+  truncate,
+  capitalize,
+} from '../string';
 
 describe('String Transformers', () => {
   describe('trim', () => {
@@ -14,7 +21,23 @@ describe('String Transformers', () => {
       expect(trim('')).toBe('');
     });
   });
+  describe('capitalize', () => {
+    it('should capitalize the first letter of a string', () => {
+      expect(capitalize('hello world')).toBe('Hello world');
+    });
 
+    it('should handle empty strings', () => {
+      expect(capitalize('')).toBe('');
+    });
+
+    it('should handle single characters', () => {
+      expect(capitalize('a')).toBe('A');
+    });
+
+    it('should handle all lowercase', () => {
+      expect(capitalize('test')).toBe('Test');
+    });
+  });
   describe('toUpperCase', () => {
     it('should convert string to uppercase', () => {
       expect(toUpperCase('hello world')).toBe('HELLO WORLD');

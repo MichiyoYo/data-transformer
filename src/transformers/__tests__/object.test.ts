@@ -1,3 +1,4 @@
+import { isoDateToLocal } from '../date';
 import {
   pickFields,
   omitFields,
@@ -7,7 +8,9 @@ import {
   deepClone,
   keysToCamelCase,
   keysToSnakeCase,
+  transformField,
 } from '../object';
+import { capitalize } from '../string';
 
 describe('Object Transformers', () => {
   const testObject = {
@@ -22,6 +25,40 @@ describe('Object Transformers', () => {
     },
     isActive: true,
   };
+
+  describe('transformField', () => {
+    it('should transform a specific field in an object', () => {
+      type Person = { id: number; name: string; age: number };
+      const transformName = transformField<Person, 'name', string>(
+        'name',
+        capitalize
+      );
+      const input: Person = {
+        id: 1,
+        name: 'john dough',
+        age: 30,
+      };
+      const result = transformName(input);
+      expect(result).toEqual({
+        id: 1,
+        name: 'John dough',
+        age: 30,
+      });
+    });
+
+    it('should transform date field', () => {
+      type Item = { id: number; createdAt: string };
+      const transformCreatedAt = transformField<Item, 'createdAt', Date>(
+        'createdAt',
+        isoDateToLocal
+      );
+      const input: Item = { id: 1, createdAt: '2023-12-25T10:30:00Z' };
+      const result = transformCreatedAt(input);
+
+      expect(result.id).toBe(1);
+      expect(result.createdAt).toBeInstanceOf(Date);
+    });
+  });
 
   describe('pickFields', () => {
     it('should pick specified fields from object', () => {

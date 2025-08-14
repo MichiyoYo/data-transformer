@@ -7,8 +7,23 @@ import {
   fromUnixTime,
   formatDistanceToNow,
   isValid,
+  parseISO,
 } from 'date-fns';
 import { formatInTimeZone, fromZonedTime, toZonedTime } from 'date-fns-tz';
+
+/**
+ * Converts an ISO date string to a JavaScript Date object.
+ * Uses date-fns parseISO for robust ISO string parsing.
+ *
+ * @param isoString - The ISO 8601 date string
+ * @returns A JavaScript Date object
+ *
+ * @example
+ * ```typescript
+ * isoDateToLocal('2023-12-25T10:30:00Z') // returns Date object
+ * ```
+ */
+export const isoDateToLocal: Transformer<string, Date> = parseISO;
 
 /**
  * Creates a transformer that formats dates with optional timezone support.
