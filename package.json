@@ -4,19 +4,24 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "build": "tsup src/index.ts --format cjs,esm --dts --clean",
     "test": "jest",
     "test:watch": "jest --watchAll",
     "test:coverage": "jest --coverage",
-    "build": "tsc",
-    "dev": "tsc --watch"
+    "dev": "tsup src/index.ts --format cjs,esm --dts --watch"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "devDependencies": {
     "@types/jest": "^30.0.0",
+    "@types/lodash": "^4.17.20",
     "jest": "^30.0.5",
     "ts-jest": "^29.4.1",
+    "tsup": "^8.5.0",
     "typescript": "^5.9.2"
+  },
+  "dependencies": {
+    "lodash": "^4.17.21"
   }
 }

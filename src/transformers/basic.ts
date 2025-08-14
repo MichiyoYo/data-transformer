@@ -1,4 +1,4 @@
-import { Transformer } from '../types';
+import { Transformer } from '@/types';
 
 /**
  * Capitalizes the first letter of a string.
