@@ -115,22 +115,35 @@ export const flattenObject = (
 
 /**
  * Creates a transformer that merges multiple objects.
- * Uses Lodash's merge for deep merging capabilities.
+ * Uses Lodash's merge or defaults based on override flag.
  *
+ * @param override - If true, source values override target values; if false, target values are preserved (default: false)
  * @param sources - Objects to merge into the target
  * @returns A transformer that merges objects
  *
  * @example
  * ```typescript
- * const addDefaults = mergeObjects({ isActive: true, role: 'user' });
- * addDefaults(user) // user object with default values merged in
+ * // Preserve existing values (add defaults)
+ * const addDefaults = mergeObjects(false, { isActive: true, role: 'user' });
+ * addDefaults({ id: 1, isActive: false }) // { id: 1, isActive: false, role: 'user' }
+ *
+ * // Override with new values
+ * const applyUpdates = mergeObjects(true, { isActive: true, role: 'admin' });
+ * applyUpdates({ id: 1, isActive: false }) // { id: 1, isActive: true, role: 'admin' }
  * ```
  */
 export const mergeObjects = (
+  override: boolean = false,
   ...sources: Record<string, any>[]
 ): Transformer<Record<string, any>, Record<string, any>> => {
   return (target: Record<string, any>): Record<string, any> => {
-    return _.merge({}, target, ...sources);
+    if (override) {
+      // Source values override target values
+      return _.merge({}, target, ...sources);
+    } else {
+      // Target values are preserved (defaults behavior)
+      return _.defaults({}, target, ...sources);
+    }
   };
 };
 
