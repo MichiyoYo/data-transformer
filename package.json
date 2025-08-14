@@ -26,12 +26,12 @@
   ],
   "repository": {
     "type": "git",
-    "url": "https://github.com/michiyoyo/frontend-data-adapters.git"
+    "url": "https://github.com/MichiyoYo/data-transformer"
   },
   "bugs": {
-    "url": "https://github.com/michiyoyo/frontend-data-adapters/issues"
+    "url": "https://github.com/MichiyoYo/data-transformer/issues"
   },
-  "homepage": "https://github.com/michiyoyo/frontend-data-adapters#readme",
+  "homepage": "https://github.com/MichiyoYo/data-transformer#readme",
   "author": "Cristina Lester <contact@cristinalester.dev>",
   "license": "MIT",
   "scripts": {

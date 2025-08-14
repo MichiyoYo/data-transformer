@@ -320,4 +320,4 @@ Contributions are welcome! Please feel free to submit a Pull Request.
 
 ## 🐛 Issues
 
-Found a bug? Please [create an issue](https://github.com/michiyoyo/frontend-data-adapters/issues).
+Found a bug? Please [create an issue](https://github.com/MichiyoYo/data-transformer/issues).
