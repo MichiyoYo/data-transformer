@@ -14,6 +14,7 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "@types/date-fns": "^2.6.3",
     "@types/jest": "^30.0.0",
     "@types/lodash": "^4.17.20",
     "jest": "^30.0.5",
@@ -22,6 +23,8 @@
     "typescript": "^5.9.2"
   },
   "dependencies": {
+    "date-fns": "^4.1.0",
+    "date-fns-tz": "^3.2.0",
     "lodash": "^4.17.21"
   }
 }
