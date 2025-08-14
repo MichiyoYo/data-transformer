@@ -312,7 +312,7 @@ const conditionalTransform = <T>(
 
 ## 📄 License
 
-MIT © [Your Name]
+MIT © [Cristina Lester]
 
 ## 🤝 Contributing
 
