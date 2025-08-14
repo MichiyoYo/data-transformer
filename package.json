@@ -1,18 +1,50 @@
 {
-  "name": "frontend-data-adapters",
+  "name": "data-transform-kit",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "description": "A comprehensive TypeScript library for transforming data between APIs and frontend applications. Includes string, number, date, object, and array transformers with full TypeScript support.",
+  "main": "dist/index.js",
+  "module": "dist/index.mjs",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist",
+    "README.md"
+  ],
+  "keywords": [
+    "typescript",
+    "data-transformation",
+    "api-adapter",
+    "frontend",
+    "functional-programming",
+    "lodash",
+    "date-fns",
+    "data-mapper",
+    "object-transformer",
+    "array-utils",
+    "string-utils",
+    "date-utils",
+    "number-formatter"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/michiyoyo/frontend-data-adapters.git"
+  },
+  "bugs": {
+    "url": "https://github.com/michiyoyo/frontend-data-adapters/issues"
+  },
+  "homepage": "https://github.com/michiyoyo/frontend-data-adapters#readme",
+  "author": "Cristina Lester <contact@cristinalester.dev>",
+  "license": "MIT",
   "scripts": {
     "build": "tsup src/index.ts --format cjs,esm --dts --clean",
     "test": "jest",
     "test:watch": "jest --watchAll",
     "test:coverage": "jest --coverage",
-    "dev": "tsup src/index.ts --format cjs,esm --dts --watch"
+    "lint": "eslint src --ext .ts",
+    "prepublishOnly": "npm run test && npm run build",
+    "dev": "tsup src/index.ts --format cjs,esm --dts --watch",
+    "publish:dry": "npm publish --dry-run",
+    "publish:release": "npm publish"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
   "devDependencies": {
     "@types/date-fns": "^2.6.3",
     "@types/jest": "^30.0.0",

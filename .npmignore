@@ -1,0 +1,32 @@
+# Source files
+src/
+tsconfig.json
+jest.config.js
+
+# Development files
+*.test.ts
+*.spec.ts
+__tests__/
+coverage/
+
+# Build tools
+.eslintrc.*
+.prettierrc.*
+
+# Environment
+.env*
+.DS_Store
+*.log
+
+# Git
+.git/
+.gitignore
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Examples (optional - you might want to keep these)
+examples/
