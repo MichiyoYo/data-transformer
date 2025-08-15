@@ -1,6 +1,7 @@
 # Data Transform Kit
 
 A comprehensive TypeScript library for transforming data between APIs and frontend applications. Built with functional programming principles and powered by battle-tested libraries like Lodash and date-fns.
+Check out the [docs and usage examples](https://689f2b4deffce64721780412-lhrzzgixdd.chromatic.com/?path=/docs/%F0%9F%93%96-documentation-introduction--docs&globals=backgrounds.value:light).
 
 ## 🚀 Features
 
