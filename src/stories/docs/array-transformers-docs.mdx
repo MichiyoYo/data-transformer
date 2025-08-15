@@ -1,0 +1,590 @@
+import { Meta, Source } from '@storybook/blocks';
+
+<Meta title='📖 Documentation/Array Transformers' />
+
+# 🔄 Array Transformers
+
+Array processing utilities for mapping, filtering, sorting, and manipulating collections. Built with Lodash for consistent performance and robust array handling.
+
+## Functions Overview
+
+<table
+  style={{ width: '100%', borderCollapse: 'collapse', marginBottom: '2rem' }}
+>
+  <thead>
+    <tr
+      style={{ backgroundColor: '#f8f9fa', borderBottom: '2px solid #dee2e6' }}
+    >
+      <th
+        style={{
+          padding: '12px',
+          textAlign: 'left',
+          fontWeight: '600',
+          color: '#495057',
+        }}
+      >
+        Function
+      </th>
+      <th
+        style={{
+          padding: '12px',
+          textAlign: 'left',
+          fontWeight: '600',
+          color: '#495057',
+        }}
+      >
+        Description
+      </th>
+      <th
+        style={{
+          padding: '12px',
+          textAlign: 'left',
+          fontWeight: '600',
+          color: '#495057',
+        }}
+      >
+        Example
+      </th>
+      <th
+        style={{
+          padding: '12px',
+          textAlign: 'left',
+          fontWeight: '600',
+          color: '#495057',
+        }}
+      >
+        Use Cases
+      </th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr style={{ borderBottom: '1px solid #dee2e6' }}>
+      <td
+        style={{
+          padding: '12px',
+          fontFamily: 'monospace',
+          backgroundColor: '#f8f9fa',
+          fontWeight: '500',
+        }}
+      >
+        <code>mapItems</code>
+      </td>
+      <td style={{ padding: '12px' }}>Transform each array item</td>
+      <td
+        style={{ padding: '12px', fontFamily: 'monospace', fontSize: '0.9em' }}
+      >
+        <code>mapItems(capitalize)</code>
+      </td>
+      <td style={{ padding: '12px' }}>Data transformation, formatting</td>
+    </tr>
+    <tr style={{ borderBottom: '1px solid #dee2e6' }}>
+      <td
+        style={{
+          padding: '12px',
+          fontFamily: 'monospace',
+          backgroundColor: '#f8f9fa',
+          fontWeight: '500',
+        }}
+      >
+        <code>filterItems</code>
+      </td>
+      <td style={{ padding: '12px' }}>Filter array by predicate</td>
+      <td
+        style={{ padding: '12px', fontFamily: 'monospace', fontSize: '0.9em' }}
+      >
+        <code>filterItems(item => item.active)</code>
+      </td>
+      <td style={{ padding: '12px' }}>Data filtering, search results</td>
+    </tr>
+    <tr style={{ borderBottom: '1px solid #dee2e6' }}>
+      <td
+        style={{
+          padding: '12px',
+          fontFamily: 'monospace',
+          backgroundColor: '#f8f9fa',
+          fontWeight: '500',
+        }}
+      >
+        <code>sortItems</code>
+      </td>
+      <td style={{ padding: '12px' }}>Sort array by criteria</td>
+      <td
+        style={{ padding: '12px', fontFamily: 'monospace', fontSize: '0.9em' }}
+      >
+        <code>sortItems(item => item.name)</code>
+      </td>
+      <td style={{ padding: '12px' }}>Data ordering, lists</td>
+    </tr>
+    <tr style={{ borderBottom: '1px solid #dee2e6' }}>
+      <td
+        style={{
+          padding: '12px',
+          fontFamily: 'monospace',
+          backgroundColor: '#f8f9fa',
+          fontWeight: '500',
+        }}
+      >
+        <code>groupBy</code>
+      </td>
+      <td style={{ padding: '12px' }}>Group array items by key</td>
+      <td
+        style={{ padding: '12px', fontFamily: 'monospace', fontSize: '0.9em' }}
+      >
+        <code>groupBy(item => item.category)</code>
+      </td>
+      <td style={{ padding: '12px' }}>Data organization, reports</td>
+    </tr>
+    <tr style={{ borderBottom: '1px solid #dee2e6' }}>
+      <td
+        style={{
+          padding: '12px',
+          fontFamily: 'monospace',
+          backgroundColor: '#f8f9fa',
+          fontWeight: '500',
+        }}
+      >
+        <code>uniqueBy</code>
+      </td>
+      <td style={{ padding: '12px' }}>Remove duplicates by key</td>
+      <td
+        style={{ padding: '12px', fontFamily: 'monospace', fontSize: '0.9em' }}
+      >
+        <code>uniqueBy(item => item.id)</code>
+      </td>
+      <td style={{ padding: '12px' }}>Deduplication, data cleaning</td>
+    </tr>
+    <tr style={{ borderBottom: '1px solid #dee2e6' }}>
+      <td
+        style={{
+          padding: '12px',
+          fontFamily: 'monospace',
+          backgroundColor: '#f8f9fa',
+          fontWeight: '500',
+        }}
+      >
+        <code>findItem</code>
+      </td>
+      <td style={{ padding: '12px' }}>Find first matching item</td>
+      <td
+        style={{ padding: '12px', fontFamily: 'monospace', fontSize: '0.9em' }}
+      >
+        <code>findItem(item => item.id === 5)</code>
+      </td>
+      <td style={{ padding: '12px' }}>Search, lookups</td>
+    </tr>
+    <tr>
+      <td
+        style={{
+          padding: '12px',
+          fontFamily: 'monospace',
+          backgroundColor: '#f8f9fa',
+          fontWeight: '500',
+        }}
+      >
+        <code>reduceItems</code>
+      </td>
+      <td style={{ padding: '12px' }}>Reduce array to single value</td>
+      <td
+        style={{ padding: '12px', fontFamily: 'monospace', fontSize: '0.9em' }}
+      >
+        <code>reduceItems((sum, item) => sum + item.value, 0)</code>
+      </td>
+      <td style={{ padding: '12px' }}>Aggregation, calculations</td>
+    </tr>
+  </tbody>
+</table>
+
+---
+
+## 📋 Function Details
+
+## mapItems
+
+```typescript
+/**
+ * Creates a transformer that applies a given transformer to each item in an array.
+ * Uses Lodash's map for consistent behavior and performance.
+ */
+export const mapItems = <TInput, TOutput>(
+  itemTransformer: Transformer<TInput, TOutput>
+): Transformer<TInput[], TOutput[]>
+```
+
+### mapItems - Usage Examples
+
+<Source
+  language="typescript"
+  code={`
+import { mapItems, capitalize, formatCurrency } from 'data-transform-kit';
+
+// Transform array of strings
+const capitalizeNames = mapItems(capitalize);
+const names = ['john doe', 'jane smith', 'bob wilson'];
+const capitalized = capitalizeNames(names);
+// ['John Doe', 'Jane Smith', 'Bob Wilson']
+
+// Transform object fields in array
+const formatPrices = mapItems(transformField('price', formatCurrency()));
+const products = [
+{ id: 1, name: 'Laptop', price: 999.99 },
+{ id: 2, name: 'Mouse', price: 29.95 }
+];
+const withFormattedPrices = formatPrices(products);
+// [
+// { id: 1, name: 'Laptop', price: '$999.99' },
+// { id: 2, name: 'Mouse', price: '$29.95' }
+// ]
+
+// Chain transformations
+const processUsers = mapItems(
+pickFields(['id', 'name', 'email'])
+);
+const users = [
+{ id: 1, name: 'John', email: 'john@test.com', password: 'secret' },
+{ id: 2, name: 'Jane', email: 'jane@test.com', password: 'secret' }
+];
+const publicUsers = processUsers(users);
+// Only id, name, email fields for each user
+`}
+/>
+
+---
+
+## filterItems
+
+```typescript
+/**
+ * Creates a transformer that filters array items based on a predicate.
+ * Uses Lodash's filter for consistent behavior.
+ */
+export const filterItems = <T>(
+  predicate: (item: T) => boolean
+): Transformer<T[], T[]>
+```
+
+### filterItems - Usage Examples
+
+<Source
+  language="typescript"
+  code={`
+import { filterItems } from 'data-transform-kit';
+
+// Filter active users
+const getActiveUsers = filterItems((user: any) => user.isActive);
+const users = [
+{ id: 1, name: 'John', isActive: true },
+{ id: 2, name: 'Jane', isActive: false },
+{ id: 3, name: 'Bob', isActive: true }
+];
+const activeUsers = getActiveUsers(users);
+// [{ id: 1, name: 'John', isActive: true }, { id: 3, name: 'Bob', isActive: true }]
+
+// Filter by price range
+const getAffordableProducts = filterItems((product: any) => product.price < 100);
+const products = [
+{ id: 1, name: 'Expensive Laptop', price: 1500 },
+{ id: 2, name: 'Budget Mouse', price: 25 },
+{ id: 3, name: 'Wireless Keyboard', price: 75 }
+];
+const affordable = getAffordableProducts(products);
+// [{ id: 2, name: 'Budget Mouse', price: 25 }, { id: 3, name: 'Wireless Keyboard', price: 75 }]
+
+// Complex filtering
+const getRecentHighValueOrders = filterItems((order: any) =>
+order.value > 1000 && new Date(order.date) > new Date('2025-01-01')
+);
+`}
+/>
+
+---
+
+## sortItems
+
+```typescript
+/**
+ * Creates a transformer that sorts array items.
+ * Uses Lodash's sortBy for robust sorting.
+ */
+export const sortItems = <T>(
+  iteratee: (item: T) => any,
+  ascending: boolean = true
+): Transformer<T[], T[]>
+```
+
+### sortItems - Usage Examples
+
+<Source
+  language="typescript"
+  code={`
+import { sortItems } from 'data-transform-kit';
+
+// Sort by name (ascending)
+const sortByName = sortItems((user: any) => user.name);
+const users = [
+{ name: 'Charlie', age: 30 },
+{ name: 'Alice', age: 25 },
+{ name: 'Bob', age: 35 }
+];
+const sortedUsers = sortByName(users);
+// [{ name: 'Alice', age: 25 }, { name: 'Bob', age: 35 }, { name: 'Charlie', age: 30 }]
+
+// Sort by price (descending)
+const sortByPriceDesc = sortItems((product: any) => product.price, false);
+const products = [
+{ name: 'Mouse', price: 25 },
+{ name: 'Laptop', price: 1500 },
+{ name: 'Keyboard', price: 75 }
+];
+const expensiveFirst = sortByPriceDesc(products);
+// [{ name: 'Laptop', price: 1500 }, { name: 'Keyboard', price: 75 }, { name: 'Mouse', price: 25 }]
+
+// Sort by date
+const sortByDate = sortItems((item: any) => new Date(item.createdAt));
+const posts = [
+{ title: 'Post C', createdAt: '2025-08-10' },
+{ title: 'Post A', createdAt: '2025-08-14' },
+{ title: 'Post B', createdAt: '2025-08-12' }
+];
+const chronological = sortByDate(posts);
+// Sorted from oldest to newest
+`}
+/>
+
+---
+
+## groupBy
+
+```typescript
+/**
+ * Creates a transformer that groups array items by a key.
+ * Uses Lodash's groupBy for efficient grouping.
+ */
+export const groupBy = <T>(
+  iteratee: (item: T) => string | number
+): Transformer<T[], Record<string, T[]>>
+```
+
+### groupBy - Usage Examples
+
+<Source
+  language="typescript"
+  code={`
+import { groupBy } from 'data-transform-kit';
+
+// Group products by category
+const groupByCategory = groupBy((product: any) => product.category);
+const products = [
+{ id: 1, name: 'Laptop', category: 'Electronics' },
+{ id: 2, name: 'Shirt', category: 'Clothing' },
+{ id: 3, name: 'Phone', category: 'Electronics' },
+{ id: 4, name: 'Jeans', category: 'Clothing' }
+];
+const grouped = groupByCategory(products);
+// {
+// 'Electronics': [
+// { id: 1, name: 'Laptop', category: 'Electronics' },
+// { id: 3, name: 'Phone', category: 'Electronics' }
+// ],
+// 'Clothing': [
+// { id: 2, name: 'Shirt', category: 'Clothing' },
+// { id: 4, name: 'Jeans', category: 'Clothing' }
+// ]
+// }
+
+// Group users by age range
+const groupByAgeRange = groupBy((user: any) => {
+if (user.age < 25) return 'young';
+if (user.age < 40) return 'adult';
+return 'senior';
+});
+
+// Group orders by month
+const groupByMonth = groupBy((order: any) =>
+new Date(order.date).toISOString().slice(0, 7) // YYYY-MM format
+);
+`}
+/>
+
+---
+
+## uniqueBy
+
+```typescript
+/**
+ * Creates a transformer that removes duplicates by a key.
+ * Uses Lodash's uniqBy for efficient deduplication.
+ */
+export const uniqueBy = <T>(
+  iteratee: (item: T) => any
+): Transformer<T[], T[]>
+```
+
+### uniqueBy - Usage Examples
+
+<Source
+  language="typescript"
+  code={`
+import { uniqueBy } from 'data-transform-kit';
+
+// Remove duplicate users by email
+const uniqueByEmail = uniqueBy((user: any) => user.email);
+const users = [
+{ id: 1, name: 'John', email: 'john@test.com' },
+{ id: 2, name: 'Jane', email: 'jane@test.com' },
+{ id: 3, name: 'John Doe', email: 'john@test.com' }, // duplicate email
+{ id: 4, name: 'Bob', email: 'bob@test.com' }
+];
+const uniqueUsers = uniqueByEmail(users);
+// [
+// { id: 1, name: 'John', email: 'john@test.com' },
+// { id: 2, name: 'Jane', email: 'jane@test.com' },
+// { id: 4, name: 'Bob', email: 'bob@test.com' }
+// ]
+
+// Remove duplicate products by name
+const uniqueByName = uniqueBy((product: any) => product.name.toLowerCase());
+const products = [
+{ id: 1, name: 'Laptop' },
+{ id: 2, name: 'Mouse' },
+{ id: 3, name: 'LAPTOP' }, // duplicate (case insensitive)
+{ id: 4, name: 'Keyboard' }
+];
+const uniqueProducts = uniqueByName(products);
+// Removes case-insensitive duplicates
+
+// Remove duplicates by complex key
+const uniqueByUserAndDate = uniqueBy((log: any) =>
+\`\${log.userId}-\${log.date}\`
+);
+`}
+/>
+
+---
+
+## 🔗 Composition Patterns
+
+Array transformers work seamlessly together:
+
+<Source
+  language="typescript"
+  code={`
+import { 
+  mapItems, 
+  filterItems, 
+  sortItems, 
+  groupBy,
+  uniqueBy,
+  transformField,
+  pickFields,
+  formatCurrency
+} from 'data-transform-kit';
+
+// 1. Process product catalog
+const processProductCatalog = (products: any[]) => {
+const activeProducts = filterItems((p: any) => p.isActive)(products);
+const withFormattedPrices = mapItems(transformField('price', formatCurrency()))(activeProducts);
+const sorted = sortItems((p: any) => p.name)(withFormattedPrices);
+return sorted;
+};
+
+// 2. User management pipeline
+const processUsers = (rawUsers: any[]) => {
+const cleaned = mapItems(pickFields(['id', 'name', 'email', 'isActive']))(rawUsers);
+const active = filterItems((user: any) => user.isActive)(cleaned);
+const unique = uniqueByEmail(active);
+const sorted = sortItems((user: any) => user.name)(unique);
+return sorted;
+};
+
+// 3. Sales report aggregation
+const generateSalesReport = (orders: any[]) => {
+const recent = filterItems((order: any) =>
+new Date(order.date) > new Date('2025-01-01')
+)(orders);
+
+const grouped = groupBy((order: any) => order.salesperson)(recent);
+
+return Object.entries(grouped).map(([salesperson, orders]) => ({
+salesperson,
+totalSales: orders.reduce((sum, order) => sum + order.amount, 0),
+orderCount: orders.length
+}));
+};
+
+// 4. Data cleaning pipeline
+const cleanAndProcess = (rawData: any[]) => {
+return sortItems((item: any) => item.priority, false)(
+uniqueBy((item: any) => item.id)(
+filterItems((item: any) => item.isValid)(
+mapItems(transformField('name', capitalize))(rawData)
+)
+)
+);
+};
+`}
+/>
+
+## 🎯 Best Practices
+
+### Performance Considerations
+
+- **Chain efficiently**: Combine operations to minimize iterations
+- **Filter early**: Apply filters before expensive transformations
+- **Use appropriate functions**: Choose the right tool for each task
+
+### Type Safety
+
+- **Provide type parameters**: Help TypeScript infer correct types
+- **Validate predicates**: Ensure filter and find functions are robust
+- **Handle edge cases**: Check for empty arrays and null values
+
+### Common Patterns
+
+<Source
+  language="typescript"
+  code={`
+// Safe array processing with validation
+const safeMapItems = <T, U>(
+  transformer: (item: T) => U,
+  fallback: U
+) => mapItems((item: T) => {
+  try {
+    return transformer(item);
+  } catch {
+    return fallback;
+  }
+});
+
+// Batch processing with progress
+const processBatch = <T>(
+items: T[],
+batchSize: number,
+processor: (batch: T[]) => T[]
+): T[] => {
+const results: T[] = [];
+for (let i = 0; i < items.length; i += batchSize) {
+const batch = items.slice(i, i + batchSize);
+results.push(...processor(batch));
+}
+return results;
+};
+
+// Multi-level grouping
+const groupByMultiple = <T>(
+items: T[],
+...groupers: Array<(item: T) => string>
+): any => {
+return groupers.reduce((acc, grouper) => {
+if (Array.isArray(acc)) {
+return groupBy(grouper)(acc);
+}
+return Object.fromEntries(
+Object.entries(acc).map(([key, value]) => [
+key,
+groupBy(grouper)(value as T[])
+])
+);
+}, items as any);
+};
+`}
+/>

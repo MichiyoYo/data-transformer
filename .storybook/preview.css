@@ -1,0 +1,24 @@
+/* Ensure proper layout for docs */
+.sbdocs-wrapper {
+  display: flex;
+  flex-wrap: wrap;
+  max-width: 100vw;
+}
+
+.sbdocs-content {
+  flex: 1;
+  margin-left: 20px;
+  width: 80%;
+}
+
+.sbdocs-toc-wrapper {
+  width: 100%;
+  flex: 1;
+}
+
+.sbdocs aside {
+  width: auto;
+  nav {
+    width: 100%;
+  }
+}

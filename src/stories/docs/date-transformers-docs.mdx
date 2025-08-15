@@ -8,105 +8,344 @@ Comprehensive date and time transformation utilities with timezone support. Buil
 
 ## Functions Overview
 
-<table style={{width: '100%', borderCollapse: 'collapse', marginBottom: '2rem'}}>
+<table
+  style={{ width: '100%', borderCollapse: 'collapse', marginBottom: '2rem' }}
+>
   <thead>
-    <tr style={{backgroundColor: '#f8f9fa', borderBottom: '2px solid #dee2e6'}}>
-      <th style={{padding: '12px', textAlign: 'left', fontWeight: '600', color: '#495057'}}>Function</th>
-      <th style={{padding: '12px', textAlign: 'left', fontWeight: '600', color: '#495057'}}>Description</th>
-      <th style={{padding: '12px', textAlign: 'left', fontWeight: '600', color: '#495057'}}>Example</th>
-      <th style={{padding: '12px', textAlign: 'left', fontWeight: '600', color: '#495057'}}>Use Cases</th>
+    <tr
+      style={{ backgroundColor: '#f8f9fa', borderBottom: '2px solid #dee2e6' }}
+    >
+      <th
+        style={{
+          padding: '12px',
+          textAlign: 'left',
+          fontWeight: '600',
+          color: '#495057',
+        }}
+      >
+        Function
+      </th>
+      <th
+        style={{
+          padding: '12px',
+          textAlign: 'left',
+          fontWeight: '600',
+          color: '#495057',
+        }}
+      >
+        Description
+      </th>
+      <th
+        style={{
+          padding: '12px',
+          textAlign: 'left',
+          fontWeight: '600',
+          color: '#495057',
+        }}
+      >
+        Example
+      </th>
+      <th
+        style={{
+          padding: '12px',
+          textAlign: 'left',
+          fontWeight: '600',
+          color: '#495057',
+        }}
+      >
+        Use Cases
+      </th>
     </tr>
   </thead>
   <tbody>
-    <tr style={{borderBottom: '1px solid #dee2e6'}}>
-      <td style={{padding: '12px', fontFamily: 'monospace', backgroundColor: '#f8f9fa', fontWeight: '500'}}><code>formatDate</code></td>
-      <td style={{padding: '12px'}}>Custom date formatting with timezone</td>
-      <td style={{padding: '12px', fontFamily: 'monospace', fontSize: '0.9em'}}><code>formatDate('yyyy-MM-dd')(date)</code> → <code>'2023-12-25'</code></td>
-      <td style={{padding: '12px'}}>Custom displays, reports</td>
+    <tr style={{ borderBottom: '1px solid #dee2e6' }}>
+      <td
+        style={{
+          padding: '12px',
+          fontFamily: 'monospace',
+          backgroundColor: '#f8f9fa',
+          fontWeight: '500',
+        }}
+      >
+        <code>formatDate</code>
+      </td>
+      <td style={{ padding: '12px' }}>Custom date formatting with timezone</td>
+      <td
+        style={{ padding: '12px', fontFamily: 'monospace', fontSize: '0.9em' }}
+      >
+        <code>formatDate('yyyy-MM-dd')(date)</code> → <code>'2023-12-25'</code>
+      </td>
+      <td style={{ padding: '12px' }}>Custom displays, reports</td>
     </tr>
-    <tr style={{borderBottom: '1px solid #dee2e6'}}>
-      <td style={{padding: '12px', fontFamily: 'monospace', backgroundColor: '#f8f9fa', fontWeight: '500'}}><code>formatUSDate</code></td>
-      <td style={{padding: '12px'}}>US format with Eastern timezone</td>
-      <td style={{padding: '12px', fontFamily: 'monospace', fontSize: '0.9em'}}><code>formatUSDate()(date)</code> → <code>'12/25/2023'</code></td>
-      <td style={{padding: '12px'}}>US applications, forms</td>
+    <tr style={{ borderBottom: '1px solid #dee2e6' }}>
+      <td
+        style={{
+          padding: '12px',
+          fontFamily: 'monospace',
+          backgroundColor: '#f8f9fa',
+          fontWeight: '500',
+        }}
+      >
+        <code>formatUSDate</code>
+      </td>
+      <td style={{ padding: '12px' }}>US format with Eastern timezone</td>
+      <td
+        style={{ padding: '12px', fontFamily: 'monospace', fontSize: '0.9em' }}
+      >
+        <code>formatUSDate()(date)</code> → <code>'12/25/2023'</code>
+      </td>
+      <td style={{ padding: '12px' }}>US applications, forms</td>
     </tr>
-    <tr style={{borderBottom: '1px solid #dee2e6'}}>
-      <td style={{padding: '12px', fontFamily: 'monospace', backgroundColor: '#f8f9fa', fontWeight: '500'}}><code>formatEUDate</code></td>
-      <td style={{padding: '12px'}}>European format with Berlin timezone</td>
-      <td style={{padding: '12px', fontFamily: 'monospace', fontSize: '0.9em'}}><code>formatEUDate()(date)</code> → <code>'25.12.2023'</code></td>
-      <td style={{padding: '12px'}}>European applications</td>
+    <tr style={{ borderBottom: '1px solid #dee2e6' }}>
+      <td
+        style={{
+          padding: '12px',
+          fontFamily: 'monospace',
+          backgroundColor: '#f8f9fa',
+          fontWeight: '500',
+        }}
+      >
+        <code>formatEUDate</code>
+      </td>
+      <td style={{ padding: '12px' }}>European format with Berlin timezone</td>
+      <td
+        style={{ padding: '12px', fontFamily: 'monospace', fontSize: '0.9em' }}
+      >
+        <code>formatEUDate()(date)</code> → <code>'25.12.2023'</code>
+      </td>
+      <td style={{ padding: '12px' }}>European applications</td>
     </tr>
-    <tr style={{borderBottom: '1px solid #dee2e6'}}>
-      <td style={{padding: '12px', fontFamily: 'monospace', backgroundColor: '#f8f9fa', fontWeight: '500'}}><code>formatDateLocal</code></td>
-      <td style={{padding: '12px'}}>Format in user's timezone</td>
-      <td style={{padding: '12px', fontFamily: 'monospace', fontSize: '0.9em'}}><code>formatDateLocal()(date)</code> → <code>'12/25/2023'</code></td>
-      <td style={{padding: '12px'}}>Auto-localization</td>
+    <tr style={{ borderBottom: '1px solid #dee2e6' }}>
+      <td
+        style={{
+          padding: '12px',
+          fontFamily: 'monospace',
+          backgroundColor: '#f8f9fa',
+          fontWeight: '500',
+        }}
+      >
+        <code>formatDateLocal</code>
+      </td>
+      <td style={{ padding: '12px' }}>Format in user's timezone</td>
+      <td
+        style={{ padding: '12px', fontFamily: 'monospace', fontSize: '0.9em' }}
+      >
+        <code>formatDateLocal()(date)</code> → <code>'12/25/2023'</code>
+      </td>
+      <td style={{ padding: '12px' }}>Auto-localization</td>
     </tr>
-    <tr style={{borderBottom: '1px solid #dee2e6'}}>
-      <td style={{padding: '12px', fontFamily: 'monospace', backgroundColor: '#f8f9fa', fontWeight: '500'}}><code>formatDateHuman</code></td>
-      <td style={{padding: '12px'}}>Human-readable with timezone</td>
-      <td style={{padding: '12px', fontFamily: 'monospace', fontSize: '0.9em'}}><code>formatDateHuman()(date)</code> → <code>'December 25, 2023 2:30 PM PST'</code></td>
-      <td style={{padding: '12px'}}>User-friendly displays</td>
+    <tr style={{ borderBottom: '1px solid #dee2e6' }}>
+      <td
+        style={{
+          padding: '12px',
+          fontFamily: 'monospace',
+          backgroundColor: '#f8f9fa',
+          fontWeight: '500',
+        }}
+      >
+        <code>formatDateHuman</code>
+      </td>
+      <td style={{ padding: '12px' }}>Human-readable with timezone</td>
+      <td
+        style={{ padding: '12px', fontFamily: 'monospace', fontSize: '0.9em' }}
+      >
+        <code>formatDateHuman()(date)</code> →{' '}
+        <code>'December 25, 2023 2:30 PM PST'</code>
+      </td>
+      <td style={{ padding: '12px' }}>User-friendly displays</td>
     </tr>
-    <tr style={{borderBottom: '1px solid #dee2e6'}}>
-      <td style={{padding: '12px', fontFamily: 'monospace', backgroundColor: '#f8f9fa', fontWeight: '500'}}><code>formatRelative</code></td>
-      <td style={{padding: '12px'}}>Relative time formatting</td>
-      <td style={{padding: '12px', fontFamily: 'monospace', fontSize: '0.9em'}}><code>formatRelative()(date)</code> → <code>'2 hours ago'</code></td>
-      <td style={{padding: '12px'}}>Social feeds, notifications</td>
+    <tr style={{ borderBottom: '1px solid #dee2e6' }}>
+      <td
+        style={{
+          padding: '12px',
+          fontFamily: 'monospace',
+          backgroundColor: '#f8f9fa',
+          fontWeight: '500',
+        }}
+      >
+        <code>formatRelative</code>
+      </td>
+      <td style={{ padding: '12px' }}>Relative time formatting</td>
+      <td
+        style={{ padding: '12px', fontFamily: 'monospace', fontSize: '0.9em' }}
+      >
+        <code>formatRelative()(date)</code> → <code>'2 hours ago'</code>
+      </td>
+      <td style={{ padding: '12px' }}>Social feeds, notifications</td>
     </tr>
-    <tr style={{borderBottom: '1px solid #dee2e6'}}>
-      <td style={{padding: '12px', fontFamily: 'monospace', backgroundColor: '#f8f9fa', fontWeight: '500'}}><code>formatDateSmart</code></td>
-      <td style={{padding: '12px'}}>Adaptive format (relative/absolute)</td>
-      <td style={{padding: '12px', fontFamily: 'monospace', fontSize: '0.9em'}}><code>formatDateSmart()(date)</code> → <code>'3 days ago'</code> or <code>'Jan 15, 2023'</code></td>
-      <td style={{padding: '12px'}}>Dynamic interfaces</td>
+    <tr style={{ borderBottom: '1px solid #dee2e6' }}>
+      <td
+        style={{
+          padding: '12px',
+          fontFamily: 'monospace',
+          backgroundColor: '#f8f9fa',
+          fontWeight: '500',
+        }}
+      >
+        <code>formatDateSmart</code>
+      </td>
+      <td style={{ padding: '12px' }}>Adaptive format (relative/absolute)</td>
+      <td
+        style={{ padding: '12px', fontFamily: 'monospace', fontSize: '0.9em' }}
+      >
+        <code>formatDateSmart()(date)</code> → <code>'3 days ago'</code> or{' '}
+        <code>'Jan 15, 2023'</code>
+      </td>
+      <td style={{ padding: '12px' }}>Dynamic interfaces</td>
     </tr>
-    <tr style={{borderBottom: '1px solid #dee2e6'}}>
-      <td style={{padding: '12px', fontFamily: 'monospace', backgroundColor: '#f8f9fa', fontWeight: '500'}}><code>formatTimestampLocal</code></td>
-      <td style={{padding: '12px'}}>Format timestamp in user timezone</td>
-      <td style={{padding: '12px', fontFamily: 'monospace', fontSize: '0.9em'}}><code>formatTimestampLocal()(1703527800000)</code> → <code>'12/25/2023 2:30 PM'</code></td>
-      <td style={{padding: '12px'}}>API timestamps</td>
+    <tr style={{ borderBottom: '1px solid #dee2e6' }}>
+      <td
+        style={{
+          padding: '12px',
+          fontFamily: 'monospace',
+          backgroundColor: '#f8f9fa',
+          fontWeight: '500',
+        }}
+      >
+        <code>formatTimestampLocal</code>
+      </td>
+      <td style={{ padding: '12px' }}>Format timestamp in user timezone</td>
+      <td
+        style={{ padding: '12px', fontFamily: 'monospace', fontSize: '0.9em' }}
+      >
+        <code>formatTimestampLocal()(1703527800000)</code> →{' '}
+        <code>'12/25/2023 2:30 PM'</code>
+      </td>
+      <td style={{ padding: '12px' }}>API timestamps</td>
     </tr>
-    <tr style={{borderBottom: '1px solid #dee2e6'}}>
-      <td style={{padding: '12px', fontFamily: 'monospace', backgroundColor: '#f8f9fa', fontWeight: '500'}}><code>addDays</code></td>
-      <td style={{padding: '12px'}}>Add days to date</td>
-      <td style={{padding: '12px', fontFamily: 'monospace', fontSize: '0.9em'}}><code>addDays(7)(date)</code> → <code>date + 7 days</code></td>
-      <td style={{padding: '12px'}}>Scheduling, deadlines</td>
+    <tr style={{ borderBottom: '1px solid #dee2e6' }}>
+      <td
+        style={{
+          padding: '12px',
+          fontFamily: 'monospace',
+          backgroundColor: '#f8f9fa',
+          fontWeight: '500',
+        }}
+      >
+        <code>addDays</code>
+      </td>
+      <td style={{ padding: '12px' }}>Add days to date</td>
+      <td
+        style={{ padding: '12px', fontFamily: 'monospace', fontSize: '0.9em' }}
+      >
+        <code>addDays(7)(date)</code> → <code>date + 7 days</code>
+      </td>
+      <td style={{ padding: '12px' }}>Scheduling, deadlines</td>
     </tr>
-    <tr style={{borderBottom: '1px solid #dee2e6'}}>
-      <td style={{padding: '12px', fontFamily: 'monospace', backgroundColor: '#f8f9fa', fontWeight: '500'}}><code>subtractDays</code></td>
-      <td style={{padding: '12px'}}>Subtract days from date</td>
-      <td style={{padding: '12px', fontFamily: 'monospace', fontSize: '0.9em'}}><code>subtractDays(30)(date)</code> → <code>date - 30 days</code></td>
-      <td style={{padding: '12px'}}>History, lookbacks</td>
+    <tr style={{ borderBottom: '1px solid #dee2e6' }}>
+      <td
+        style={{
+          padding: '12px',
+          fontFamily: 'monospace',
+          backgroundColor: '#f8f9fa',
+          fontWeight: '500',
+        }}
+      >
+        <code>subtractDays</code>
+      </td>
+      <td style={{ padding: '12px' }}>Subtract days from date</td>
+      <td
+        style={{ padding: '12px', fontFamily: 'monospace', fontSize: '0.9em' }}
+      >
+        <code>subtractDays(30)(date)</code> → <code>date - 30 days</code>
+      </td>
+      <td style={{ padding: '12px' }}>History, lookbacks</td>
     </tr>
-    <tr style={{borderBottom: '1px solid #dee2e6'}}>
-      <td style={{padding: '12px', fontFamily: 'monospace', backgroundColor: '#f8f9fa', fontWeight: '500'}}><code>toUnixTimestamp</code></td>
-      <td style={{padding: '12px'}}>Convert to Unix milliseconds</td>
-      <td style={{padding: '12px', fontFamily: 'monospace', fontSize: '0.9em'}}><code>toUnixTimestamp(date)</code> → <code>1703527800000</code></td>
-      <td style={{padding: '12px'}}>Database storage, APIs</td>
+    <tr style={{ borderBottom: '1px solid #dee2e6' }}>
+      <td
+        style={{
+          padding: '12px',
+          fontFamily: 'monospace',
+          backgroundColor: '#f8f9fa',
+          fontWeight: '500',
+        }}
+      >
+        <code>toUnixTimestamp</code>
+      </td>
+      <td style={{ padding: '12px' }}>Convert to Unix milliseconds</td>
+      <td
+        style={{ padding: '12px', fontFamily: 'monospace', fontSize: '0.9em' }}
+      >
+        <code>toUnixTimestamp(date)</code> → <code>1703527800000</code>
+      </td>
+      <td style={{ padding: '12px' }}>Database storage, APIs</td>
     </tr>
-    <tr style={{borderBottom: '1px solid #dee2e6'}}>
-      <td style={{padding: '12px', fontFamily: 'monospace', backgroundColor: '#f8f9fa', fontWeight: '500'}}><code>fromUnixTimestamp</code></td>
-      <td style={{padding: '12px'}}>Convert from Unix milliseconds</td>
-      <td style={{padding: '12px', fontFamily: 'monospace', fontSize: '0.9em'}}><code>fromUnixTimestamp(1703527800000)</code> → <code>Date object</code></td>
-      <td style={{padding: '12px'}}>API responses</td>
+    <tr style={{ borderBottom: '1px solid #dee2e6' }}>
+      <td
+        style={{
+          padding: '12px',
+          fontFamily: 'monospace',
+          backgroundColor: '#f8f9fa',
+          fontWeight: '500',
+        }}
+      >
+        <code>fromUnixTimestamp</code>
+      </td>
+      <td style={{ padding: '12px' }}>Convert from Unix milliseconds</td>
+      <td
+        style={{ padding: '12px', fontFamily: 'monospace', fontSize: '0.9em' }}
+      >
+        <code>fromUnixTimestamp(1703527800000)</code> → <code>Date object</code>
+      </td>
+      <td style={{ padding: '12px' }}>API responses</td>
     </tr>
-    <tr style={{borderBottom: '1px solid #dee2e6'}}>
-      <td style={{padding: '12px', fontFamily: 'monospace', backgroundColor: '#f8f9fa', fontWeight: '500'}}><code>isoDateToLocal</code></td>
-      <td style={{padding: '12px'}}>Parse ISO string to Date</td>
-      <td style={{padding: '12px', fontFamily: 'monospace', fontSize: '0.9em'}}><code>isoDateToLocal('2023-12-25T14:30:00Z')</code> → <code>Date object</code></td>
-      <td style={{padding: '12px'}}>API parsing, imports</td>
+    <tr style={{ borderBottom: '1px solid #dee2e6' }}>
+      <td
+        style={{
+          padding: '12px',
+          fontFamily: 'monospace',
+          backgroundColor: '#f8f9fa',
+          fontWeight: '500',
+        }}
+      >
+        <code>isoDateToLocal</code>
+      </td>
+      <td style={{ padding: '12px' }}>Parse ISO string to Date</td>
+      <td
+        style={{ padding: '12px', fontFamily: 'monospace', fontSize: '0.9em' }}
+      >
+        <code>isoDateToLocal('2023-12-25T14:30:00Z')</code> →{' '}
+        <code>Date object</code>
+      </td>
+      <td style={{ padding: '12px' }}>API parsing, imports</td>
     </tr>
-    <tr style={{borderBottom: '1px solid #dee2e6'}}>
-      <td style={{padding: '12px', fontFamily: 'monospace', backgroundColor: '#f8f9fa', fontWeight: '500'}}><code>toUtc</code></td>
-      <td style={{padding: '12px'}}>Convert timezone to UTC</td>
-      <td style={{padding: '12px', fontFamily: 'monospace', fontSize: '0.9em'}}><code>toUtc('America/New_York')(date)</code> → <code>UTC Date</code></td>
-      <td style={{padding: '12px'}}>Server storage</td>
+    <tr style={{ borderBottom: '1px solid #dee2e6' }}>
+      <td
+        style={{
+          padding: '12px',
+          fontFamily: 'monospace',
+          backgroundColor: '#f8f9fa',
+          fontWeight: '500',
+        }}
+      >
+        <code>toUtc</code>
+      </td>
+      <td style={{ padding: '12px' }}>Convert timezone to UTC</td>
+      <td
+        style={{ padding: '12px', fontFamily: 'monospace', fontSize: '0.9em' }}
+      >
+        <code>toUtc('America/New_York')(date)</code> → <code>UTC Date</code>
+      </td>
+      <td style={{ padding: '12px' }}>Server storage</td>
     </tr>
     <tr>
-      <td style={{padding: '12px', fontFamily: 'monospace', backgroundColor: '#f8f9fa', fontWeight: '500'}}><code>fromUtc</code></td>
-      <td style={{padding: '12px'}}>Convert UTC to timezone</td>
-      <td style={{padding: '12px', fontFamily: 'monospace', fontSize: '0.9em'}}><code>fromUtc('Europe/London')(utcDate)</code> → <code>Local Date</code></td>
-      <td style={{padding: '12px'}}>Display conversion</td>
+      <td
+        style={{
+          padding: '12px',
+          fontFamily: 'monospace',
+          backgroundColor: '#f8f9fa',
+          fontWeight: '500',
+        }}
+      >
+        <code>fromUtc</code>
+      </td>
+      <td style={{ padding: '12px' }}>Convert UTC to timezone</td>
+      <td
+        style={{ padding: '12px', fontFamily: 'monospace', fontSize: '0.9em' }}
+      >
+        <code>fromUtc('Europe/London')(utcDate)</code> → <code>Local Date</code>
+      </td>
+      <td style={{ padding: '12px' }}>Display conversion</td>
     </tr>
   </tbody>
 </table>
@@ -169,12 +408,12 @@ formatTime(new Date()); // "2:30 PM"
 
 // Timezone-aware formatting
 const formatNY = formatDate('MM/dd/yyyy h:mm a', 'America/New_York');
-const formatTokyo = formatDate('yyyy年MM月dd日', 'Asia/Tokyo');
+const formatTokyo = formatDate('yyyy 年 MM 月 dd 日', 'Asia/Tokyo');
 const formatLondon = formatDate('dd/MM/yyyy HH:mm', 'Europe/London');
 
 const utcDate = new Date('2023-12-25T19:30:00Z');
 formatNY(utcDate); // "12/25/2023 2:30 PM" (EST)
-formatTokyo(utcDate); // "2023年12月26日" (JST, next day)
+formatTokyo(utcDate); // "2023 年 12 月 26 日" (JST, next day)
 formatLondon(utcDate); // "25/12/2023 19:30" (GMT)
 
 // Business reporting formats
@@ -188,27 +427,28 @@ formatMonth(new Date()); // "December 2023"
 
 // International date formatting
 const formats = {
-  US: formatDate('MM/dd/yyyy'),
-  EU: formatDate('dd.MM.yyyy'),
-  ISO: formatDate('yyyy-MM-dd'),
-  UK: formatDate('dd/MM/yyyy')
+US: formatDate('MM/dd/yyyy'),
+EU: formatDate('dd.MM.yyyy'),
+ISO: formatDate('yyyy-MM-dd'),
+UK: formatDate('dd/MM/yyyy')
 };
 
 const date = new Date('2023-12-25');
 Object.entries(formats).map(([region, formatter]) => ({
-  region,
-  formatted: formatter(date)
+region,
+formatted: formatter(date)
 }));
 // [
-//   { region: 'US', formatted: '12/25/2023' },
-//   { region: 'EU', formatted: '25.12.2023' },
-//   { region: 'ISO', formatted: '2023-12-25' },
-//   { region: 'UK', formatted: '25/12/2023' }
+// { region: 'US', formatted: '12/25/2023' },
+// { region: 'EU', formatted: '25.12.2023' },
+// { region: 'ISO', formatted: '2023-12-25' },
+// { region: 'UK', formatted: '25/12/2023' }
 // ]
 `}
 />
 
 ### formatDate - Use Cases
+
 - **Custom Date Displays**: Format dates according to specific requirements
 - **International Applications**: Support multiple date formats and timezones
 - **Business Reports**: Generate standardized date formats for reports
@@ -219,7 +459,7 @@ Object.entries(formats).map(([region, formatter]) => ({
 
 ## formatUSDate
 
-````typescript
+```typescript
 /**
  * Creates a transformer for US date format (MM/dd/yyyy).
  *
@@ -228,7 +468,7 @@ Object.entries(formats).map(([region, formatter]) => ({
 export const formatUSDate = (timeZone?: string): Transformer<Date, string> => {
   return formatDate('MM/dd/yyyy', timeZone || 'America/New_York');
 };
-````
+```
 
 ### formatUSDate - Usage Examples
 
@@ -254,37 +494,38 @@ formatMountain(utcDate); // "12/25/2023" (12:30 PM MT)
 
 // Processing arrays of dates
 const eventDates = [
-  new Date('2023-12-25T10:00:00Z'),
-  new Date('2023-12-26T15:30:00Z'),
-  new Date('2023-12-27T20:45:00Z')
+new Date('2023-12-25T10:00:00Z'),
+new Date('2023-12-26T15:30:00Z'),
+new Date('2023-12-27T20:45:00Z')
 ];
 
 const formattedEvents = eventDates.map(formatUSDate());
 // ["12/25/2023", "12/26/2023", "12/27/2023"]
 
 // Form data processing
-const processUserEvents = (events: any[]) => 
-  events.map(event => ({
-    ...event,
-    displayDate: formatUSDate()(new Date(event.date))
-  }));
+const processUserEvents = (events: any[]) =>
+events.map(event => ({
+...event,
+displayDate: formatUSDate()(new Date(event.date))
+}));
 
 // Calendar applications
 const calendarEntry = {
-  title: 'Team Meeting',
-  date: new Date('2023-12-25T14:00:00Z'),
-  timezone: 'America/New_York'
+title: 'Team Meeting',
+date: new Date('2023-12-25T14:00:00Z'),
+timezone: 'America/New_York'
 };
 
 const displayEntry = {
-  ...calendarEntry,
-  formattedDate: formatUSDate(calendarEntry.timezone)(calendarEntry.date)
+...calendarEntry,
+formattedDate: formatUSDate(calendarEntry.timezone)(calendarEntry.date)
 };
 // { title: 'Team Meeting', date: Date, timezone: 'America/New_York', formattedDate: '12/25/2023' }
 `}
 />
 
 ### formatUSDate - Use Cases
+
 - **US Applications**: Standard US date format across the application
 - **Form Displays**: Show dates in familiar US format
 - **Business Apps**: Corporate applications targeting US market
@@ -295,7 +536,7 @@ const displayEntry = {
 
 ## formatEUDate
 
-````typescript
+```typescript
 /**
  * Creates a transformer for European date format (dd.MM.yyyy).
  *
@@ -304,7 +545,7 @@ const displayEntry = {
 export const formatEUDate = (timeZone?: string): Transformer<Date, string> => {
   return formatDate('dd.MM.yyyy', timeZone || 'Europe/Berlin');
 };
-````
+```
 
 ### formatEUDate - Usage Examples
 
@@ -331,41 +572,42 @@ formatMoscow(utcDate); // "25.12.2023" (9:30 PM MSK)
 
 // Multi-language application
 const europeanOffices = [
-  { city: 'Berlin', timezone: 'Europe/Berlin' },
-  { city: 'London', timezone: 'Europe/London' },
-  { city: 'Madrid', timezone: 'Europe/Madrid' },
-  { city: 'Stockholm', timezone: 'Europe/Stockholm' }
+{ city: 'Berlin', timezone: 'Europe/Berlin' },
+{ city: 'London', timezone: 'Europe/London' },
+{ city: 'Madrid', timezone: 'Europe/Madrid' },
+{ city: 'Stockholm', timezone: 'Europe/Stockholm' }
 ];
 
 const meetingTime = new Date('2023-12-25T14:00:00Z');
 const officeTimes = europeanOffices.map(office => ({
-  city: office.city,
-  localDate: formatEUDate(office.timezone)(meetingTime)
+city: office.city,
+localDate: formatEUDate(office.timezone)(meetingTime)
 }));
 // [
-//   { city: 'Berlin', localDate: '25.12.2023' },
-//   { city: 'London', localDate: '25.12.2023' },
-//   { city: 'Madrid', localDate: '25.12.2023' },
-//   { city: 'Stockholm', localDate: '25.12.2023' }
+// { city: 'Berlin', localDate: '25.12.2023' },
+// { city: 'London', localDate: '25.12.2023' },
+// { city: 'Madrid', localDate: '25.12.2023' },
+// { city: 'Stockholm', localDate: '25.12.2023' }
 // ]
 
 // Invoice and business documents
 const invoice = {
-  invoiceNumber: 'INV-2023-001',
-  issueDate: new Date('2023-12-25T09:00:00Z'),
-  dueDate: new Date('2024-01-25T09:00:00Z')
+invoiceNumber: 'INV-2023-001',
+issueDate: new Date('2023-12-25T09:00:00Z'),
+dueDate: new Date('2024-01-25T09:00:00Z')
 };
 
 const europeanInvoice = {
-  ...invoice,
-  displayIssueDate: formatEUDate()(invoice.issueDate),
-  displayDueDate: formatEUDate()(invoice.dueDate)
+...invoice,
+displayIssueDate: formatEUDate()(invoice.issueDate),
+displayDueDate: formatEUDate()(invoice.dueDate)
 };
 // { ..., displayIssueDate: '25.12.2023', displayDueDate: '25.01.2024' }
 `}
 />
 
 ### formatEUDate - Use Cases
+
 - **European Applications**: Standard European date format
 - **International Business**: European market compliance
 - **Document Generation**: Invoices, contracts, reports
@@ -376,7 +618,7 @@ const europeanInvoice = {
 
 ## formatDateLocal
 
-````typescript
+```typescript
 /**
  * Creates a transformer that formats dates in the user's local timezone.
  *
@@ -388,7 +630,7 @@ export const formatDateLocal = (
 ): Transformer<Date, string> => {
   return formatDate(formatString || 'MM/dd/yyyy', getUserTimezone());
 };
-````
+```
 
 ### formatDateLocal - Usage Examples
 
@@ -399,7 +641,7 @@ import { formatDateLocal } from 'data-transform-kit';
 
 // Auto-detect user timezone formatting
 const formatLocal = formatDateLocal();
-formatLocal(new Date('2023-12-25T18:30:00Z')); 
+formatLocal(new Date('2023-12-25T18:30:00Z'));
 // Output depends on user's timezone:
 // US user: "12/25/2023"
 // EU user: "12/25/2023" (still MM/dd/yyyy format)
@@ -416,24 +658,24 @@ formatLocalLong(date); // "Monday, December 25, 2023" (EST user)
 
 // Dashboard with auto-localization
 const activityLog = [
-  { action: 'login', timestamp: new Date('2023-12-25T08:00:00Z') },
-  { action: 'update', timestamp: new Date('2023-12-25T10:30:00Z') },
-  { action: 'logout', timestamp: new Date('2023-12-25T17:45:00Z') }
+{ action: 'login', timestamp: new Date('2023-12-25T08:00:00Z') },
+{ action: 'update', timestamp: new Date('2023-12-25T10:30:00Z') },
+{ action: 'logout', timestamp: new Date('2023-12-25T17:45:00Z') }
 ];
 
 const localizedLog = activityLog.map(entry => ({
-  ...entry,
-  localTime: formatDateLocal('h:mm a')(entry.timestamp),
-  localDate: formatDateLocal()(entry.timestamp)
+...entry,
+localTime: formatDateLocal('h:mm a')(entry.timestamp),
+localDate: formatDateLocal()(entry.timestamp)
 }));
 // Auto-formats in user's timezone regardless of where they are
 
 // Global application with auto-detection
 const formatUserDate = (date: Date) => ({
-  short: formatDateLocal()(date),
-  long: formatDateLocal('EEEE, MMMM d, yyyy')(date),
-  time: formatDateLocal('h:mm a')(date),
-  iso: formatDateLocal('yyyy-MM-dd')(date)
+short: formatDateLocal()(date),
+long: formatDateLocal('EEEE, MMMM d, yyyy')(date),
+time: formatDateLocal('h:mm a')(date),
+iso: formatDateLocal('yyyy-MM-dd')(date)
 });
 
 const userFormats = formatUserDate(new Date('2023-12-25T18:30:00Z'));
@@ -443,21 +685,22 @@ const userFormats = formatUserDate(new Date('2023-12-25T18:30:00Z'));
 
 // Meeting scheduler
 const meetingTimes = [
-  new Date('2023-12-25T14:00:00Z'),
-  new Date('2023-12-25T16:30:00Z'),
-  new Date('2023-12-25T19:00:00Z')
+new Date('2023-12-25T14:00:00Z'),
+new Date('2023-12-25T16:30:00Z'),
+new Date('2023-12-25T19:00:00Z')
 ];
 
 const userMeetingTimes = meetingTimes.map(time => ({
-  utc: time.toISOString(),
-  userTime: formatDateLocal('h:mm a')(time),
-  userDate: formatDateLocal()(time)
+utc: time.toISOString(),
+userTime: formatDateLocal('h:mm a')(time),
+userDate: formatDateLocal()(time)
 }));
 // Shows meeting times in user's local timezone automatically
 `}
 />
 
 ### formatDateLocal - Use Cases
+
 - **Global Applications**: Automatic timezone detection and formatting
 - **User Personalization**: Show dates in user's preferred timezone
 - **Dashboard Displays**: Auto-localized timestamps and dates
@@ -468,7 +711,7 @@ const userMeetingTimes = meetingTimes.map(time => ({
 
 ## formatDateHuman
 
-````typescript
+```typescript
 /**
  * Creates a transformer for human-readable date with timezone abbreviation.
  * Format: "April 14, 1988 10:00 AM PST"
@@ -490,7 +733,7 @@ export const formatDateHuman = (
     return \`\${dateStr} \${tzAbbr}\`;
   };
 };
-````
+```
 
 ### formatDateHuman - Usage Examples
 
@@ -519,63 +762,64 @@ formatLondon(eventTime); // "December 25, 2023 6:30 PM GMT"
 
 // Event scheduling across timezones
 const globalEvent = {
-  title: 'Product Launch Webinar',
-  startTime: new Date('2023-12-25T18:00:00Z')
+title: 'Product Launch Webinar',
+startTime: new Date('2023-12-25T18:00:00Z')
 };
 
 const timeZones = [
-  'America/New_York',
-  'America/Los_Angeles', 
-  'Europe/London',
-  'Asia/Tokyo',
-  'Australia/Sydney'
+'America/New_York',
+'America/Los_Angeles',
+'Europe/London',
+'Asia/Tokyo',
+'Australia/Sydney'
 ];
 
 const eventSchedule = timeZones.map(tz => ({
-  timezone: tz,
-  localTime: formatDateHuman(tz)(globalEvent.startTime)
+timezone: tz,
+localTime: formatDateHuman(tz)(globalEvent.startTime)
 }));
 // [
-//   { timezone: 'America/New_York', localTime: 'December 25, 2023 1:00 PM EST' },
-//   { timezone: 'America/Los_Angeles', localTime: 'December 25, 2023 10:00 AM PST' },
-//   { timezone: 'Europe/London', localTime: 'December 25, 2023 6:00 PM GMT' },
-//   { timezone: 'Asia/Tokyo', localTime: 'December 26, 2023 3:00 AM JST' },
-//   { timezone: 'Australia/Sydney', localTime: 'December 26, 2023 5:00 AM AEDT' }
+// { timezone: 'America/New_York', localTime: 'December 25, 2023 1:00 PM EST' },
+// { timezone: 'America/Los_Angeles', localTime: 'December 25, 2023 10:00 AM PST' },
+// { timezone: 'Europe/London', localTime: 'December 25, 2023 6:00 PM GMT' },
+// { timezone: 'Asia/Tokyo', localTime: 'December 26, 2023 3:00 AM JST' },
+// { timezone: 'Australia/Sydney', localTime: 'December 26, 2023 5:00 AM AEDT' }
 // ]
 
 // Email notifications
 const notification = {
-  subject: 'Meeting Reminder',
-  meetingTime: new Date('2023-12-25T20:00:00Z'),
-  attendees: [
-    { email: 'user1@company.com', timezone: 'America/New_York' },
-    { email: 'user2@company.com', timezone: 'Europe/Berlin' },
-    { email: 'user3@company.com', timezone: 'Asia/Singapore' }
-  ]
+subject: 'Meeting Reminder',
+meetingTime: new Date('2023-12-25T20:00:00Z'),
+attendees: [
+{ email: 'user1@company.com', timezone: 'America/New_York' },
+{ email: 'user2@company.com', timezone: 'Europe/Berlin' },
+{ email: 'user3@company.com', timezone: 'Asia/Singapore' }
+]
 };
 
 const personalizedNotifications = notification.attendees.map(attendee => ({
-  ...attendee,
-  subject: notification.subject,
-  localMeetingTime: formatDateHuman(attendee.timezone)(notification.meetingTime)
+...attendee,
+subject: notification.subject,
+localMeetingTime: formatDateHuman(attendee.timezone)(notification.meetingTime)
 }));
 // Each attendee gets meeting time in their local timezone with clear timezone indication
 
 // Blog post timestamps
 const blogPosts = [
-  { title: 'New Features Released', publishDate: new Date('2023-12-25T16:00:00Z') },
-  { title: 'Weekly Update', publishDate: new Date('2023-12-20T12:00:00Z') }
+{ title: 'New Features Released', publishDate: new Date('2023-12-25T16:00:00Z') },
+{ title: 'Weekly Update', publishDate: new Date('2023-12-20T12:00:00Z') }
 ];
 
 const displayPosts = blogPosts.map(post => ({
-  ...post,
-  friendlyDate: formatDateHuman()(post.publishDate)
+...post,
+friendlyDate: formatDateHuman()(post.publishDate)
 }));
 // Shows publish dates in reader's timezone with clear timezone info
 `}
 />
 
 ### formatDateHuman - Use Cases
+
 - **Event Scheduling**: Clear timezone communication for global events
 - **Email Notifications**: Personalized meeting times in user timezones
 - **Blog/Content Sites**: User-friendly publish timestamps
@@ -586,7 +830,7 @@ const displayPosts = blogPosts.map(post => ({
 
 ## formatRelative
 
-````typescript
+```typescript
 /**
  * Creates a transformer for relative time formatting.
  * Format: "2 hours ago", "in 3 days", etc.
@@ -601,7 +845,7 @@ export const formatRelative = (options?: {
     return formatDistanceToNow(date, { addSuffix: true, ...options });
   };
 };
-````
+```
 
 ### formatRelative - Usage Examples
 
@@ -615,9 +859,9 @@ const formatRel = formatRelative();
 
 // Various time differences
 const now = new Date();
-const twoHoursAgo = new Date(now.getTime() - 2 * 60 * 60 * 1000);
-const threeDaysAgo = new Date(now.getTime() - 3 * 24 * 60 * 60 * 1000);
-const nextWeek = new Date(now.getTime() + 7 * 24 * 60 * 60 * 1000);
+const twoHoursAgo = new Date(now.getTime() - 2 _ 60 _ 60 _ 1000);
+const threeDaysAgo = new Date(now.getTime() - 3 _ 24 _ 60 _ 60 _ 1000);
+const nextWeek = new Date(now.getTime() + 7 _ 24 _ 60 _ 60 \* 1000);
 
 formatRel(twoHoursAgo); // "2 hours ago"
 formatRel(threeDaysAgo); // "3 days ago"
@@ -627,73 +871,74 @@ formatRel(nextWeek); // "in 7 days"
 const formatWithSeconds = formatRelative({ includeSeconds: true });
 const formatNoSuffix = formatRelative({ addSuffix: false });
 
-const thirtySecondsAgo = new Date(now.getTime() - 30 * 1000);
+const thirtySecondsAgo = new Date(now.getTime() - 30 \* 1000);
 formatWithSeconds(thirtySecondsAgo); // "30 seconds ago"
 formatNoSuffix(twoHoursAgo); // "2 hours" (no "ago" suffix)
 
 // Social media feed
 const posts = [
-  { id: 1, content: 'Just launched our new feature!', createdAt: new Date(now.getTime() - 5 * 60 * 1000) },
-  { id: 2, content: 'Great team meeting today', createdAt: new Date(now.getTime() - 2 * 60 * 60 * 1000) },
-  { id: 3, content: 'Working on the next release', createdAt: new Date(now.getTime() - 24 * 60 * 60 * 1000) }
+{ id: 1, content: 'Just launched our new feature!', createdAt: new Date(now.getTime() - 5 * 60 * 1000) },
+{ id: 2, content: 'Great team meeting today', createdAt: new Date(now.getTime() - 2 * 60 * 60 * 1000) },
+{ id: 3, content: 'Working on the next release', createdAt: new Date(now.getTime() - 24 * 60 * 60 * 1000) }
 ];
 
 const socialFeed = posts.map(post => ({
-  ...post,
-  timeAgo: formatRel(post.createdAt)
+...post,
+timeAgo: formatRel(post.createdAt)
 }));
 // [
-//   { id: 1, content: '...', createdAt: Date, timeAgo: '5 minutes ago' },
-//   { id: 2, content: '...', createdAt: Date, timeAgo: '2 hours ago' },
-//   { id: 3, content: '...', createdAt: Date, timeAgo: '1 day ago' }
+// { id: 1, content: '...', createdAt: Date, timeAgo: '5 minutes ago' },
+// { id: 2, content: '...', createdAt: Date, timeAgo: '2 hours ago' },
+// { id: 3, content: '...', createdAt: Date, timeAgo: '1 day ago' }
 // ]
 
 // Comment threads
 const comments = [
-  { author: 'Alice', text: 'Great article!', timestamp: new Date(now.getTime() - 10 * 60 * 1000) },
-  { author: 'Bob', text: 'I agree completely', timestamp: new Date(now.getTime() - 45 * 60 * 1000) },
-  { author: 'Carol', text: 'Thanks for sharing', timestamp: new Date(now.getTime() - 3 * 60 * 60 * 1000) }
+{ author: 'Alice', text: 'Great article!', timestamp: new Date(now.getTime() - 10 * 60 * 1000) },
+{ author: 'Bob', text: 'I agree completely', timestamp: new Date(now.getTime() - 45 * 60 * 1000) },
+{ author: 'Carol', text: 'Thanks for sharing', timestamp: new Date(now.getTime() - 3 * 60 * 60 * 1000) }
 ];
 
 const displayComments = comments.map(comment => ({
-  ...comment,
-  relativeTime: formatRel(comment.timestamp)
+...comment,
+relativeTime: formatRel(comment.timestamp)
 }));
 // [
-//   { author: 'Alice', text: '...', timestamp: Date, relativeTime: '10 minutes ago' },
-//   { author: 'Bob', text: '...', timestamp: Date, relativeTime: '45 minutes ago' },
-//   { author: 'Carol', text: '...', timestamp: Date, relativeTime: '3 hours ago' }
+// { author: 'Alice', text: '...', timestamp: Date, relativeTime: '10 minutes ago' },
+// { author: 'Bob', text: '...', timestamp: Date, relativeTime: '45 minutes ago' },
+// { author: 'Carol', text: '...', timestamp: Date, relativeTime: '3 hours ago' }
 // ]
 
 // Activity notifications
 const activities = [
-  { type: 'like', user: 'john_doe', timestamp: new Date(now.getTime() - 15 * 60 * 1000) },
-  { type: 'comment', user: 'jane_smith', timestamp: new Date(now.getTime() - 1 * 60 * 60 * 1000) },
-  { type: 'follow', user: 'mike_jones', timestamp: new Date(now.getTime() - 6 * 60 * 60 * 1000) }
+{ type: 'like', user: 'john_doe', timestamp: new Date(now.getTime() - 15 * 60 * 1000) },
+{ type: 'comment', user: 'jane_smith', timestamp: new Date(now.getTime() - 1 * 60 * 60 * 1000) },
+{ type: 'follow', user: 'mike_jones', timestamp: new Date(now.getTime() - 6 * 60 * 60 * 1000) }
 ];
 
 const notificationList = activities.map(activity => ({
-  ...activity,
-  timeAgo: formatRel(activity.timestamp),
-  message: \`\${activity.user} \${activity.type}d your post \${formatRel(activity.timestamp)}\`
+...activity,
+timeAgo: formatRel(activity.timestamp),
+message: \`\${activity.user} \${activity.type}d your post \${formatRel(activity.timestamp)}\`
 }));
 
 // File modification times
 const files = [
-  { name: 'README.md', lastModified: new Date(now.getTime() - 30 * 60 * 1000) },
-  { name: 'package.json', lastModified: new Date(now.getTime() - 2 * 24 * 60 * 60 * 1000) },
-  { name: 'index.ts', lastModified: new Date(now.getTime() - 5 * 60 * 1000) }
+{ name: 'README.md', lastModified: new Date(now.getTime() - 30 * 60 * 1000) },
+{ name: 'package.json', lastModified: new Date(now.getTime() - 2 * 24 * 60 * 60 * 1000) },
+{ name: 'index.ts', lastModified: new Date(now.getTime() - 5 * 60 * 1000) }
 ];
 
 const fileList = files.map(file => ({
-  ...file,
-  lastModifiedRelative: formatRel(file.lastModified)
+...file,
+lastModifiedRelative: formatRel(file.lastModified)
 }));
 // Shows "30 minutes ago", "2 days ago", "5 minutes ago"
 `}
 />
 
 ### formatRelative - Use Cases
+
 - **Social Media**: Show post and comment timestamps
 - **Activity Feeds**: Display when actions occurred
 - **File Systems**: Show file modification times
@@ -705,7 +950,7 @@ const fileList = files.map(file => ({
 
 ## formatDateSmart
 
-````typescript
+```typescript
 /**
  * Creates a smart date formatter that chooses format based on how recent the date is.
  * Recent dates show relative time, older dates show full format.
@@ -733,7 +978,7 @@ export const formatDateSmart = (
     }
   };
 };
-````
+```
 
 ### formatDateSmart - Usage Examples
 
@@ -746,9 +991,9 @@ import { formatDateSmart } from 'data-transform-kit';
 const formatSmart = formatDateSmart();
 
 const now = new Date();
-const yesterday = new Date(now.getTime() - 24 * 60 * 60 * 1000);
-const lastWeek = new Date(now.getTime() - 10 * 24 * 60 * 60 * 1000);
-const twoHoursAgo = new Date(now.getTime() - 2 * 60 * 60 * 1000);
+const yesterday = new Date(now.getTime() - 24 _ 60 _ 60 _ 1000);
+const lastWeek = new Date(now.getTime() - 10 _ 24 _ 60 _ 60 _ 1000);
+const twoHoursAgo = new Date(now.getTime() - 2 _ 60 _ 60 _ 1000);
 
 formatSmart(twoHoursAgo); // "2 hours ago" (recent, shows relative)
 formatSmart(yesterday); // "1 day ago" (recent, shows relative)
@@ -758,74 +1003,75 @@ formatSmart(lastWeek); // "January 15, 2024 2:30 PM EST" (old, shows full)
 const formatShortTerm = formatDateSmart(3); // 3-day cutoff
 const formatLongTerm = formatDateSmart(30); // 30-day cutoff
 
-const fiveDaysAgo = new Date(now.getTime() - 5 * 24 * 60 * 60 * 1000);
+const fiveDaysAgo = new Date(now.getTime() - 5 _ 24 _ 60 _ 60 _ 1000);
 formatShortTerm(fiveDaysAgo); // "January 20, 2024 2:30 PM EST" (beyond 3-day cutoff)
 formatLongTerm(fiveDaysAgo); // "5 days ago" (within 30-day cutoff)
 
 // Email inbox with smart timestamps
 const emails = [
-  { subject: 'Meeting invite', received: new Date(now.getTime() - 30 * 60 * 1000) },
-  { subject: 'Weekly report', received: new Date(now.getTime() - 2 * 24 * 60 * 60 * 1000) },
-  { subject: 'Project update', received: new Date(now.getTime() - 15 * 24 * 60 * 60 * 1000) },
-  { subject: 'Old newsletter', received: new Date(now.getTime() - 45 * 24 * 60 * 60 * 1000) }
+{ subject: 'Meeting invite', received: new Date(now.getTime() - 30 * 60 * 1000) },
+{ subject: 'Weekly report', received: new Date(now.getTime() - 2 * 24 * 60 * 60 * 1000) },
+{ subject: 'Project update', received: new Date(now.getTime() - 15 * 24 * 60 * 60 * 1000) },
+{ subject: 'Old newsletter', received: new Date(now.getTime() - 45 * 24 * 60 * 60 * 1000) }
 ];
 
 const smartInbox = emails.map(email => ({
-  ...email,
-  smartTime: formatSmart(email.received)
+...email,
+smartTime: formatSmart(email.received)
 }));
 // [
-//   { subject: 'Meeting invite', received: Date, smartTime: '30 minutes ago' },
-//   { subject: 'Weekly report', received: Date, smartTime: '2 days ago' },
-//   { subject: 'Project update', received: Date, smartTime: 'December 10, 2023 10:30 AM EST' },
-//   { subject: 'Old newsletter', received: Date, smartTime: 'November 10, 2023 9:15 AM EST' }
+// { subject: 'Meeting invite', received: Date, smartTime: '30 minutes ago' },
+// { subject: 'Weekly report', received: Date, smartTime: '2 days ago' },
+// { subject: 'Project update', received: Date, smartTime: 'December 10, 2023 10:30 AM EST' },
+// { subject: 'Old newsletter', received: Date, smartTime: 'November 10, 2023 9:15 AM EST' }
 // ]
 
 // Document management system
 const documents = [
-  { name: 'Q4 Report.pdf', lastModified: new Date(now.getTime() - 4 * 60 * 60 * 1000) },
-  { name: 'Meeting Notes.docx', lastModified: new Date(now.getTime() - 1 * 24 * 60 * 60 * 1000) },
-  { name: 'Budget 2023.xlsx', lastModified: new Date(now.getTime() - 20 * 24 * 60 * 60 * 1000) },
-  { name: 'Old Proposal.pdf', lastModified: new Date(now.getTime() - 90 * 24 * 60 * 60 * 1000) }
+{ name: 'Q4 Report.pdf', lastModified: new Date(now.getTime() - 4 * 60 * 60 * 1000) },
+{ name: 'Meeting Notes.docx', lastModified: new Date(now.getTime() - 1 * 24 * 60 * 60 * 1000) },
+{ name: 'Budget 2023.xlsx', lastModified: new Date(now.getTime() - 20 * 24 * 60 * 60 * 1000) },
+{ name: 'Old Proposal.pdf', lastModified: new Date(now.getTime() - 90 * 24 * 60 * 60 * 1000) }
 ];
 
 const documentList = documents.map(doc => ({
-  ...doc,
-  displayTime: formatSmart(doc.lastModified)
+...doc,
+displayTime: formatSmart(doc.lastModified)
 }));
 // Recent files show "4 hours ago", "1 day ago"
 // Older files show "December 5, 2023 3:45 PM EST", "October 1, 2023 11:20 AM EDT"
 
 // Social media timeline with mixed content ages
 const timelinePosts = [
-  { content: 'Just posted a new article', createdAt: new Date(now.getTime() - 1 * 60 * 60 * 1000) },
-  { content: 'Great conference last week', createdAt: new Date(now.getTime() - 5 * 24 * 60 * 60 * 1000) },
-  { content: 'Throwback to summer vacation', createdAt: new Date(now.getTime() - 120 * 24 * 60 * 60 * 1000) }
+{ content: 'Just posted a new article', createdAt: new Date(now.getTime() - 1 * 60 * 60 * 1000) },
+{ content: 'Great conference last week', createdAt: new Date(now.getTime() - 5 * 24 * 60 * 60 * 1000) },
+{ content: 'Throwback to summer vacation', createdAt: new Date(now.getTime() - 120 * 24 * 60 * 60 * 1000) }
 ];
 
 const timeline = timelinePosts.map(post => ({
-  ...post,
-  displayTime: formatSmart(post.createdAt)
+...post,
+displayTime: formatSmart(post.createdAt)
 }));
 // Recent: "1 hour ago", "5 days ago"
 // Old: "August 15, 2023 6:22 PM EDT"
 
 // Task management with smart due dates
 const tasks = [
-  { title: 'Review PR', dueDate: new Date(now.getTime() + 2 * 60 * 60 * 1000) },
-  { title: 'Weekly standup', dueDate: new Date(now.getTime() + 3 * 24 * 60 * 60 * 1000) },
-  { title: 'Quarterly review', dueDate: new Date(now.getTime() + 45 * 24 * 60 * 60 * 1000) }
+{ title: 'Review PR', dueDate: new Date(now.getTime() + 2 * 60 * 60 * 1000) },
+{ title: 'Weekly standup', dueDate: new Date(now.getTime() + 3 * 24 * 60 * 60 * 1000) },
+{ title: 'Quarterly review', dueDate: new Date(now.getTime() + 45 * 24 * 60 * 60 * 1000) }
 ];
 
 const taskList = tasks.map(task => ({
-  ...task,
-  smartDueDate: formatSmart(task.dueDate)
+...task,
+smartDueDate: formatSmart(task.dueDate)
 }));
 // Shows "in 2 hours", "in 3 days", "March 15, 2024 9:00 AM EDT"
 `}
 />
 
 ### formatDateSmart - Use Cases
+
 - **Email Clients**: Show recent emails with relative time, older with full dates
 - **Document Management**: Smart timestamps for file modification times
 - **Social Media**: Adaptive timeline timestamps
@@ -853,18 +1099,18 @@ import {
 
 // 1. Event processing pipeline
 const processEvent = transformField('startDate', (isoString: string) => {
-  const date = new Date(isoString);
-  return {
-    iso: isoString,
-    display: formatDateSmart()(date),
-    humanTime: formatDateHuman()(date),
-    relative: formatRelative()(date)
-  };
+const date = new Date(isoString);
+return {
+iso: isoString,
+display: formatDateSmart()(date),
+humanTime: formatDateHuman()(date),
+relative: formatRelative()(date)
+};
 });
 
-const event = { 
-  title: 'Team Meeting', 
-  startDate: '2023-12-25T18:30:00Z' 
+const event = {
+title: 'Team Meeting',
+startDate: '2023-12-25T18:30:00Z'
 };
 const processedEvent = processEvent(event);
 // Adds multiple date formats to the event object
@@ -872,59 +1118,59 @@ const processedEvent = processEvent(event);
 // 2. Array processing with date formatting
 const formatEventDates = mapItems(transformField('date', formatDateSmart()));
 const events = [
-  { title: 'Meeting 1', date: new Date('2023-12-25T10:00:00Z') },
-  { title: 'Meeting 2', date: new Date('2023-12-20T14:00:00Z') }
+{ title: 'Meeting 1', date: new Date('2023-12-25T10:00:00Z') },
+{ title: 'Meeting 2', date: new Date('2023-12-20T14:00:00Z') }
 ];
 const formattedEvents = formatEventDates(events);
 
 // 3. Multi-timezone event scheduling
 const createTimezonedEvent = (event: any) => {
-  const baseDate = new Date(event.utcTime);
-  return {
-    ...event,
-    timezones: {
-      'America/New_York': formatDateHuman('America/New_York')(baseDate),
-      'Europe/London': formatDateHuman('Europe/London')(baseDate),
-      'Asia/Tokyo': formatDateHuman('Asia/Tokyo')(baseDate)
-    }
-  };
+const baseDate = new Date(event.utcTime);
+return {
+...event,
+timezones: {
+'America/New_York': formatDateHuman('America/New_York')(baseDate),
+'Europe/London': formatDateHuman('Europe/London')(baseDate),
+'Asia/Tokyo': formatDateHuman('Asia/Tokyo')(baseDate)
+}
+};
 };
 
 // 4. Task deadline processing
 const processTask = (task: any) => {
-  const dueDate = new Date(task.dueDate);
-  const reminderDate = addDays(-1)(dueDate); // 1 day before
-  
-  return {
-    ...task,
-    displayDueDate: formatDateSmart()(dueDate),
-    reminderTime: formatDateHuman()(reminderDate),
-    isOverdue: dueDate < new Date(),
-    daysUntilDue: Math.ceil((dueDate.getTime() - Date.now()) / (24 * 60 * 60 * 1000))
-  };
+const dueDate = new Date(task.dueDate);
+const reminderDate = addDays(-1)(dueDate); // 1 day before
+
+return {
+...task,
+displayDueDate: formatDateSmart()(dueDate),
+reminderTime: formatDateHuman()(reminderDate),
+isOverdue: dueDate < new Date(),
+daysUntilDue: Math.ceil((dueDate.getTime() - Date.now()) / (24 _ 60 _ 60 \* 1000))
+};
 };
 
 // 5. Activity log with smart timestamps
 const processActivityLog = mapItems((activity: any) => ({
-  ...activity,
-  timestamp: formatDateSmart(3)(new Date(activity.createdAt)), // 3-day cutoff
-  localTime: formatDateLocal('h:mm a')(new Date(activity.createdAt))
+...activity,
+timestamp: formatDateSmart(3)(new Date(activity.createdAt)), // 3-day cutoff
+localTime: formatDateLocal('h:mm a')(new Date(activity.createdAt))
 }));
 
 // 6. Content management with publish dates
 const processArticle = (article: any) => {
-  const publishDate = new Date(article.publishedAt);
-  const now = new Date();
-  const isRecent = (now.getTime() - publishDate.getTime()) < (7 * 24 * 60 * 60 * 1000);
-  
-  return {
-    ...article,
-    displayDate: isRecent 
-      ? formatRelative()(publishDate)
-      : formatDate('MMMM d, yyyy')(publishDate),
-    humanDate: formatDateHuman()(publishDate),
-    isNew: isRecent
-  };
+const publishDate = new Date(article.publishedAt);
+const now = new Date();
+const isRecent = (now.getTime() - publishDate.getTime()) < (7 _ 24 _ 60 _ 60 _ 1000);
+
+return {
+...article,
+displayDate: isRecent
+? formatRelative()(publishDate)
+: formatDate('MMMM d, yyyy')(publishDate),
+humanDate: formatDateHuman()(publishDate),
+isNew: isRecent
+};
 };
 `}
 />
@@ -932,23 +1178,27 @@ const processArticle = (article: any) => {
 ## 🎯 Best Practices
 
 ### Timezone Handling
+
 - **Always specify timezone**: Use explicit timezone parameters when known
 - **Auto-detect user timezone**: Use getUserTimezone() for user-facing displays
 - **Store UTC**: Always store dates in UTC in databases
 - **Convert for display**: Transform to user timezone only for display
 
 ### Performance Considerations
+
 - **Cache formatters**: Create formatters once and reuse them
 - **Use smart formatting**: Apply formatDateSmart for mixed-age content
 - **Batch processing**: Use mapItems for array transformations
 
 ### User Experience
+
 - **Consistent formatting**: Use the same format throughout your application
 - **Relative vs absolute**: Use formatDateSmart for optimal UX
 - **Timezone clarity**: Include timezone abbreviations for clarity
 - **Accessibility**: Provide both relative and absolute times
 
 ### Common Patterns
+
 <Source
   language="typescript"
   code={`
@@ -964,24 +1214,24 @@ const safeFormatDate = (dateInput: any, fallback = 'Invalid Date') => {
 
 // Multi-format date display
 const createDateDisplay = (date: Date) => ({
-  smart: formatDateSmart()(date),
-  human: formatDateHuman()(date),
-  relative: formatRelative()(date),
-  iso: formatDate('yyyy-MM-dd')(date),
-  local: formatDateLocal()(date)
+smart: formatDateSmart()(date),
+human: formatDateHuman()(date),
+relative: formatRelative()(date),
+iso: formatDate('yyyy-MM-dd')(date),
+local: formatDateLocal()(date)
 });
 
 // Timezone-aware event processor
 const processGlobalEvent = (event: any, userTimezone?: string) => {
-  const eventDate = new Date(event.startTime);
-  const tz = userTimezone || getUserTimezone();
-  
-  return {
-    ...event,
-    localTime: formatDateHuman(tz)(eventDate),
-    relativeTime: formatRelative()(eventDate),
-    smartTime: formatDateSmart(7, tz)(eventDate)
-  };
+const eventDate = new Date(event.startTime);
+const tz = userTimezone || getUserTimezone();
+
+return {
+...event,
+localTime: formatDateHuman(tz)(eventDate),
+relativeTime: formatRelative()(eventDate),
+smartTime: formatDateSmart(7, tz)(eventDate)
+};
 };
 `}
 />

@@ -1,0 +1,579 @@
+import { Meta, Source } from '@storybook/blocks';
+
+<Meta title='📖 Documentation/Object Transformers' />
+
+# 🔧 Object Transformers
+
+Object manipulation utilities for transforming, filtering, and restructuring JavaScript objects. Built with Lodash for robust object handling and safe property access.
+
+## Functions Overview
+
+<table
+  style={{ width: '100%', borderCollapse: 'collapse', marginBottom: '2rem' }}
+>
+  <thead>
+    <tr
+      style={{ backgroundColor: '#f8f9fa', borderBottom: '2px solid #dee2e6' }}
+    >
+      <th
+        style={{
+          padding: '12px',
+          textAlign: 'left',
+          fontWeight: '600',
+          color: '#495057',
+        }}
+      >
+        Function
+      </th>
+      <th
+        style={{
+          padding: '12px',
+          textAlign: 'left',
+          fontWeight: '600',
+          color: '#495057',
+        }}
+      >
+        Description
+      </th>
+      <th
+        style={{
+          padding: '12px',
+          textAlign: 'left',
+          fontWeight: '600',
+          color: '#495057',
+        }}
+      >
+        Example
+      </th>
+      <th
+        style={{
+          padding: '12px',
+          textAlign: 'left',
+          fontWeight: '600',
+          color: '#495057',
+        }}
+      >
+        Use Cases
+      </th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr style={{ borderBottom: '1px solid #dee2e6' }}>
+      <td
+        style={{
+          padding: '12px',
+          fontFamily: 'monospace',
+          backgroundColor: '#f8f9fa',
+          fontWeight: '500',
+        }}
+      >
+        <code>transformField</code>
+      </td>
+      <td style={{ padding: '12px' }}>Apply transformer to specific field</td>
+      <td
+        style={{ padding: '12px', fontFamily: 'monospace', fontSize: '0.9em' }}
+      >
+        <code>transformField('name', capitalize)</code>
+      </td>
+      <td style={{ padding: '12px' }}>Field processing, data cleaning</td>
+    </tr>
+    <tr style={{ borderBottom: '1px solid #dee2e6' }}>
+      <td
+        style={{
+          padding: '12px',
+          fontFamily: 'monospace',
+          backgroundColor: '#f8f9fa',
+          fontWeight: '500',
+        }}
+      >
+        <code>pickFields</code>
+      </td>
+      <td style={{ padding: '12px' }}>Select specific fields from object</td>
+      <td
+        style={{ padding: '12px', fontFamily: 'monospace', fontSize: '0.9em' }}
+      >
+        <code>pickFields(['id', 'name'])</code>
+      </td>
+      <td style={{ padding: '12px' }}>API responses, data projection</td>
+    </tr>
+    <tr style={{ borderBottom: '1px solid #dee2e6' }}>
+      <td
+        style={{
+          padding: '12px',
+          fontFamily: 'monospace',
+          backgroundColor: '#f8f9fa',
+          fontWeight: '500',
+        }}
+      >
+        <code>omitFields</code>
+      </td>
+      <td style={{ padding: '12px' }}>Remove specific fields from object</td>
+      <td
+        style={{ padding: '12px', fontFamily: 'monospace', fontSize: '0.9em' }}
+      >
+        <code>omitFields(['password', 'secret'])</code>
+      </td>
+      <td style={{ padding: '12px' }}>Security, data filtering</td>
+    </tr>
+    <tr style={{ borderBottom: '1px solid #dee2e6' }}>
+      <td
+        style={{
+          padding: '12px',
+          fontFamily: 'monospace',
+          backgroundColor: '#f8f9fa',
+          fontWeight: '500',
+        }}
+      >
+        <code>renameFields</code>
+      </td>
+      <td style={{ padding: '12px' }}>Rename object fields</td>
+      <td
+        style={{ padding: '12px', fontFamily: 'monospace', fontSize: '0.9em' }}
+      >
+        <code>renameFields(mapping)</code>
+      </td>
+      <td style={{ padding: '12px' }}>API mapping, schema migration</td>
+    </tr>
+    <tr style={{ borderBottom: '1px solid #dee2e6' }}>
+      <td
+        style={{
+          padding: '12px',
+          fontFamily: 'monospace',
+          backgroundColor: '#f8f9fa',
+          fontWeight: '500',
+        }}
+      >
+        <code>flattenObject</code>
+      </td>
+      <td style={{ padding: '12px' }}>Flatten nested object structure</td>
+      <td
+        style={{ padding: '12px', fontFamily: 'monospace', fontSize: '0.9em' }}
+      >
+        <code>flattenObject('.')</code>
+      </td>
+      <td style={{ padding: '12px' }}>Form data, CSV export</td>
+    </tr>
+    <tr style={{ borderBottom: '1px solid #dee2e6' }}>
+      <td
+        style={{
+          padding: '12px',
+          fontFamily: 'monospace',
+          backgroundColor: '#f8f9fa',
+          fontWeight: '500',
+        }}
+      >
+        <code>mergeObjects</code>
+      </td>
+      <td style={{ padding: '12px' }}>Merge multiple objects</td>
+      <td
+        style={{ padding: '12px', fontFamily: 'monospace', fontSize: '0.9em' }}
+      >
+        <code>mergeObjects(true, defaults)</code>
+      </td>
+      <td style={{ padding: '12px' }}>Defaults, configuration</td>
+    </tr>
+    <tr style={{ borderBottom: '1px solid #dee2e6' }}>
+      <td
+        style={{
+          padding: '12px',
+          fontFamily: 'monospace',
+          backgroundColor: '#f8f9fa',
+          fontWeight: '500',
+        }}
+      >
+        <code>deepClone</code>
+      </td>
+      <td style={{ padding: '12px' }}>Create deep copy of object</td>
+      <td
+        style={{ padding: '12px', fontFamily: 'monospace', fontSize: '0.9em' }}
+      >
+        <code>deepClone(originalObject)</code>
+      </td>
+      <td style={{ padding: '12px' }}>Immutability, state management</td>
+    </tr>
+    <tr style={{ borderBottom: '1px solid #dee2e6' }}>
+      <td
+        style={{
+          padding: '12px',
+          fontFamily: 'monospace',
+          backgroundColor: '#f8f9fa',
+          fontWeight: '500',
+        }}
+      >
+        <code>keysToCamelCase</code>
+      </td>
+      <td style={{ padding: '12px' }}>Convert keys to camelCase</td>
+      <td
+        style={{ padding: '12px', fontFamily: 'monospace', fontSize: '0.9em' }}
+      >
+        <code>keysToCamelCase()</code>
+      </td>
+      <td style={{ padding: '12px' }}>JavaScript conventions</td>
+    </tr>
+    <tr>
+      <td
+        style={{
+          padding: '12px',
+          fontFamily: 'monospace',
+          backgroundColor: '#f8f9fa',
+          fontWeight: '500',
+        }}
+      >
+        <code>keysToSnakeCase</code>
+      </td>
+      <td style={{ padding: '12px' }}>Convert keys to snake_case</td>
+      <td
+        style={{ padding: '12px', fontFamily: 'monospace', fontSize: '0.9em' }}
+      >
+        <code>keysToSnakeCase()</code>
+      </td>
+      <td style={{ padding: '12px' }}>API compatibility, databases</td>
+    </tr>
+  </tbody>
+</table>
+
+---
+
+## 📋 Function Details
+
+## transformField
+
+```typescript
+/**
+ * Creates a transformer that applies a transformation to a specific field in an object.
+ * Uses Lodash's set and get for safe object manipulation.
+ */
+export const transformField = <TObject, TKey extends keyof TObject, TOutput>(
+  fieldName: TKey,
+  fieldTransformer: Transformer<TObject[TKey], TOutput>
+): Transformer<TObject, TObject & { [K in TKey]: TOutput }>
+```
+
+### transformField - Usage Examples
+
+<Source
+  language="typescript"
+  code={`
+import { transformField, capitalize, formatCurrency } from 'data-transform-kit';
+
+// Transform user name to capitalize
+const capitalizeUserName = transformField('name', capitalize);
+const user = { id: 1, name: 'john doe', email: 'john@example.com' };
+const result = capitalizeUserName(user);
+// { id: 1, name: 'John Doe', email: 'john@example.com' }
+
+// Transform product price to currency format
+const formatProductPrice = transformField('price', formatCurrency());
+const product = { id: 1, name: 'Laptop', price: 999.99 };
+const formatted = formatProductPrice(product);
+// { id: 1, name: 'Laptop', price: '$999.99' }
+
+// Transform date fields
+const formatCreatedAt = transformField('createdAt', formatDateLocal());
+const record = { id: 1, createdAt: new Date(), status: 'active' };
+const withFormattedDate = formatCreatedAt(record);
+// { id: 1, createdAt: '08/14/2025', status: 'active' }
+`}
+/>
+
+---
+
+## pickFields
+
+```typescript
+/**
+ * Creates a transformer that picks specified fields from an object.
+ * Uses Lodash's pick for robust object field selection.
+ */
+export const pickFields = <T extends Record<string, any>, K extends keyof T>(
+  fields: K[]
+): Transformer<T, Pick<T, K>>
+```
+
+### pickFields - Usage Examples
+
+<Source
+  language="typescript"
+  code={`
+import { pickFields } from 'data-transform-kit';
+
+// Pick user public info
+const getPublicUserInfo = pickFields(['id', 'name', 'email']);
+const fullUser = {
+id: 1,
+name: 'John Doe',
+email: 'john@example.com',
+password: 'secret123',
+ssn: '123-45-6789'
+};
+const publicInfo = getPublicUserInfo(fullUser);
+// { id: 1, name: 'John Doe', email: 'john@example.com' }
+
+// API response filtering
+const getProductSummary = pickFields(['id', 'name', 'price', 'category']);
+const product = {
+id: 1,
+name: 'Laptop',
+price: 999.99,
+category: 'Electronics',
+internalCode: 'LAP001',
+vendorId: 'V123',
+cost: 750.00
+};
+const summary = getProductSummary(product);
+// { id: 1, name: 'Laptop', price: 999.99, category: 'Electronics' }
+`}
+/>
+
+---
+
+## omitFields
+
+```typescript
+/**
+ * Creates a transformer that omits specified fields from an object.
+ * Uses Lodash's omit for robust object field exclusion.
+ */
+export const omitFields = <T extends Record<string, any>, K extends keyof T>(
+  fields: K[]
+): Transformer<T, Omit<T, K>>
+```
+
+### omitFields - Usage Examples
+
+<Source
+  language="typescript"
+  code={`
+import { omitFields } from 'data-transform-kit';
+
+// Remove sensitive data
+const removeSensitiveData = omitFields(['password', 'ssn', 'creditCard']);
+const userData = {
+id: 1,
+name: 'John Doe',
+email: 'john@example.com',
+password: 'secret123',
+ssn: '123-45-6789',
+creditCard: '4111-1111-1111-1111'
+};
+const safeData = removeSensitiveData(userData);
+// { id: 1, name: 'John Doe', email: 'john@example.com' }
+
+// Remove internal fields for API
+const removeInternalFields = omitFields(['_id', '__v', 'internalNotes']);
+const record = {
+\_id: 'mongo123',
+id: 1,
+name: 'Product A',
+\_\_v: 0,
+internalNotes: 'Handle with care',
+status: 'active'
+};
+const apiResponse = removeInternalFields(record);
+// { id: 1, name: 'Product A', status: 'active' }
+`}
+/>
+
+---
+
+## renameFields
+
+```typescript
+/**
+ * Creates a transformer that renames object fields.
+ * Uses Lodash's mapKeys and get for safe field renaming.
+ */
+export const renameFields = <T extends Record<string, any>>(
+  fieldMap: Record<string, string>
+): Transformer<T, Record<string, any>>
+```
+
+### renameFields - Usage Examples
+
+<Source
+  language="typescript"
+  code={`
+import { renameFields } from 'data-transform-kit';
+
+// Map API response to frontend format
+const mapApiToFrontend = renameFields({
+first_name: 'firstName',
+last_name: 'lastName',
+created_at: 'createdDate',
+is_active: 'active'
+});
+
+const apiResponse = {
+id: 1,
+first_name: 'John',
+last_name: 'Doe',
+created_at: '2025-08-14T10:00:00Z',
+is_active: true
+};
+
+const frontendData = mapApiToFrontend(apiResponse);
+// {
+// id: 1,
+// firstName: 'John',
+// lastName: 'Doe',
+// createdDate: '2025-08-14T10:00:00Z',
+// active: true
+// }
+
+// Database to API mapping
+const mapDbToApi = renameFields({
+user_id: 'userId',
+product_name: 'name',
+price_amount: 'price'
+});
+`}
+/>
+
+---
+
+## mergeObjects
+
+```typescript
+/**
+ * Creates a transformer that merges multiple objects.
+ * Uses Lodash's merge or defaults based on override flag.
+ */
+export const mergeObjects = (
+  override: boolean = false,
+  ...sources: Record<string, any>[]
+): Transformer<Record<string, any>, Record<string, any>>
+```
+
+### mergeObjects - Usage Examples
+
+<Source
+  language="typescript"
+  code={`
+import { mergeObjects } from 'data-transform-kit';
+
+// Add default values (preserve existing)
+const addDefaults = mergeObjects(false, {
+isActive: true,
+role: 'user',
+preferences: { theme: 'light' }
+});
+
+const user = { id: 1, name: 'John', isActive: false };
+const withDefaults = addDefaults(user);
+// { id: 1, name: 'John', isActive: false, role: 'user', preferences: { theme: 'light' } }
+
+// Apply updates (override existing)
+const applyUpdates = mergeObjects(true, {
+isActive: true,
+role: 'admin',
+lastLogin: new Date()
+});
+
+const updatedUser = applyUpdates(user);
+// { id: 1, name: 'John', isActive: true, role: 'admin', lastLogin: Date }
+
+// Configuration merging
+const mergeConfig = mergeObjects(true,
+{ api: { timeout: 5000 } },
+{ ui: { theme: 'dark' } }
+);
+`}
+/>
+
+---
+
+## 🔗 Composition Patterns
+
+Object transformers work seamlessly together:
+
+<Source
+  language="typescript"
+  code={`
+import { 
+  transformField, 
+  pickFields, 
+  renameFields,
+  keysToCamelCase,
+  formatCurrency,
+  capitalize,
+  mapItems
+} from 'data-transform-kit';
+
+// 1. API response processing pipeline
+const processApiUser = (user: any) => {
+return transformField('name', capitalize)(
+renameFields({
+first_name: 'firstName',
+last_name: 'lastName'
+})(
+pickFields(['id', 'first_name', 'last_name', 'email'])(user)
+)
+);
+};
+
+// 2. Product data transformation
+const processProduct = transformField('price', formatCurrency());
+const selectProductFields = pickFields(['id', 'name', 'price', 'category']);
+const processProducts = mapItems(
+(product: any) => processProduct(selectProductFields(product))
+);
+
+// 3. Clean and format user data
+const cleanUserData = (rawUser: any) => {
+const safe = omitFields(['password', 'ssn'])(rawUser);
+const renamed = keysToCamelCase()(safe);
+const formatted = transformField('email', toLowerCase)(renamed);
+return formatted;
+};
+
+// 4. Configuration processing
+const processConfig = mergeObjects(false, {
+timeout: 5000,
+retries: 3,
+logging: true
+});
+`}
+/>
+
+## 🎯 Best Practices
+
+### Type Safety
+
+- **Use specific field types**: TypeScript will infer correct types
+- **Validate before transformation**: Check for required fields
+- **Handle missing fields**: Use safe access patterns
+
+### Performance
+
+- **Chain efficiently**: Combine operations to minimize object copies
+- **Reuse transformers**: Create transformers once and reuse them
+- **Use appropriate methods**: Pick vs omit based on field count
+
+### Common Patterns
+
+<Source
+  language="typescript"
+  code={`
+// Safe field transformation with validation
+const safeTransformField = <T, K extends keyof T>(
+  obj: T, 
+  field: K, 
+  transformer: (value: T[K]) => any
+) => {
+  if (field in obj && obj[field] != null) {
+    return transformField(field, transformer)(obj);
+  }
+  return obj;
+};
+
+// Batch object processing
+const processObjectBatch = <T>(
+objects: T[],
+...transformers: Array<(obj: T) => T>
+) => {
+return objects.map(obj =>
+transformers.reduce((result, transformer) => transformer(result), obj)
+);
+};
+`}
+/>

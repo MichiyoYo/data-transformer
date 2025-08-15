@@ -1,0 +1,1222 @@
+import { Meta, Source } from '@storybook/blocks';
+
+<Meta title='📖 Documentation/API Data Transformer Types' />
+
+# 🔌 API Data Transformer Types
+
+Core TypeScript types for building robust, type-safe data transformation pipelines between APIs and UIs. These types provide the foundation for creating bidirectional adapters that handle complex data transformations with full type safety.
+
+## Type Definitions Overview
+
+<table
+  style={{ width: '100%', borderCollapse: 'collapse', marginBottom: '2rem' }}
+>
+  <thead>
+    <tr
+      style={{ backgroundColor: '#f8f9fa', borderBottom: '2px solid #dee2e6' }}
+    >
+      <th
+        style={{
+          padding: '12px',
+          textAlign: 'left',
+          fontWeight: '600',
+          color: '#495057',
+        }}
+      >
+        Type
+      </th>
+      <th
+        style={{
+          padding: '12px',
+          textAlign: 'left',
+          fontWeight: '600',
+          color: '#495057',
+        }}
+      >
+        Description
+      </th>
+      <th
+        style={{
+          padding: '12px',
+          textAlign: 'left',
+          fontWeight: '600',
+          color: '#495057',
+        }}
+      >
+        Signature
+      </th>
+      <th
+        style={{
+          padding: '12px',
+          textAlign: 'left',
+          fontWeight: '600',
+          color: '#495057',
+        }}
+      >
+        Use Cases
+      </th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr style={{ borderBottom: '1px solid #dee2e6' }}>
+      <td
+        style={{
+          padding: '12px',
+          fontFamily: 'monospace',
+          backgroundColor: '#f8f9fa',
+          fontWeight: '500',
+        }}
+      >
+        <code>Transformer</code>
+      </td>
+      <td style={{ padding: '12px' }}>Core transformation function</td>
+      <td
+        style={{ padding: '12px', fontFamily: 'monospace', fontSize: '0.9em' }}
+      >
+        <code>(input: TInput) => TOutput</code>
+      </td>
+      <td style={{ padding: '12px' }}>Base for all transformations</td>
+    </tr>
+    <tr style={{ borderBottom: '1px solid #dee2e6' }}>
+      <td
+        style={{
+          padding: '12px',
+          fontFamily: 'monospace',
+          backgroundColor: '#f8f9fa',
+          fontWeight: '500',
+        }}
+      >
+        <code>ArrayTransformer</code>
+      </td>
+      <td style={{ padding: '12px' }}>Array-specific transformation</td>
+      <td
+        style={{ padding: '12px', fontFamily: 'monospace', fontSize: '0.9em' }}
+      >
+        <code>Transformer&lt;TInput[], TOutput[]&gt;</code>
+      </td>
+      <td style={{ padding: '12px' }}>List processing, collections</td>
+    </tr>
+    <tr style={{ borderBottom: '1px solid #dee2e6' }}>
+      <td
+        style={{
+          padding: '12px',
+          fontFamily: 'monospace',
+          backgroundColor: '#f8f9fa',
+          fontWeight: '500',
+        }}
+      >
+        <code>FieldTransformer</code>
+      </td>
+      <td style={{ padding: '12px' }}>Object field transformation</td>
+      <td
+        style={{ padding: '12px', fontFamily: 'monospace', fontSize: '0.9em' }}
+      >
+        <code>Transformer&lt;TObject[TKey], TOutput&gt;</code>
+      </td>
+      <td style={{ padding: '12px' }}>Object property handling</td>
+    </tr>
+    <tr style={{ borderBottom: '1px solid #dee2e6' }}>
+      <td
+        style={{
+          padding: '12px',
+          fontFamily: 'monospace',
+          backgroundColor: '#f8f9fa',
+          fontWeight: '500',
+        }}
+      >
+        <code>InboundAdapter</code>
+      </td>
+      <td style={{ padding: '12px' }}>API to UI transformation</td>
+      <td
+        style={{ padding: '12px', fontFamily: 'monospace', fontSize: '0.9em' }}
+      >
+        <code>Transformer&lt;TApiData, TUiData&gt;</code>
+      </td>
+      <td style={{ padding: '12px' }}>API responses, data ingestion</td>
+    </tr>
+    <tr style={{ borderBottom: '1px solid #dee2e6' }}>
+      <td
+        style={{
+          padding: '12px',
+          fontFamily: 'monospace',
+          backgroundColor: '#f8f9fa',
+          fontWeight: '500',
+        }}
+      >
+        <code>OutboundAdapter</code>
+      </td>
+      <td style={{ padding: '12px' }}>UI to API transformation</td>
+      <td
+        style={{ padding: '12px', fontFamily: 'monospace', fontSize: '0.9em' }}
+      >
+        <code>Transformer&lt;TUiData, TApiData&gt;</code>
+      </td>
+      <td style={{ padding: '12px' }}>Form submission, API requests</td>
+    </tr>
+    <tr>
+      <td
+        style={{
+          padding: '12px',
+          fontFamily: 'monospace',
+          backgroundColor: '#f8f9fa',
+          fontWeight: '500',
+        }}
+      >
+        <code>BidirectionalAdapter</code>
+      </td>
+      <td style={{ padding: '12px' }}>Two-way transformation interface</td>
+      <td
+        style={{ padding: '12px', fontFamily: 'monospace', fontSize: '0.9em' }}
+      >
+        <code>{'{toUi, toApi}'}</code>
+      </td>
+      <td style={{ padding: '12px' }}>Complete data layer abstraction</td>
+    </tr>
+  </tbody>
+</table>
+
+---
+
+## 📋 Type Details & Examples
+
+## Transformer&lt;TInput, TOutput&gt;
+
+The foundational type for all data transformations. Represents a pure function that takes input of one type and returns output of another type.
+
+```typescript
+/**
+ * Core transformer function type that takes an input of type TInput and returns TOutput.
+ */
+export type Transformer<TInput, TOutput> = (input: TInput) => TOutput;
+```
+
+### Basic Transformer Examples
+
+<Source
+  language="typescript"
+  code={`
+import { Transformer } from 'data-transform-kit';
+
+// Simple type transformations
+const stringToNumber: Transformer<string, number> = (str) => parseInt(str, 10);
+const numberToString: Transformer<number, string> = (num) => num.toString();
+const booleanToText: Transformer<boolean, string> = (bool) => bool ? 'Yes' : 'No';
+
+// Object transformations
+const userToDisplay: Transformer<User, UserDisplay> = (user) => ({
+fullName: \`\${user.firstName} \${user.lastName}\`,
+memberSince: formatDate(user.createdAt),
+isActive: user.status === 'active'
+});
+
+// Array transformations
+const numbersToSum: Transformer<number[], number> = (numbers) =>
+numbers.reduce((sum, num) => sum + num, 0);
+
+// Complex data transformations
+const apiResponseToState: Transformer<ApiResponse<User[]>, AppState> = (response) => ({
+users: response.data,
+loading: false,
+error: response.error || null,
+lastUpdated: new Date()
+});
+`}
+/>
+
+---
+
+## ArrayTransformer&lt;TInput, TOutput&gt;
+
+Specialized type for transforming arrays while maintaining the array structure.
+
+```typescript
+/**
+ * Utility type for transforming arrays while preserving the array structure.
+ */
+export type ArrayTransformer<TInput, TOutput> = Transformer<
+  TInput[],
+  TOutput[]
+>;
+```
+
+### ArrayTransformer Examples
+
+<Source
+  language="typescript"
+  code={`
+import { ArrayTransformer, mapItems, filterItems } from 'data-transform-kit';
+
+// Transform array of raw API objects to UI objects
+const usersApiToUi: ArrayTransformer<ApiUser, UiUser> = mapItems((apiUser) => ({
+id: apiUser.user_id,
+name: \`\${apiUser.first_name} \${apiUser.last_name}\`,
+email: apiUser.email_address,
+joinDate: new Date(apiUser.created_at),
+isActive: apiUser.status === 'active'
+}));
+
+// Transform and filter products
+const processProducts: ArrayTransformer<RawProduct, DisplayProduct> = (products) => {
+return mapItems((product: RawProduct) => ({
+id: product.id,
+title: capitalize(product.name),
+price: formatCurrency()(product.price_cents / 100),
+category: product.category_name,
+inStock: product.inventory_count > 0
+}))(filterItems((product: RawProduct) => product.is_published)(products));
+};
+
+// Complex data processing pipeline
+const processOrderHistory: ArrayTransformer<ApiOrder, OrderSummary> = (orders) => {
+const processed = mapItems((order: ApiOrder) => ({
+orderId: order.id,
+orderDate: formatDateHuman()(new Date(order.created_at)),
+total: formatCurrency()(order.total_amount),
+status: order.order_status,
+itemCount: order.line_items.length
+}))(orders);
+
+return sortItems((order: OrderSummary) => new Date(order.orderDate), false)(processed);
+};
+
+// Type definitions for the examples above
+interface ApiUser {
+user_id: number;
+first_name: string;
+last_name: string;
+email_address: string;
+created_at: string;
+status: 'active' | 'inactive';
+}
+
+interface UiUser {
+id: number;
+name: string;
+email: string;
+joinDate: Date;
+isActive: boolean;
+}
+`}
+/>
+
+---
+
+## FieldTransformer&lt;TObject, TKey, TOutput&gt;
+
+Type for transforming specific fields within objects with full type safety.
+
+```typescript
+/**
+ * Utility type for transforming specific fields within objects.
+ */
+export type FieldTransformer<
+  TObject,
+  TKey extends keyof TObject,
+  TOutput
+> = Transformer<TObject[TKey], TOutput>;
+```
+
+### FieldTransformer Examples
+
+<Source
+  language="typescript"
+  code={`
+import { FieldTransformer, transformField } from 'data-transform-kit';
+
+// Transform date strings to Date objects
+const dateStringToDate: FieldTransformer<{createdAt: string}, 'createdAt', Date> =
+(dateStr) => new Date(dateStr);
+
+// Transform price cents to formatted currency
+const centsToPrice: FieldTransformer<{price: number}, 'price', string> =
+(cents) => formatCurrency()(cents / 100);
+
+// Transform status codes to human readable text
+const statusToText: FieldTransformer<{status: number}, 'status', string> = (status) => {
+const statusMap: Record<number, string> = {
+1: 'Active',
+2: 'Pending',
+3: 'Suspended',
+0: 'Inactive'
+};
+return statusMap[status] || 'Unknown';
+};
+
+// Usage with transformField function
+interface ApiProduct {
+id: number;
+name: string;
+price_cents: number;
+created_at: string;
+status_code: number;
+}
+
+const processProduct = (product: ApiProduct) => {
+const withFormattedPrice = transformField('price_cents', centsToPrice)(product);
+const withFormattedDate = transformField('created_at', dateStringToDate)(withFormattedPrice);
+const withStatusText = transformField('status_code', statusToText)(withFormattedDate);
+return withStatusText;
+};
+
+// Chained field transformations
+const processUserProfile = (profile: any) => {
+return transformField('avatar', (url: string) => url || '/default-avatar.png')(
+transformField('joinedAt', (date: string) => formatRelative()(new Date(date)))(
+transformField('name', capitalize)(profile)
+)
+);
+};
+`}
+/>
+
+---
+
+## InboundAdapter&lt;TApiData, TUiData&gt;
+
+Type for transforming data from API format to UI format (API → UI).
+
+```typescript
+/**
+ * Transforms data from API format to UI format (inbound transformation).
+ */
+export type InboundAdapter<TApiData, TUiData> = Transformer<TApiData, TUiData>;
+```
+
+### InboundAdapter Examples
+
+<Source
+  language="typescript"
+  code={`
+import { InboundAdapter } from 'data-transform-kit';
+
+// API User Response → UI User State
+interface ApiUserResponse {
+user_id: number;
+first_name: string;
+last_name: string;
+email_address: string;
+phone_number: string | null;
+created_at: string;
+updated_at: string;
+is_verified: boolean;
+subscription_status: 'free' | 'premium' | 'enterprise';
+}
+
+interface UiUserProfile {
+id: number;
+displayName: string;
+email: string;
+phone: string;
+memberSince: string;
+lastUpdated: string;
+verified: boolean;
+subscriptionType: string;
+isPremium: boolean;
+}
+
+const userApiToUi: InboundAdapter<ApiUserResponse, UiUserProfile> = (apiUser) => ({
+id: apiUser.user_id,
+displayName: \`\${apiUser.first_name} \${apiUser.last_name}\`,
+email: apiUser.email_address,
+phone: apiUser.phone_number || 'Not provided',
+memberSince: formatDateHuman()(new Date(apiUser.created_at)),
+lastUpdated: formatRelative()(new Date(apiUser.updated_at)),
+verified: apiUser.is_verified,
+subscriptionType: capitalize(apiUser.subscription_status),
+isPremium: apiUser.subscription_status !== 'free'
+});
+
+// API Product List → UI Product Catalog
+interface ApiProductListResponse {
+products: Array<{
+id: number;
+name: string;
+description: string;
+price_cents: number;
+category_id: number;
+category_name: string;
+image_urls: string[];
+inventory_count: number;
+is_featured: boolean;
+created_at: string;
+}>;
+total_count: number;
+page: number;
+per_page: number;
+}
+
+interface UiProductCatalog {
+items: Array<{
+id: number;
+title: string;
+description: string;
+price: string;
+category: string;
+primaryImage: string;
+inStock: boolean;
+featured: boolean;
+addedDate: string;
+}>;
+pagination: {
+total: number;
+currentPage: number;
+pageSize: number;
+totalPages: number;
+};
+}
+
+const productListApiToUi: InboundAdapter<ApiProductListResponse, UiProductCatalog> = (response) => ({
+items: response.products.map(product => ({
+id: product.id,
+title: product.name,
+description: truncate(150)(product.description),
+price: formatCurrency()(product.price_cents / 100),
+category: product.category_name,
+primaryImage: product.image_urls[0] || '/placeholder.jpg',
+inStock: product.inventory_count > 0,
+featured: product.is_featured,
+addedDate: formatDateSmart()(new Date(product.created_at))
+})),
+pagination: {
+total: response.total_count,
+currentPage: response.page,
+pageSize: response.per_page,
+totalPages: Math.ceil(response.total_count / response.per_page)
+}
+});
+
+// Complex nested API response transformation
+interface ApiDashboardResponse {
+user: ApiUserResponse;
+recent_orders: Array<{
+id: number;
+total_cents: number;
+status: string;
+created_at: string;
+item_count: number;
+}>;
+analytics: {
+total_spent_cents: number;
+order_count: number;
+favorite_categories: string[];
+};
+}
+
+interface UiDashboard {
+userProfile: UiUserProfile;
+recentActivity: Array<{
+orderId: number;
+amount: string;
+status: string;
+date: string;
+items: number;
+}>;
+summary: {
+totalSpent: string;
+totalOrders: number;
+topCategories: string[];
+};
+}
+
+const dashboardApiToUi: InboundAdapter<ApiDashboardResponse, UiDashboard> = (response) => ({
+userProfile: userApiToUi(response.user),
+recentActivity: response.recent_orders.map(order => ({
+orderId: order.id,
+amount: formatCurrency()(order.total_cents / 100),
+status: capitalize(order.status),
+date: formatRelative()(new Date(order.created_at)),
+items: order.item_count
+})),
+summary: {
+totalSpent: formatCurrency()(response.analytics.total_spent_cents / 100),
+totalOrders: response.analytics.order_count,
+topCategories: response.analytics.favorite_categories.map(capitalize)
+}
+});
+`}
+/>
+
+---
+
+## OutboundAdapter&lt;TUiData, TApiData&gt;
+
+Type for transforming data from UI format to API format (UI → API).
+
+```typescript
+/**
+ * Transforms data from UI format to API format (outbound transformation).
+ */
+export type OutboundAdapter<TUiData, TApiData> = Transformer<TUiData, TApiData>;
+```
+
+### OutboundAdapter Examples
+
+<Source
+  language="typescript"
+  code={`
+import { OutboundAdapter } from 'data-transform-kit';
+
+// UI Form Data → API Request
+interface UiUserForm {
+firstName: string;
+lastName: string;
+email: string;
+phone: string;
+birthDate: Date;
+preferences: {
+newsletter: boolean;
+notifications: boolean;
+theme: 'light' | 'dark';
+};
+}
+
+interface ApiUserCreateRequest {
+first_name: string;
+last_name: string;
+email_address: string;
+phone_number: string;
+birth_date: string;
+newsletter_subscription: boolean;
+push_notifications: boolean;
+ui_theme: string;
+}
+
+const userFormToApi: OutboundAdapter<UiUserForm, ApiUserCreateRequest> = (formData) => ({
+first_name: trim(formData.firstName),
+last_name: trim(formData.lastName),
+email_address: toLowerCase(trim(formData.email)),
+phone_number: formData.phone.replace(/[^0-9+]/g, ''), // Clean phone number
+birth_date: formatDate('yyyy-MM-dd')(formData.birthDate),
+newsletter_subscription: formData.preferences.newsletter,
+push_notifications: formData.preferences.notifications,
+ui_theme: formData.preferences.theme
+});
+
+// UI Product Form → API Product Update
+interface UiProductForm {
+name: string;
+description: string;
+price: number;
+category: string;
+tags: string[];
+featured: boolean;
+publishDate: Date | null;
+}
+
+interface ApiProductUpdateRequest {
+name: string;
+description: string;
+price_cents: number;
+category_name: string;
+tag_list: string;
+is_featured: boolean;
+publish_at: string | null;
+}
+
+const productFormToApi: OutboundAdapter<UiProductForm, ApiProductUpdateRequest> = (form) => ({
+name: trim(form.name),
+description: trim(form.description),
+price_cents: Math.round(form.price \* 100), // Convert dollars to cents
+category_name: form.category,
+tag_list: form.tags.join(','), // Convert array to comma-separated string
+is_featured: form.featured,
+publish_at: form.publishDate ? form.publishDate.toISOString() : null
+});
+
+// UI Search Filters → API Query Parameters
+interface UiSearchFilters {
+query: string;
+categories: string[];
+priceRange: {
+min: number;
+max: number;
+};
+sortBy: 'name' | 'price' | 'date' | 'popularity';
+sortOrder: 'asc' | 'desc';
+page: number;
+itemsPerPage: number;
+}
+
+interface ApiSearchParams {
+q: string;
+category_ids: string;
+min_price_cents: number;
+max_price_cents: number;
+sort_field: string;
+sort_direction: string;
+page: number;
+per_page: number;
+}
+
+const searchFiltersToApi: OutboundAdapter<UiSearchFilters, ApiSearchParams> = (filters) => ({
+q: trim(filters.query),
+category*ids: filters.categories.join(','),
+min_price_cents: Math.round(filters.priceRange.min * 100),
+max*price_cents: Math.round(filters.priceRange.max * 100),
+sort_field: filters.sortBy === 'date' ? 'created_at' : filters.sortBy,
+sort_direction: filters.sortOrder,
+page: filters.page,
+per_page: filters.itemsPerPage
+});
+
+// Complex form with validation and transformation
+interface UiOrderForm {
+items: Array<{
+productId: number;
+quantity: number;
+customizations: Record<string, any>;
+}>;
+shippingAddress: {
+street: string;
+city: string;
+state: string;
+zipCode: string;
+country: string;
+};
+paymentMethod: {
+type: 'card' | 'paypal' | 'apple_pay';
+token: string;
+};
+specialInstructions: string;
+}
+
+interface ApiOrderCreateRequest {
+line_items: Array<{
+product_id: number;
+quantity: number;
+custom_attributes: Array<{key: string; value: any}>;
+}>;
+shipping_address: {
+street_address: string;
+city: string;
+state_province: string;
+postal_code: string;
+country_code: string;
+};
+payment_token: string;
+payment_method: string;
+notes: string;
+}
+
+const orderFormToApi: OutboundAdapter<UiOrderForm, ApiOrderCreateRequest> = (order) => ({
+line_items: order.items.map(item => ({
+product_id: item.productId,
+quantity: Math.max(1, item.quantity), // Ensure minimum quantity
+custom_attributes: Object.entries(item.customizations).map(([key, value]) => ({
+key,
+value
+}))
+})),
+shipping_address: {
+street_address: trim(order.shippingAddress.street),
+city: trim(order.shippingAddress.city),
+state_province: trim(order.shippingAddress.state),
+postal_code: order.shippingAddress.zipCode.replace(/[^0-9A-Za-z-]/g, ''),
+country_code: order.shippingAddress.country.toUpperCase()
+},
+payment_token: order.paymentMethod.token,
+payment_method: order.paymentMethod.type,
+notes: trim(order.specialInstructions) || ''
+});
+`}
+/>
+
+---
+
+## BidirectionalAdapter&lt;TApiData, TUiData&gt;
+
+Complete interface for two-way data transformation with type safety.
+
+```typescript
+/**
+ * A bidirectional adapter that can transform data in both directions.
+ */
+export interface BidirectionalAdapter<TApiData, TUiData> {
+  /** Transform API data to UI format */
+  toUi: InboundAdapter<TApiData, TUiData>;
+  /** Transform UI data to API format */
+  toApi: OutboundAdapter<TUiData, TApiData>;
+}
+```
+
+### BidirectionalAdapter Examples
+
+<Source
+  language="typescript"
+  code={`
+import { BidirectionalAdapter } from 'data-transform-kit';
+
+// Complete User Data Adapter
+interface ApiUser {
+user_id: number;
+first_name: string;
+last_name: string;
+email_address: string;
+created_at: string;
+is_active: boolean;
+}
+
+interface UiUser {
+id: number;
+name: string;
+email: string;
+joinDate: Date;
+active: boolean;
+}
+
+const userAdapter: BidirectionalAdapter<ApiUser, UiUser> = {
+toUi: (apiUser) => ({
+id: apiUser.user_id,
+name: \`\${apiUser.first_name} \${apiUser.last_name}\`,
+email: apiUser.email_address,
+joinDate: new Date(apiUser.created_at),
+active: apiUser.is_active
+}),
+
+toApi: (uiUser) => {
+const [firstName = '', lastName = ''] = uiUser.name.split(' ');
+return {
+user_id: uiUser.id,
+first_name: trim(firstName),
+last_name: trim(lastName || ''),
+email_address: toLowerCase(trim(uiUser.email)),
+created_at: uiUser.joinDate.toISOString(),
+is_active: uiUser.active
+};
+}
+};
+
+// Product Management Adapter
+interface ApiProduct {
+id: number;
+name: string;
+price_cents: number;
+category_id: number;
+is_published: boolean;
+created_at: string;
+}
+
+interface UiProduct {
+id: number;
+title: string;
+price: number;
+categoryId: number;
+published: boolean;
+createdDate: Date;
+}
+
+const productAdapter: BidirectionalAdapter<ApiProduct, UiProduct> = {
+toUi: (apiProduct) => ({
+id: apiProduct.id,
+title: apiProduct.name,
+price: apiProduct.price_cents / 100,
+categoryId: apiProduct.category_id,
+published: apiProduct.is_published,
+createdDate: new Date(apiProduct.created_at)
+}),
+
+toApi: (uiProduct) => ({
+id: uiProduct.id,
+name: trim(uiProduct.title),
+price_cents: Math.round(uiProduct.price \* 100),
+category_id: uiProduct.categoryId,
+is_published: uiProduct.published,
+created_at: uiProduct.createdDate.toISOString()
+})
+};
+
+// Usage in Application Layer
+class UserService {
+private adapter = userAdapter;
+
+async getUser(id: number): Promise<UiUser> {
+const apiUser = await this.apiClient.getUser(id);
+return this.adapter.toUi(apiUser);
+}
+
+async updateUser(user: UiUser): Promise<UiUser> {
+const apiUser = this.adapter.toApi(user);
+const updatedApiUser = await this.apiClient.updateUser(apiUser);
+return this.adapter.toUi(updatedApiUser);
+}
+}
+
+// Complex Nested Data Adapter
+interface ApiOrderResponse {
+order_id: number;
+customer: ApiUser;
+items: Array<{
+product: ApiProduct;
+quantity: number;
+price_cents: number;
+}>;
+total_cents: number;
+status: string;
+created_at: string;
+}
+
+interface UiOrder {
+id: number;
+customer: UiUser;
+items: Array<{
+product: UiProduct;
+quantity: number;
+price: string;
+}>;
+total: string;
+status: string;
+orderDate: string;
+}
+
+const orderAdapter: BidirectionalAdapter<ApiOrderResponse, UiOrder> = {
+toUi: (apiOrder) => ({
+id: apiOrder.order_id,
+customer: userAdapter.toUi(apiOrder.customer),
+items: apiOrder.items.map(item => ({
+product: productAdapter.toUi(item.product),
+quantity: item.quantity,
+price: formatCurrency()(item.price_cents / 100)
+})),
+total: formatCurrency()(apiOrder.total_cents / 100),
+status: capitalize(apiOrder.status),
+orderDate: formatDateHuman()(new Date(apiOrder.created_at))
+}),
+
+toApi: (uiOrder) => ({
+order*id: uiOrder.id,
+customer: userAdapter.toApi(uiOrder.customer),
+items: uiOrder.items.map(item => ({
+product: productAdapter.toApi(item.product),
+quantity: item.quantity,
+price_cents: Math.round(parseFloat(item.price.replace(/[$,]/g, '')) * 100)
+})),
+total*cents: Math.round(parseFloat(uiOrder.total.replace(/[$,]/g, '')) * 100),
+status: toLowerCase(uiOrder.status),
+created_at: new Date(uiOrder.orderDate).toISOString()
+})
+};
+
+// Factory Pattern for Creating Adapters
+function createAdapter<TApi, TUi>(
+toUiTransform: (api: TApi) => TUi,
+toApiTransform: (ui: TUi) => TApi
+): BidirectionalAdapter<TApi, TUi> {
+return {
+toUi: toUiTransform,
+toApi: toApiTransform
+};
+}
+
+// Usage with the factory
+const settingsAdapter = createAdapter<ApiSettings, UiSettings>(
+(api) => ({
+theme: api.ui_theme,
+notifications: api.push_enabled,
+language: api.locale_code
+}),
+(ui) => ({
+ui_theme: ui.theme,
+push_enabled: ui.notifications,
+locale_code: ui.language
+})
+);
+`}
+/>
+
+---
+
+## 🔗 Advanced Composition Patterns
+
+Combining multiple transformer types for complex data pipelines:
+
+<Source
+  language="typescript"
+  code={`
+import { 
+  BidirectionalAdapter,
+  InboundAdapter,
+  OutboundAdapter,
+  ArrayTransformer,
+  mapItems,
+  transformField,
+  pickFields,
+  renameFields
+} from 'data-transform-kit';
+
+// 1. Multi-level Data Transformation
+interface ApiResponse<T> {
+data: T;
+meta: {
+page: number;
+per_page: number;
+total: number;
+};
+errors?: string[];
+}
+
+interface UiPagedData<T> {
+items: T[];
+pagination: {
+current: number;
+size: number;
+total: number;
+pages: number;
+};
+hasErrors: boolean;
+}
+
+function createPagedAdapter<TApiItem, TUiItem>(
+itemAdapter: BidirectionalAdapter<TApiItem, TUiItem>
+): BidirectionalAdapter<ApiResponse<TApiItem[]>, UiPagedData<TUiItem>> {
+return {
+toUi: (response) => ({
+items: mapItems(itemAdapter.toUi)(response.data),
+pagination: {
+current: response.meta.page,
+size: response.meta.per_page,
+total: response.meta.total,
+pages: Math.ceil(response.meta.total / response.meta.per_page)
+},
+hasErrors: Boolean(response.errors?.length)
+}),
+
+    toApi: (uiData) => ({
+      data: mapItems(itemAdapter.toApi)(uiData.items),
+      meta: {
+        page: uiData.pagination.current,
+        per_page: uiData.pagination.size,
+        total: uiData.pagination.total
+      }
+    })
+
+};
+}
+
+// 2. Form Validation + Transformation Pipeline
+interface FormValidationResult<T> {
+data: T;
+errors: Record<string, string[]>;
+isValid: boolean;
+}
+
+function createValidatedAdapter<TForm, TApi>(
+validator: (form: TForm) => Record<string, string[]>,
+transformer: OutboundAdapter<TForm, TApi>
+): (form: TForm) => FormValidationResult<TApi | null> {
+return (form) => {
+const errors = validator(form);
+const isValid = Object.keys(errors).length === 0;
+
+    return {
+      data: isValid ? transformer(form) : null,
+      errors,
+      isValid
+    };
+
+};
+}
+
+// Usage example
+const validateUserForm = (form: UiUserForm): Record<string, string[]> => {
+const errors: Record<string, string[]> = {};
+
+if (!trim(form.firstName)) {
+errors.firstName = ['First name is required'];
+}
+
+if (!trim(form.email) || !form.email.includes('@')) {
+errors.email = ['Valid email is required'];
+}
+
+return errors;
+};
+
+const validatedUserAdapter = createValidatedAdapter(validateUserForm, userFormToApi);
+
+// 3. Caching Layer with Transformations
+class TransformerCache<TApi, TUi> {
+private cache = new Map<string, TUi>();
+
+constructor(
+private adapter: BidirectionalAdapter<TApi, TUi>,
+private keyGenerator: (data: TApi) => string = (data) => JSON.stringify(data)
+) {}
+
+toUi(apiData: TApi): TUi {
+const key = this.keyGenerator(apiData);
+
+    if (this.cache.has(key)) {
+      return this.cache.get(key)!;
+    }
+
+    const uiData = this.adapter.toUi(apiData);
+    this.cache.set(key, uiData);
+    return uiData;
+
+}
+
+toApi(uiData: TUi): TApi {
+return this.adapter.toApi(uiData);
+}
+
+clearCache(): void {
+this.cache.clear();
+}
+}
+
+// 4. Middleware Pattern for Transformations
+type TransformMiddleware<T> = (data: T, next: (data: T) => T) => T;
+
+function applyMiddleware<T>(
+data: T,
+middlewares: TransformMiddleware<T>[],
+finalTransform: (data: T) => T
+): T {
+const processMiddleware = (index: number) => (currentData: T): T => {
+if (index >= middlewares.length) {
+return finalTransform(currentData);
+}
+
+    return middlewares[index](currentData, processMiddleware(index + 1));
+
+};
+
+return processMiddleware(0)(data);
+}
+
+// Middleware examples
+const loggingMiddleware: TransformMiddleware<any> = (data, next) => {
+console.log('Transforming:', data);
+const result = next(data);
+console.log('Result:', result);
+return result;
+};
+
+const validationMiddleware: TransformMiddleware<any> = (data, next) => {
+if (!data || typeof data !== 'object') {
+throw new Error('Invalid data provided');
+}
+return next(data);
+};
+
+// Usage
+const processWithMiddleware = (apiData: ApiUser) =>
+applyMiddleware(
+apiData,
+[validationMiddleware, loggingMiddleware],
+userAdapter.toUi
+);
+
+// 5. Error Handling Wrapper
+function createSafeAdapter<TApi, TUi>(
+adapter: BidirectionalAdapter<TApi, TUi>,
+fallbackUi: TUi,
+fallbackApi: TApi
+): BidirectionalAdapter<TApi, TUi> {
+return {
+toUi: (apiData) => {
+try {
+return adapter.toUi(apiData);
+} catch (error) {
+console.error('Error in toUi transformation:', error);
+return fallbackUi;
+}
+},
+
+    toApi: (uiData) => {
+      try {
+        return adapter.toApi(uiData);
+      } catch (error) {
+        console.error('Error in toApi transformation:', error);
+        return fallbackApi;
+      }
+    }
+
+};
+}
+`}
+/>
+
+## 🎯 Best Practices
+
+### Type Safety
+
+- **Define interfaces first**: Create clear API and UI data shapes
+- **Use generic constraints**: Leverage TypeScript's type system fully
+- **Validate at boundaries**: Check data types at transformation points
+- **Handle optional fields**: Use proper null/undefined handling
+
+### Performance
+
+- **Cache adapters**: Reuse adapter instances across your application
+- **Lazy evaluation**: Only transform data when needed
+- **Batch operations**: Use array transformers for bulk operations
+- **Memoization**: Cache expensive transformation results
+
+### Architecture
+
+- **Separation of concerns**: Keep transformation logic separate from business logic
+- **Composability**: Build complex transformers from simple ones
+- **Error boundaries**: Handle transformation failures gracefully
+- **Testing**: Write comprehensive tests for your adapters
+
+### Common Patterns
+
+<Source
+  language="typescript"
+  code={`
+// 1. Adapter Registry Pattern
+class AdapterRegistry {
+  private adapters = new Map<string, BidirectionalAdapter<any, any>>();
+  
+  register<TApi, TUi>(
+    key: string, 
+    adapter: BidirectionalAdapter<TApi, TUi>
+  ): void {
+    this.adapters.set(key, adapter);
+  }
+  
+  get<TApi, TUi>(key: string): BidirectionalAdapter<TApi, TUi> | undefined {
+    return this.adapters.get(key);
+  }
+}
+
+// 2. Conditional Transformation
+function conditionalTransform<TInput, TOutput>(
+condition: (input: TInput) => boolean,
+trueTransform: Transformer<TInput, TOutput>,
+falseTransform: Transformer<TInput, TOutput>
+): Transformer<TInput, TOutput> {
+return (input) => condition(input) ? trueTransform(input) : falseTransform(input);
+}
+
+// 3. Pipeline Builder
+class TransformPipeline<TInput, TOutput> {
+private transforms: Array<(input: any) => any> = [];
+
+add<TNext>(transform: Transformer<TOutput, TNext>): TransformPipeline<TInput, TNext> {
+return new TransformPipeline<TInput, TNext>().setTransforms([
+...this.transforms,
+transform
+]);
+}
+
+private setTransforms(transforms: Array<(input: any) => any>): this {
+this.transforms = transforms;
+return this;
+}
+
+execute(input: TInput): TOutput {
+return this.transforms.reduce((data, transform) => transform(data), input);
+}
+}
+
+// Usage
+const pipeline = new TransformPipeline<ApiUser, string>()
+.add(userAdapter.toUi)
+.add((user: UiUser) => user.name)
+.add(capitalize);
+
+const userName = pipeline.execute(apiUserData);
+`}
+/>
