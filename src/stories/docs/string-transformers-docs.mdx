@@ -1,0 +1,740 @@
+import { Meta, Source } from '@storybook/blocks';
+
+<Meta title='📖 Documentation/String Transformers' />
+
+# 🔤 String Transformers
+
+String transformation utilities for text processing and formatting. All functions are pure, composable, and powered by Lodash for consistent behavior and performance.
+
+## Functions Overview
+
+<table
+  style={{ width: '100%', borderCollapse: 'collapse', marginBottom: '2rem' }}
+>
+  <thead>
+    <tr
+      style={{ backgroundColor: '#f8f9fa', borderBottom: '2px solid #dee2e6' }}
+    >
+      <th
+        style={{
+          padding: '12px',
+          textAlign: 'left',
+          fontWeight: '600',
+          color: '#495057',
+        }}
+      >
+        Function
+      </th>
+      <th
+        style={{
+          padding: '12px',
+          textAlign: 'left',
+          fontWeight: '600',
+          color: '#495057',
+        }}
+      >
+        Description
+      </th>
+      <th
+        style={{
+          padding: '12px',
+          textAlign: 'left',
+          fontWeight: '600',
+          color: '#495057',
+        }}
+      >
+        Example
+      </th>
+      <th
+        style={{
+          padding: '12px',
+          textAlign: 'left',
+          fontWeight: '600',
+          color: '#495057',
+        }}
+      >
+        Use Cases
+      </th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr style={{ borderBottom: '1px solid #dee2e6' }}>
+      <td
+        style={{
+          padding: '12px',
+          fontFamily: 'monospace',
+          backgroundColor: '#f8f9fa',
+          fontWeight: '500',
+        }}
+      >
+        <code>capitalize</code>
+      </td>
+      <td style={{ padding: '12px' }}>Capitalizes the first letter</td>
+      <td
+        style={{ padding: '12px', fontFamily: 'monospace', fontSize: '0.9em' }}
+      >
+        <code>capitalize('hello')</code> → <code>'Hello'</code>
+      </td>
+      <td style={{ padding: '12px' }}>Names, titles, form inputs</td>
+    </tr>
+    <tr style={{ borderBottom: '1px solid #dee2e6' }}>
+      <td
+        style={{
+          padding: '12px',
+          fontFamily: 'monospace',
+          backgroundColor: '#f8f9fa',
+          fontWeight: '500',
+        }}
+      >
+        <code>trim</code>
+      </td>
+      <td style={{ padding: '12px' }}>Removes leading/trailing whitespace</td>
+      <td
+        style={{ padding: '12px', fontFamily: 'monospace', fontSize: '0.9em' }}
+      >
+        <code>trim(' text ')</code> → <code>'text'</code>
+      </td>
+      <td style={{ padding: '12px' }}>User input cleanup, data processing</td>
+    </tr>
+    <tr style={{ borderBottom: '1px solid #dee2e6' }}>
+      <td
+        style={{
+          padding: '12px',
+          fontFamily: 'monospace',
+          backgroundColor: '#f8f9fa',
+          fontWeight: '500',
+        }}
+      >
+        <code>toUpperCase</code>
+      </td>
+      <td style={{ padding: '12px' }}>Converts to uppercase</td>
+      <td
+        style={{ padding: '12px', fontFamily: 'monospace', fontSize: '0.9em' }}
+      >
+        <code>toUpperCase('hello')</code> → <code>'HELLO'</code>
+      </td>
+      <td style={{ padding: '12px' }}>Constants, headers, emphasis</td>
+    </tr>
+    <tr style={{ borderBottom: '1px solid #dee2e6' }}>
+      <td
+        style={{
+          padding: '12px',
+          fontFamily: 'monospace',
+          backgroundColor: '#f8f9fa',
+          fontWeight: '500',
+        }}
+      >
+        <code>toLowerCase</code>
+      </td>
+      <td style={{ padding: '12px' }}>Converts to lowercase</td>
+      <td
+        style={{ padding: '12px', fontFamily: 'monospace', fontSize: '0.9em' }}
+      >
+        <code>toLowerCase('HELLO')</code> → <code>'hello'</code>
+      </td>
+      <td style={{ padding: '12px' }}>Email normalization, search</td>
+    </tr>
+    <tr style={{ borderBottom: '1px solid #dee2e6' }}>
+      <td
+        style={{
+          padding: '12px',
+          fontFamily: 'monospace',
+          backgroundColor: '#f8f9fa',
+          fontWeight: '500',
+        }}
+      >
+        <code>slugify</code>
+      </td>
+      <td style={{ padding: '12px' }}>Creates URL-friendly slugs</td>
+      <td
+        style={{ padding: '12px', fontFamily: 'monospace', fontSize: '0.9em' }}
+      >
+        <code>slugify('Hello World!')</code> → <code>'hello-world'</code>
+      </td>
+      <td style={{ padding: '12px' }}>URLs, file names, IDs</td>
+    </tr>
+    <tr>
+      <td
+        style={{
+          padding: '12px',
+          fontFamily: 'monospace',
+          backgroundColor: '#f8f9fa',
+          fontWeight: '500',
+        }}
+      >
+        <code>truncate</code>
+      </td>
+      <td style={{ padding: '12px' }}>Truncates with ellipsis</td>
+      <td
+        style={{ padding: '12px', fontFamily: 'monospace', fontSize: '0.9em' }}
+      >
+        <code>truncate(5)('Hello World')</code> → <code>'Hello...'</code>
+      </td>
+      <td style={{ padding: '12px' }}>Preview text, table cells, cards</td>
+    </tr>
+  </tbody>
+</table>
+
+---
+
+## 📋 Function Details
+
+## capitalize
+
+````typescript
+/**
+ * Capitalizes the first letter of a string.
+ * Uses Lodash's capitalize for consistent behavior.
+ *
+ * @param str - The input string to capitalize
+ * @returns The string with the first letter capitalized
+ *
+ * @example
+ * ```typescript
+ * capitalize('hello world') // returns 'Hello world'
+ * capitalize('HELLO WORLD') // returns 'Hello world'
+ * capitalize('hELLO wORLD') // returns 'Hello world'
+ * ```
+ */
+export const capitalize: Transformer<string, string> = _.capitalize;
+````
+
+### capitalize - Usage Examples
+
+<Source
+  language="typescript"
+  code={`
+import { capitalize } from 'data-transform-kit';
+
+// Basic usage
+const result = capitalize('hello world');
+console.log(result); // "Hello world"
+
+// Handles mixed case
+capitalize('JOHN DOE'); // "John doe"
+capitalize('jOhN dOe'); // "John doe"
+
+// User input formatting
+const formatUserName = (name: string) => capitalize(name.trim());
+formatUserName(' john doe '); // "John doe"
+
+// Form processing
+const handleSubmit = (formData) => ({
+...formData,
+firstName: capitalize(formData.firstName),
+lastName: capitalize(formData.lastName),
+city: capitalize(formData.city)
+});
+
+// Product names
+const products = ['iPhone 15', 'macbook pro', 'AIRPODS MAX'];
+const formattedProducts = products.map(capitalize);
+// ["Iphone 15", "Macbook pro", "Airpods max"]
+
+// API response processing
+const formatApiUser = (user) => ({
+...user,
+displayName: capitalize(user.first_name)
+});
+`}
+/>
+
+### capitalize - Use Cases
+
+- **User Names**: Format first/last names in forms and profiles
+- **Product Titles**: Standardize product name capitalization
+- **Address Fields**: Format city, state, country names
+- **Content Titles**: Process blog post titles, article headings
+- **API Response Processing**: Normalize text data from external APIs
+
+---
+
+## trim
+
+````typescript
+/**
+ * Removes leading and trailing whitespace from a string.
+ * Uses Lodash's trim implementation for consistent behavior.
+ *
+ * @param str - The input string to trim
+ * @returns The string with leading and trailing whitespace removed
+ *
+ * @example
+ * ```typescript
+ * trim('  hello world  ') // returns 'hello world'
+ * trim('\\n\\t  text  \\n\\t') // returns 'text'
+ * trim('no-spaces') // returns 'no-spaces'
+ * ```
+ */
+export const trim: Transformer<string, string> = _.trim;
+````
+
+### trim - Usage Examples
+
+<Source
+  language="typescript"
+  code={`
+import { trim } from 'data-transform-kit';
+
+// Basic whitespace removal
+const clean = trim(' hello world ');
+console.log(clean); // "hello world"
+
+// Handles various whitespace characters
+trim('\\n\\t text \\n\\t'); // "text"
+trim(' '); // ""
+
+// User input cleanup
+const processInput = (input: string) => trim(input);
+processInput(' user@example.com '); // "user@example.com"
+
+// Form validation
+const validateEmail = (email: string) => {
+const cleaned = trim(email);
+return cleaned.includes('@') ? cleaned : null;
+};
+
+// Search query processing
+const processSearchQuery = (query: string) => {
+const cleaned = trim(query);
+return cleaned.length >= 3 ? cleaned : null;
+};
+
+// CSV data processing
+const csvRow = ' John Doe , john@example.com , Manager ';
+const cleanData = csvRow.split(',').map(trim);
+// ["John Doe", "john@example.com", "Manager"]
+`}
+/>
+
+### trim - Use Cases
+
+- **Form Input Cleanup**: Remove accidental whitespace from user inputs
+- **Data Import**: Clean CSV, JSON, or text file data
+- **Search Processing**: Normalize search queries
+- **Configuration Parsing**: Process config files and environment variables
+- **API Request Sanitization**: Clean data before sending to APIs
+
+---
+
+## toUpperCase
+
+````typescript
+/**
+ * Converts a string to uppercase.
+ * Uses Lodash's toUpper implementation for consistent behavior.
+ *
+ * @param str - The input string to convert
+ * @returns The string converted to uppercase
+ *
+ * @example
+ * ```typescript
+ * toUpperCase('hello world') // returns 'HELLO WORLD'
+ * toUpperCase('Hello World') // returns 'HELLO WORLD'
+ * toUpperCase('HELLO') // returns 'HELLO'
+ * ```
+ */
+export const toUpperCase: Transformer<string, string> = _.toUpper;
+````
+
+### toUpperCase - Usage Examples
+
+<Source
+  language="typescript"
+  code={`
+import { toUpperCase } from 'data-transform-kit';
+
+// Basic conversion
+const result = toUpperCase('hello world');
+console.log(result); // "HELLO WORLD"
+
+// Constants formatting
+const createConstant = (name: string) => toUpperCase(name.replace(/\\s+/g, '\_'));
+createConstant('api base url'); // "API_BASE_URL"
+
+// Environment variables
+const envVars = ['database_url', 'api_key', 'secret_token'];
+const upperEnvVars = envVars.map(toUpperCase);
+// ["DATABASE_URL", "API_KEY", "SECRET_TOKEN"]
+
+// Country/state codes
+const countryCodes = ['us', 'ca', 'gb', 'de'];
+const upperCodes = countryCodes.map(toUpperCase);
+// ["US", "CA", "GB", "DE"]
+
+// Button text emphasis
+const formatButtonText = (text: string) => toUpperCase(text);
+formatButtonText('submit form'); // "SUBMIT FORM"
+`}
+/>
+
+### toUpperCase - Use Cases
+
+- **Constants**: Format variable names for constants
+- **Environment Variables**: Normalize env var names
+- **Country/Currency Codes**: Format ISO codes (US, EUR, GBP)
+- **Button Labels**: Create emphasized button text
+- **SQL Keywords**: Format database query keywords
+- **Status Indicators**: Display status values (ACTIVE, PENDING, COMPLETE)
+
+---
+
+## toLowerCase
+
+````typescript
+/**
+ * Converts a string to lowercase.
+ * Uses Lodash's toLower implementation for consistent behavior.
+ *
+ * @param str - The input string to convert
+ * @returns The string converted to lowercase
+ *
+ * @example
+ * ```typescript
+ * toLowerCase('HELLO WORLD') // returns 'hello world'
+ * toLowerCase('Hello World') // returns 'hello world'
+ * toLowerCase('hello') // returns 'hello'
+ * ```
+ */
+export const toLowerCase: Transformer<string, string> = _.toLower;
+````
+
+### toLowerCase - Usage Examples
+
+<Source
+  language="typescript"
+  code={`
+import { toLowerCase } from 'data-transform-kit';
+
+// Basic conversion
+const result = toLowerCase('HELLO WORLD');
+console.log(result); // "hello world"
+
+// Email normalization
+const normalizeEmail = (email: string) => toLowerCase(trim(email));
+normalizeEmail(' USER@EXAMPLE.COM '); // "user@example.com"
+
+// Search functionality (case-insensitive)
+const searchUsers = (users, query) => {
+const lowerQuery = toLowerCase(query);
+return users.filter(user =>
+toLowerCase(user.name).includes(lowerQuery) ||
+toLowerCase(user.email).includes(lowerQuery)
+);
+};
+
+// Tag processing
+const processTags = (tags: string[]) =>
+tags.map(tag => toLowerCase(trim(tag)));
+processTags([' JavaScript ', 'REACT', 'Node.js ']);
+// ["javascript", "react", "node.js"]
+
+// CSS class names
+const createClassName = (name: string) =>
+toLowerCase(name.replace(/\\s+/g, '-'));
+createClassName('Primary Button Large'); // "primary-button-large"
+`}
+/>
+
+### toLowerCase - Use Cases
+
+- **Email Normalization**: Ensure consistent email formatting
+- **Search Functionality**: Enable case-insensitive search
+- **URL Generation**: Create lowercase URLs and paths
+- **Username Processing**: Format usernames consistently
+- **Tag Normalization**: Standardize tag formats
+- **File Extensions**: Normalize file extension comparisons
+- **CSS Classes**: Generate consistent CSS class names
+
+---
+
+## slugify
+
+````typescript
+/**
+ * Converts text to a URL-friendly slug.
+ * Removes special characters and converts to kebab-case.
+ * Uses Lodash's kebabCase for consistent formatting.
+ *
+ * @param str - The input string to slugify
+ * @returns A URL-friendly slug string
+ *
+ * @example
+ * ```typescript
+ * slugify('Hello World!') // returns 'hello-world'
+ * slugify('My Blog Post #1') // returns 'my-blog-post-1'
+ * slugify('Special Characters: @#$%') // returns 'special-characters'
+ * ```
+ */
+export const slugify: Transformer<string, string> = (str: string): string => {
+  const cleaned = str.replace(/[^\\w\\s-]/g, '');
+  return _.kebabCase(cleaned);
+};
+````
+
+### slugify - Usage Examples
+
+<Source
+  language="typescript"
+  code={`
+import { slugify } from 'data-transform-kit';
+
+// Basic URL slug creation
+const slug = slugify('My Blog Post!');
+console.log(slug); // "my-blog-post"
+
+// Blog URLs
+const createBlogUrl = (title: string) => \`/blog/\${slugify(title)}\`;
+createBlogUrl('10 Tips for Better Code'); // "/blog/10-tips-for-better-code"
+
+// Product URLs
+const products = [
+{ name: 'iPhone 15 Pro Max', id: 1 },
+{ name: 'MacBook Air M2 (2023)', id: 2 }
+];
+
+const createProductUrls = products.map(product => ({
+...product,
+url: \`/products/\${product.id}/\${slugify(product.name)}\`,
+slug: slugify(product.name)
+}));
+// Results in URLs like: /products/1/iphone-15-pro-max
+
+// File naming
+const createFileName = (title: string, extension = 'md') =>
+\`\${slugify(title)}.\${extension}\`;
+createFileName('Meeting Notes - Jan 2024'); // "meeting-notes-jan-2024.md"
+
+// API endpoint generation
+const createApiEndpoint = (resource: string, action: string) =>
+\`/api/\${slugify(resource)}/\${slugify(action)}\`;
+createApiEndpoint('User Profile', 'Update Settings');
+// "/api/user-profile/update-settings"
+`}
+/>
+
+### slugify - Use Cases
+
+- **URL Generation**: Create SEO-friendly URLs for blogs, products, categories
+- **File Naming**: Generate consistent file and directory names
+- **API Endpoints**: Create clean, readable API endpoint paths
+- **Database Names**: Generate table and column names
+- **Social Media**: Create usernames and hashtags
+- **CSS/HTML IDs**: Generate valid HTML IDs and CSS selectors
+- **Route Parameters**: Create clean route parameters for SPAs
+
+---
+
+## truncate
+
+````typescript
+/**
+ * Creates a transformer that truncates strings to a specified length with ellipsis.
+ * Uses Lodash's truncate for intelligent word boundary detection.
+ *
+ * @param maxLength - Maximum length before truncation (including ellipsis)
+ * @returns A transformer function that truncates strings
+ *
+ * @example
+ * ```typescript
+ * const truncate10 = truncate(10);
+ * truncate10('Very long text') // returns 'Very lon...'
+ * truncate10('Short') // returns 'Short'
+ * ```
+ */
+export const truncate = (maxLength: number): Transformer<string, string> => {
+  return (str: string): string => _.truncate(str, { length: maxLength });
+};
+````
+
+### truncate - Usage Examples
+
+<Source
+  language="typescript"
+  code={`
+import { truncate } from 'data-transform-kit';
+
+// Create different truncation lengths for different contexts
+const truncateTitle = truncate(50);
+const truncateDescription = truncate(100);
+const truncatePreview = truncate(20);
+
+// Article/blog previews
+const articles = [
+{
+title: 'Understanding React Hooks in Modern Applications',
+content: 'React Hooks have revolutionized how we write React components...'
+}
+];
+
+const articlePreviews = articles.map(article => ({
+title: truncateTitle(article.title),
+preview: truncateDescription(article.content)
+}));
+
+// Social media posts with character limits
+const tweetText = truncate(280);
+const facebookPost = truncate(500);
+
+// Product cards
+const truncateProductName = truncate(25);
+const truncateProductDesc = truncate(60);
+
+// Notification messages
+const truncateNotification = truncate(80);
+const notifications = [
+'Your order has been confirmed and will be shipped within 2-3 business days.',
+'Payment successful!'
+];
+
+const displayNotifications = notifications.map(truncateNotification);
+`}
+/>
+
+### truncate - Use Cases
+
+- **Card Components**: Limit text in product cards, user cards, article previews
+- **Table Cells**: Ensure consistent column widths in data tables
+- **Notifications**: Keep notification messages concise
+- **Search Results**: Display preview snippets of search results
+- **Social Media**: Respect character limits for different platforms
+- **File Names**: Display long file names in constrained spaces
+- **Mobile UI**: Adapt text for smaller screen sizes
+
+---
+
+## 🔗 Composition Patterns
+
+String transformers are designed to work together seamlessly:
+
+<Source
+  language="typescript"
+  code={`
+import { 
+  capitalize, 
+  trim, 
+  slugify, 
+  truncate,
+  toLowerCase,
+  mapItems 
+} from 'data-transform-kit';
+
+// 1. Clean and format user input
+const processUserInput = (input: string) => capitalize(trim(input));
+processUserInput(' hello world '); // "Hello world"
+
+// 2. Create SEO-friendly content
+const createSEOContent = (title: string) => ({
+displayTitle: capitalize(trim(title)),
+slug: slugify(title),
+metaTitle: truncate(60)(title)
+});
+
+// 3. Process arrays of strings
+const cleanNames = mapItems((name: string) => capitalize(trim(name)));
+cleanNames([' john doe ', 'JANE SMITH']);
+// ["John doe", "Jane smith"]
+
+// 4. Real-world example: Blog post processing
+interface BlogPost {
+title: string;
+content: string;
+tags: string[];
+author: string;
+}
+
+const processBlogPost = (post: BlogPost) => ({
+...post,
+title: capitalize(trim(post.title)),
+slug: slugify(post.title),
+excerpt: truncate(150)(post.content),
+tags: mapItems((tag: string) => toLowerCase(trim(tag)))(post.tags),
+author: capitalize(trim(post.author))
+});
+`}
+/>
+
+## 🎯 Best Practices
+
+### Performance Considerations
+
+- **Memoize expensive operations**: Use React.useMemo for truncation in render loops
+- **Batch string operations**: Process arrays with mapItems instead of individual calls
+- **Choose appropriate truncation lengths**: Balance UX with performance
+
+### Type Safety
+
+- **Use proper TypeScript types**: All transformers are fully typed
+- **Compose with confidence**: TypeScript will catch composition errors
+- **Leverage type inference**: Let TypeScript infer return types
+
+### Common Patterns
+
+- **Input sanitization**: Always trim before other operations
+- **SEO optimization**: Use slugify for URLs, truncate for meta descriptions
+- **Responsive design**: Use different truncation lengths for different screen sizes
+- **Search optimization**: Normalize text with toLowerCase for searching
+
+### Error Handling
+
+<Source
+  language="typescript"
+  code={`
+// Safe string processing with null/undefined handling
+const safeProcessString = (input: string | null | undefined) => {
+  if (!input || typeof input !== 'string') return '';
+  return capitalize(trim(input));
+};
+
+// Validate before truncation
+const safeTruncate = (maxLength: number) => (str: string) => {
+if (!str || str.length <= maxLength) return str;
+return truncate(maxLength)(str);
+};
+`}
+/>
+
+## 🚀 Integration Examples
+
+### React Components
+
+<Source
+  language="typescript"
+  code={`
+import { capitalize, truncate, slugify } from 'data-transform-kit';
+
+const ProductCard = ({ product }) => {
+const displayName = capitalize(product.name);
+const shortDescription = truncate(100)(product.description);
+const productUrl = \`/products/\${slugify(product.name)}\`;
+
+return (
+
+<div className='product-card'>
+  <h3>{displayName}</h3>
+  <p>{shortDescription}</p>
+  <a href={productUrl}>View Details</a>
+</div>
+); }; `} />
+
+### API Integration
+
+<Source
+  language="typescript"
+  code={`
+// Transform API responses
+const transformApiUser = (apiUser: any) => ({
+  id: apiUser.id,
+  name: capitalize(trim(apiUser.first_name + ' ' + apiUser.last_name)),
+  email: toLowerCase(trim(apiUser.email)),
+  bio: apiUser.bio ? truncate(200)(trim(apiUser.bio)) : ''
+});
+
+// Prepare data for API requests
+const prepareUserData = (formData: any) => ({
+first_name: toLowerCase(trim(formData.firstName)),
+last_name: toLowerCase(trim(formData.lastName)),
+email: toLowerCase(trim(formData.email))
+});
+`}
+/>

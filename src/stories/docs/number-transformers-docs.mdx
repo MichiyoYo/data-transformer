@@ -1,0 +1,683 @@
+import { Meta, Source } from '@storybook/blocks';
+
+<Meta title='📖 Documentation/Number Transformers' />
+
+# 🔢 Number Transformers
+
+Number transformation utilities for formatting, parsing, and converting numeric values. All functions are pure, composable, and powered by Lodash for consistent behavior and performance.
+
+## Functions Overview
+
+<table style={{width: '100%', borderCollapse: 'collapse', marginBottom: '2rem'}}>
+  <thead>
+    <tr style={{backgroundColor: '#f8f9fa', borderBottom: '2px solid #dee2e6'}}>
+      <th style={{padding: '12px', textAlign: 'left', fontWeight: '600', color: '#495057'}}>Function</th>
+      <th style={{padding: '12px', textAlign: 'left', fontWeight: '600', color: '#495057'}}>Description</th>
+      <th style={{padding: '12px', textAlign: 'left', fontWeight: '600', color: '#495057'}}>Example</th>
+      <th style={{padding: '12px', textAlign: 'left', fontWeight: '600', color: '#495057'}}>Use Cases</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr style={{borderBottom: '1px solid #dee2e6'}}>
+      <td style={{padding: '12px', fontFamily: 'monospace', backgroundColor: '#f8f9fa', fontWeight: '500'}}><code>toFixed</code></td>
+      <td style={{padding: '12px'}}>Formats to fixed decimal places</td>
+      <td style={{padding: '12px', fontFamily: 'monospace', fontSize: '0.9em'}}><code>toFixed(2)(3.14159)</code> → <code>'3.14'</code></td>
+      <td style={{padding: '12px'}}>Price display, measurements</td>
+    </tr>
+    <tr style={{borderBottom: '1px solid #dee2e6'}}>
+      <td style={{padding: '12px', fontFamily: 'monospace', backgroundColor: '#f8f9fa', fontWeight: '500'}}><code>parseInt</code></td>
+      <td style={{padding: '12px'}}>Parses string to integer (lenient)</td>
+      <td style={{padding: '12px', fontFamily: 'monospace', fontSize: '0.9em'}}><code>parseInt('123abc')</code> → <code>123</code></td>
+      <td style={{padding: '12px'}}>Form inputs, data parsing</td>
+    </tr>
+    <tr style={{borderBottom: '1px solid #dee2e6'}}>
+      <td style={{padding: '12px', fontFamily: 'monospace', backgroundColor: '#f8f9fa', fontWeight: '500'}}><code>parseFloat</code></td>
+      <td style={{padding: '12px'}}>Parses string to floating point</td>
+      <td style={{padding: '12px', fontFamily: 'monospace', fontSize: '0.9em'}}><code>parseFloat('3.14')</code> → <code>3.14</code></td>
+      <td style={{padding: '12px'}}>Decimal inputs, calculations</td>
+    </tr>
+    <tr style={{borderBottom: '1px solid #dee2e6'}}>
+      <td style={{padding: '12px', fontFamily: 'monospace', backgroundColor: '#f8f9fa', fontWeight: '500'}}><code>toInteger</code></td>
+      <td style={{padding: '12px'}}>Converts to integer (strict)</td>
+      <td style={{padding: '12px', fontFamily: 'monospace', fontSize: '0.9em'}}><code>toInteger('123abc')</code> → <code>0</code></td>
+      <td style={{padding: '12px'}}>Validation, safe parsing</td>
+    </tr>
+    <tr style={{borderBottom: '1px solid #dee2e6'}}>
+      <td style={{padding: '12px', fontFamily: 'monospace', backgroundColor: '#f8f9fa', fontWeight: '500'}}><code>formatCurrency</code></td>
+      <td style={{padding: '12px'}}>Formats as currency</td>
+      <td style={{padding: '12px', fontFamily: 'monospace', fontSize: '0.9em'}}><code>formatCurrency()(1234.56)</code> → <code>'$1,234.56'</code></td>
+      <td style={{padding: '12px'}}>Prices, financial data</td>
+    </tr>
+    <tr>
+      <td style={{padding: '12px', fontFamily: 'monospace', backgroundColor: '#f8f9fa', fontWeight: '500'}}><code>formatPercentage</code></td>
+      <td style={{padding: '12px'}}>Formats as percentage</td>
+      <td style={{padding: '12px', fontFamily: 'monospace', fontSize: '0.9em'}}><code>formatPercentage(2)(0.1234)</code> → <code>'12.34%'</code></td>
+      <td style={{padding: '12px'}}>Statistics, progress, rates</td>
+    </tr>
+  </tbody>
+</table>
+
+---
+
+## 📋 Function Details
+
+## toFixed
+
+````typescript
+/**
+ * Creates a transformer that formats a number to a fixed number of decimal places.
+ * Uses Lodash's round for consistent rounding behavior.
+ * 
+ * @param decimalPlaces - Number of decimal places to show
+ * @returns A transformer that formats numbers with fixed decimals
+ *
+ * @example
+ * ```typescript
+ * const formatPrice = toFixed(2);
+ * formatPrice(3.14159) // returns '3.14'
+ * formatPrice(5) // returns '5.00'
+ * ```
+ */
+export const toFixed = (decimalPlaces: number): Transformer<number, string> => {
+  return (num: number): string => {
+    const rounded = _.round(num, decimalPlaces);
+    return rounded.toFixed(decimalPlaces);
+  };
+};
+````
+
+### toFixed - Usage Examples
+
+<Source
+  language="typescript"
+  code={`
+import { toFixed } from 'data-transform-kit';
+
+// Price formatting
+const formatPrice = toFixed(2);
+formatPrice(19.99); // "19.99"
+formatPrice(20); // "20.00"
+formatPrice(19.995); // "20.00" (rounded)
+
+// Scientific measurements
+const formatMeasurement = toFixed(3);
+formatMeasurement(3.14159); // "3.142"
+formatMeasurement(2.5); // "2.500"
+
+// Product ratings
+const formatRating = toFixed(1);
+formatRating(4.666); // "4.7"
+formatRating(5); // "5.0"
+
+// Financial calculations
+const portfolioValues = [1234.567, 2345.678, 3456.789];
+const formattedValues = portfolioValues.map(toFixed(2));
+// ["1234.57", "2345.68", "3456.79"]
+
+// Display consistent decimal places
+const temperatures = [23.1, 24, 22.456];
+const displayTemps = temperatures.map(toFixed(1));
+// ["23.1", "24.0", "22.5"]
+`}
+/>
+
+### toFixed - Use Cases
+- **Price Display**: Show consistent decimal places for currency
+- **Scientific Data**: Format measurements and calculations
+- **Product Ratings**: Display ratings with fixed precision
+- **Financial Reports**: Consistent formatting for monetary values
+- **Performance Metrics**: Format statistics and KPIs
+
+---
+
+## parseInt
+
+````typescript
+/**
+ * Parses a string and returns an integer using lenient parsing.
+ * Parses until it hits non-numeric characters (like native parseInt).
+ *
+ * @param str - The string to parse
+ * @returns An integer or NaN if parsing fails
+ *
+ * @example
+ * ```typescript
+ * parseInt('123abc') // returns 123
+ * parseInt('abc') // returns NaN
+ * parseInt('42.7') // returns 42
+ * ```
+ */
+export const parseInt: Transformer<string, number> = (str: string): number => {
+  return Number.parseInt(str, 10);
+};
+````
+
+### parseInt - Usage Examples
+
+<Source
+  language="typescript"
+  code={`
+import { parseInt } from 'data-transform-kit';
+
+// Form input processing
+const quantity = parseInt('5 items'); // 5
+const pageNumber = parseInt('page-3'); // NaN (no leading number)
+const userId = parseInt('user123'); // NaN (no leading number)
+
+// URL parameter parsing
+const urlParams = {
+  page: '2',
+  limit: '25',
+  id: '123abc'
+};
+
+const parsedParams = {
+  page: parseInt(urlParams.page), // 2
+  limit: parseInt(urlParams.limit), // 25
+  id: parseInt(urlParams.id) // 123
+};
+
+// Data cleaning
+const mixedData = ['10', '20items', '30.5', 'abc40'];
+const cleanedNumbers = mixedData.map(parseInt);
+// [10, 20, 30, NaN]
+
+// Version parsing
+const versionString = '2.1.5';
+const majorVersion = parseInt(versionString); // 2
+
+// Extract numeric prefixes
+const productCodes = ['100-ABC', '200-XYZ', '300-DEF'];
+const productNumbers = productCodes.map(parseInt);
+// [100, 200, 300]
+`}
+/>
+
+### parseInt - Use Cases
+- **Form Processing**: Extract numbers from user input
+- **URL Parameters**: Parse numeric route parameters
+- **Data Import**: Clean mixed text/number data
+- **Version Parsing**: Extract version numbers
+- **ID Extraction**: Get numeric IDs from mixed strings
+
+---
+
+## parseFloat
+
+````typescript
+/**
+ * Parses a string and returns a floating point number.
+ * Uses Lodash's toNumber for better handling of edge cases.
+ *
+ * @param str - The string to parse
+ * @returns A number or NaN if parsing fails
+ *
+ * @example
+ * ```typescript
+ * parseFloat('3.14') // returns 3.14
+ * parseFloat('3.14abc') // returns 3.14
+ * parseFloat('abc') // returns NaN
+ * ```
+ */
+export const parseFloat: Transformer<string, number> = _.toNumber;
+````
+
+### parseFloat - Usage Examples
+
+<Source
+  language="typescript"
+  code={`
+import { parseFloat } from 'data-transform-kit';
+
+// Price parsing
+const priceString = '$19.99';
+const price = parseFloat(priceString.replace('$', '')); // 19.99
+
+// Scientific notation
+const scientificValue = parseFloat('1.23e-4'); // 0.000123
+const standardValue = parseFloat('123.456'); // 123.456
+
+// Form input processing
+const formData = {
+  weight: '75.5kg',
+  height: '180.5cm',
+  temperature: '98.6°F'
+};
+
+const numericData = {
+  weight: parseFloat(formData.weight), // 75.5
+  height: parseFloat(formData.height), // 180.5
+  temperature: parseFloat(formData.temperature) // 98.6
+};
+
+// CSV data processing
+const csvRow = '3.14,2.71,1.41,1.73';
+const numbers = csvRow.split(',').map(parseFloat);
+// [3.14, 2.71, 1.41, 1.73]
+
+// API response parsing
+const apiResponse = {
+  lat: '40.7128',
+  lng: '-74.0060',
+  elevation: '10.0m'
+};
+
+const coordinates = {
+  lat: parseFloat(apiResponse.lat), // 40.7128
+  lng: parseFloat(apiResponse.lng), // -74.0060
+  elevation: parseFloat(apiResponse.elevation) // 10.0
+};
+`}
+/>
+
+### parseFloat - Use Cases
+- **Price Processing**: Parse currency strings to numbers
+- **Coordinate Parsing**: Convert GPS coordinates from strings
+- **Scientific Data**: Handle scientific notation and decimals
+- **Form Validation**: Convert user input to numeric values
+- **CSV Import**: Parse decimal values from data files
+
+---
+
+## toInteger
+
+````typescript
+/**
+ * Parses a string and returns an integer using strict parsing.
+ * Only converts if the entire string represents a valid number.
+ * Uses Lodash's toInteger for consistent behavior.
+ *
+ * @param str - The string to convert
+ * @returns An integer (0 if conversion fails)
+ *
+ * @example
+ * ```typescript
+ * toInteger('123') // returns 123
+ * toInteger('123abc') // returns 0
+ * toInteger('abc') // returns 0
+ * ```
+ */
+export const toInteger: Transformer<string, number> = _.toInteger;
+````
+
+### toInteger - Usage Examples
+
+<Source
+  language="typescript"
+  code={`
+import { toInteger } from 'data-transform-kit';
+
+// Safe form input processing
+const userInput = '25';
+const age = toInteger(userInput); // 25
+
+const invalidInput = '25abc';
+const invalidAge = toInteger(invalidInput); // 0 (safe fallback)
+
+// Configuration parsing
+const config = {
+  maxRetries: '3',
+  timeout: '5000ms', // Invalid - will become 0
+  poolSize: '10'
+};
+
+const safeConfig = {
+  maxRetries: toInteger(config.maxRetries), // 3
+  timeout: toInteger(config.timeout), // 0 (fallback)
+  poolSize: toInteger(config.poolSize) // 10
+};
+
+// Array processing with validation
+const stringNumbers = ['1', '2', '3abc', '4', 'invalid'];
+const validIntegers = stringNumbers.map(toInteger);
+// [1, 2, 0, 4, 0]
+
+// Safe ID parsing
+const userIds = ['user123', '456', 'admin', '789'];
+const numericIds = userIds.map(toInteger).filter(id => id > 0);
+// [456, 789] (only valid numeric IDs)
+
+// Default values for missing data
+const processUserData = (data: any) => ({
+  id: toInteger(data.id) || 1, // Default to 1 if invalid
+  age: toInteger(data.age) || 18, // Default to 18 if invalid
+  score: toInteger(data.score) || 0 // Default to 0 if invalid
+});
+`}
+/>
+
+### toInteger - Use Cases
+- **Form Validation**: Safely convert user input with fallbacks
+- **Configuration Parsing**: Handle config values with defaults
+- **Data Sanitization**: Clean imported data with safe fallbacks
+- **ID Processing**: Extract valid numeric IDs
+- **Age/Count Validation**: Ensure positive integer values
+
+---
+
+## formatCurrency
+
+````typescript
+/**
+ * Creates a transformer that formats a number as currency.
+ * Uses Lodash's isFinite for validation and Intl.NumberFormat for formatting.
+ *
+ * @param currency - Currency code (default: 'USD')
+ * @returns A transformer that formats numbers as currency
+ *
+ * @example
+ * ```typescript
+ * const formatUSD = formatCurrency();
+ * formatUSD(1234.56) // returns '$1,234.56'
+ * 
+ * const formatEUR = formatCurrency('EUR');
+ * formatEUR(1234.56) // returns '€1,234.56'
+ * ```
+ */
+export const formatCurrency = (
+  currency: string = 'USD'
+): Transformer<number, string> => {
+  return (num: number): string => {
+    if (!_.isFinite(num)) {
+      return 'Invalid';
+    }
+    return new Intl.NumberFormat('en-US', {
+      style: 'currency',
+      currency: currency,
+    }).format(num);
+  };
+};
+````
+
+### formatCurrency - Usage Examples
+
+<Source
+  language="typescript"
+  code={`
+import { formatCurrency } from 'data-transform-kit';
+
+// Default USD formatting
+const formatUSD = formatCurrency();
+formatUSD(1234.56); // "$1,234.56"
+formatUSD(0.99); // "$0.99"
+formatUSD(1000000); // "$1,000,000.00"
+
+// Different currencies
+const formatEUR = formatCurrency('EUR');
+const formatGBP = formatCurrency('GBP');
+const formatJPY = formatCurrency('JPY');
+
+formatEUR(1234.56); // "€1,234.56"
+formatGBP(1234.56); // "£1,234.56"
+formatJPY(1234.56); // "¥1,235" (JPY doesn't use decimals)
+
+// E-commerce product pricing
+const products = [
+  { name: 'Laptop', price: 999.99 },
+  { name: 'Mouse', price: 29.95 },
+  { name: 'Keyboard', price: 79.50 }
+];
+
+const formattedProducts = products.map(product => ({
+  ...product,
+  displayPrice: formatUSD(product.price)
+}));
+// [
+//   { name: 'Laptop', price: 999.99, displayPrice: '$999.99' },
+//   { name: 'Mouse', price: 29.95, displayPrice: '$29.95' },
+//   { name: 'Keyboard', price: 79.50, displayPrice: '$79.50' }
+// ]
+
+// Shopping cart totals
+const cartItems = [15.99, 29.95, 8.50];
+const subtotal = cartItems.reduce((sum, price) => sum + price, 0);
+const tax = subtotal * 0.08;
+const total = subtotal + tax;
+
+const orderSummary = {
+  subtotal: formatUSD(subtotal), // "$54.44"
+  tax: formatUSD(tax), // "$4.36"
+  total: formatUSD(total) // "$58.80"
+};
+
+// International pricing
+const price = 99.99;
+const globalPricing = {
+  USD: formatCurrency('USD')(price), // "$99.99"
+  EUR: formatCurrency('EUR')(price), // "€99.99"
+  GBP: formatCurrency('GBP')(price), // "£99.99"
+  CAD: formatCurrency('CAD')(price)  // "CA$99.99"
+};
+
+// Handle invalid values
+formatUSD(NaN); // "Invalid"
+formatUSD(Infinity); // "Invalid"
+formatUSD(-Infinity); // "Invalid"
+`}
+/>
+
+### formatCurrency - Use Cases
+- **E-commerce**: Display product prices and totals
+- **Financial Dashboards**: Show monetary values and reports
+- **International Apps**: Multi-currency support
+- **Invoice Generation**: Format billing amounts
+- **Banking Apps**: Display account balances and transactions
+
+---
+
+## formatPercentage
+
+````typescript
+/**
+ * Creates a transformer that formats a decimal as a percentage.
+ * Uses Lodash's round for consistent rounding and isFinite for validation.
+ *
+ * @param decimalPlaces - Number of decimal places to show
+ * @returns A transformer that formats decimals as percentages
+ *
+ * @example
+ * ```typescript
+ * const formatPercent = formatPercentage(2);
+ * formatPercent(0.1234) // returns '12.34%'
+ * formatPercent(0.5) // returns '50.00%'
+ * ```
+ */
+export const formatPercentage = (
+  decimalPlaces: number
+): Transformer<number, string> => {
+  return (num: number): string => {
+    if (!_.isFinite(num)) {
+      return 'Invalid';
+    }
+    const percentage = _.round(num * 100, decimalPlaces);
+    return \`\${percentage.toFixed(decimalPlaces)}%\`;
+  };
+};
+````
+
+### formatPercentage - Usage Examples
+
+<Source
+  language="typescript"
+  code={`
+import { formatPercentage } from 'data-transform-kit';
+
+// Progress indicators
+const formatProgress = formatPercentage(1);
+formatProgress(0.756); // "75.6%"
+formatProgress(0.1); // "10.0%"
+formatProgress(1.0); // "100.0%"
+
+// Test scores and grades
+const formatGrade = formatPercentage(2);
+const testScores = [0.85, 0.92, 0.78, 0.96];
+const formattedScores = testScores.map(formatGrade);
+// ["85.00%", "92.00%", "78.00%", "96.00%"]
+
+// Business metrics
+const conversionRate = 0.0347;
+const clickThroughRate = 0.025;
+const bounceRate = 0.68;
+
+const metrics = {
+  conversion: formatPercentage(2)(conversionRate), // "3.47%"
+  clickThrough: formatPercentage(2)(clickThroughRate), // "2.50%"
+  bounce: formatPercentage(1)(bounceRate) // "68.0%"
+};
+
+// Sales performance
+const salesData = [
+  { rep: 'Alice', target: 100000, actual: 120000 },
+  { rep: 'Bob', target: 90000, actual: 95000 },
+  { rep: 'Carol', target: 110000, actual: 108000 }
+];
+
+const performanceReport = salesData.map(rep => ({
+  ...rep,
+  achievement: formatPercentage(1)(rep.actual / rep.target)
+}));
+// [
+//   { rep: 'Alice', target: 100000, actual: 120000, achievement: '120.0%' },
+//   { rep: 'Bob', target: 90000, actual: 95000, achievement: '105.6%' },
+//   { rep: 'Carol', target: 110000, actual: 108000, achievement: '98.2%' }
+// ]
+
+// Survey results
+const surveyResponses = {
+  excellent: 45,
+  good: 32,
+  fair: 15,
+  poor: 8,
+  total: 100
+};
+
+const formatSurvey = formatPercentage(1);
+const surveyPercentages = {
+  excellent: formatSurvey(surveyResponses.excellent / surveyResponses.total), // "45.0%"
+  good: formatSurvey(surveyResponses.good / surveyResponses.total), // "32.0%"
+  fair: formatSurvey(surveyResponses.fair / surveyResponses.total), // "15.0%"
+  poor: formatSurvey(surveyResponses.poor / surveyResponses.total) // "8.0%"
+};
+
+// Handle invalid values
+formatPercentage(2)(NaN); // "Invalid"
+formatPercentage(2)(Infinity); // "Invalid"
+`}
+/>
+
+### formatPercentage - Use Cases
+- **Progress Bars**: Show completion percentages
+- **Analytics Dashboards**: Display conversion rates and metrics
+- **Test Scores**: Format academic and performance grades
+- **Survey Results**: Present poll and survey data
+- **Financial Reports**: Show growth rates and performance
+- **A/B Testing**: Display test result percentages
+
+---
+
+## 🔗 Composition Patterns
+
+Number transformers work seamlessly with other transformers:
+
+<Source
+  language="typescript"
+  code={`
+import { 
+  formatCurrency, 
+  formatPercentage, 
+  toFixed, 
+  parseInt,
+  parseFloat,
+  mapItems 
+} from 'data-transform-kit';
+
+// 1. E-commerce pricing pipeline
+const processProduct = (product: any) => ({
+  ...product,
+  displayPrice: formatCurrency()(product.price),
+  discountPercent: formatPercentage(0)(product.discount),
+  rating: toFixed(1)(product.rating)
+});
+
+// 2. Financial dashboard processing
+const processFinancialData = (data: any) => ({
+  revenue: formatCurrency()(data.revenue),
+  growthRate: formatPercentage(2)(data.growth / 100),
+  profit: formatCurrency()(data.profit),
+  profitMargin: formatPercentage(1)(data.profit / data.revenue)
+});
+
+// 3. Array processing with number formatting
+const formatPrices = mapItems(formatCurrency());
+const prices = [19.99, 29.95, 39.50];
+const displayPrices = formatPrices(prices);
+// ["$19.99", "$29.95", "$39.50"]
+
+// 4. Form data processing
+const processFormData = (formData: any) => {
+  const price = parseFloat(formData.price);
+  const quantity = parseInt(formData.quantity);
+  const discount = parseFloat(formData.discount) / 100;
+  
+  return {
+    unitPrice: formatCurrency()(price),
+    quantity: quantity,
+    discount: formatPercentage(1)(discount),
+    total: formatCurrency()(price * quantity * (1 - discount))
+  };
+};
+
+// 5. Analytics data transformation
+const transformAnalytics = (rawData: any[]) => 
+  mapItems((item: any) => ({
+    metric: item.name,
+    value: toFixed(2)(item.value),
+    change: formatPercentage(1)(item.change),
+    formatted: item.isCurrency 
+      ? formatCurrency()(item.value)
+      : formatPercentage(2)(item.value)
+  }))(rawData);
+`}
+/>
+
+## 🎯 Best Practices
+
+### Performance Considerations
+- **Cache formatters**: Create formatters once and reuse them
+- **Use appropriate precision**: Don't over-specify decimal places
+- **Batch processing**: Use mapItems for array transformations
+
+### Type Safety
+- **Handle edge cases**: Always check for NaN, Infinity, and null values
+- **Validate inputs**: Use toInteger for safe fallbacks
+- **Compose safely**: Chain transformations with proper error handling
+
+### Common Patterns
+- **Currency display**: Always use formatCurrency for monetary values
+- **Percentage display**: Convert decimals to percentages consistently
+- **Form processing**: Use safe parsing functions with fallbacks
+- **Precision control**: Use toFixed for consistent decimal display
+
+### Error Handling
+<Source
+  language="typescript"
+  code={`
+// Safe number processing with validation
+const safeFormatCurrency = (value: any) => {
+  const num = typeof value === 'string' ? parseFloat(value) : value;
+  return isNaN(num) ? '$0.00' : formatCurrency()(num);
+};
+
+// Robust percentage formatting
+const safeFormatPercentage = (value: any, decimals = 2) => {
+  const num = typeof value === 'string' ? parseFloat(value) : value;
+  return isNaN(num) ? '0%' : formatPercentage(decimals)(num);
+};
+
+// Safe parsing with defaults
+const parseWithDefault = (value: string, defaultValue: number = 0) => {
+  const parsed = parseFloat(value);
+  return isNaN(parsed) ? defaultValue : parsed;
+};
+`}
+/>

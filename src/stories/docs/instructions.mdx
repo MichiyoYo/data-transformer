@@ -1,0 +1,540 @@
+import { Meta } from '@storybook/blocks';
+
+<Meta title='📖 Documentation/Introduction' />
+
+# Data Transform Kit
+
+A comprehensive TypeScript library for transforming data between APIs and frontend applications. Built with functional programming principles and powered by battle-tested libraries like Lodash and date-fns.
+
+## 🎯 The Problem This Library Solves
+
+Modern frontend applications constantly deal with data transformation challenges:
+
+### API-UI Data Mismatch
+
+- **APIs return data in various formats**: snake_case fields, ISO date strings, raw numbers, nested objects
+- **UIs expect specific formats**: camelCase properties, Date objects, formatted currencies, flattened structures
+- **Bidirectional transformations**: Data needs to flow both ways (API → UI and UI → API)
+
+### Common Pain Points
+
+**Before Data Transform Kit:**
+
+```typescript
+// Repetitive, error-prone manual transformations
+const transformUser = (apiUser: any) => {
+  return {
+    id: apiUser.id,
+    displayName: apiUser.first_name
+      ? apiUser.first_name.charAt(0).toUpperCase() +
+        apiUser.first_name.slice(1) +
+        ' ' +
+        (apiUser.last_name
+          ? apiUser.last_name.charAt(0).toUpperCase() +
+            apiUser.last_name.slice(1)
+          : '')
+      : '',
+    joinedDate: apiUser.created_at ? new Date(apiUser.created_at) : null,
+    isActive: apiUser.status === 'active',
+    salary: apiUser.salary ? '$' + apiUser.salary.toLocaleString() : '$0',
+  };
+};
+```
+
+**After Data Transform Kit:**
+
+```typescript
+import { capitalize, isoDateToLocal, formatCurrency } from 'data-transform-kit';
+
+const userAdapter: BidirectionalAdapter<ApiUser, UiUser> = {
+  toUi: (apiUser) => ({
+    id: apiUser.id,
+    displayName: `${capitalize(apiUser.first_name)} ${capitalize(
+      apiUser.last_name
+    )}`,
+    joinedDate: isoDateToLocal(apiUser.created_at),
+    isActive: apiUser.status === 'active',
+    salary: formatCurrency()(apiUser.salary),
+  }),
+  toApi: (uiUser) => ({
+    id: uiUser.id,
+    first_name: uiUser.displayName.split(' ')[0].toLowerCase(),
+    last_name: uiUser.displayName.split(' ')[1]?.toLowerCase() || '',
+    created_at: uiUser.joinedDate.toISOString(),
+    status: uiUser.isActive ? 'active' : 'inactive',
+    salary: parseFloat(uiUser.salary.replace(/[$,]/g, '')),
+  }),
+};
+```
+
+## 📊 Real-World Examples
+
+### Example 1: E-commerce Product Data
+
+**Incoming API Response:**
+
+```json
+{
+  "id": "prod_123",
+  "name": "wireless headphones",
+  "price_cents": 15999,
+  "currency_code": "USD",
+  "created_at": "2023-12-15T08:30:00.000Z",
+  "category": {
+    "id": "cat_456",
+    "name": "electronics",
+    "parent_category_id": "cat_789"
+  },
+  "availability": {
+    "in_stock": true,
+    "quantity": 25,
+    "warehouse_locations": ["warehouse_1", "warehouse_3"]
+  },
+  "metadata": {
+    "brand": "ACME",
+    "model": "WH-1000XM4",
+    "color": "black"
+  }
+}
+```
+
+**Desired UI Format:**
+
+```typescript
+interface UiProduct {
+  id: string;
+  displayName: string;
+  formattedPrice: string;
+  category: string;
+  isAvailable: boolean;
+  stockCount: number;
+  createdDate: Date;
+  brand: string;
+  model: string;
+  color: string;
+}
+```
+
+**Transformation with Data Transform Kit:**
+
+```typescript
+import {
+  capitalize,
+  formatCurrency,
+  isoDateToLocal,
+  pickFields,
+  transformField,
+  flattenObject,
+} from 'data-transform-kit';
+
+const productAdapter: BidirectionalAdapter<ApiProduct, UiProduct> = {
+  toUi: (apiProduct) => {
+    // Flatten nested metadata
+    const flattened = flattenObject({
+      ...apiProduct,
+      ...apiProduct.metadata,
+    });
+
+    return {
+      id: apiProduct.id,
+      displayName: capitalize(apiProduct.name),
+      formattedPrice: formatCurrency('USD')(apiProduct.price_cents / 100),
+      category: capitalize(apiProduct.category.name),
+      isAvailable: apiProduct.availability.in_stock,
+      stockCount: apiProduct.availability.quantity,
+      createdDate: isoDateToLocal(apiProduct.created_at),
+      brand: flattened.brand,
+      model: flattened.model,
+      color: capitalize(flattened.color),
+    };
+  },
+
+  toApi: (uiProduct) => ({
+    id: uiProduct.id,
+    name: uiProduct.displayName.toLowerCase(),
+    price_cents: Math.round(
+      parseFloat(uiProduct.formattedPrice.replace(/[$,]/g, '')) * 100
+    ),
+    currency_code: 'USD',
+    created_at: uiProduct.createdDate.toISOString(),
+    category: {
+      name: uiProduct.category.toLowerCase(),
+    },
+    availability: {
+      in_stock: uiProduct.isAvailable,
+      quantity: uiProduct.stockCount,
+    },
+    metadata: {
+      brand: uiProduct.brand,
+      model: uiProduct.model,
+      color: uiProduct.color.toLowerCase(),
+    },
+  }),
+};
+```
+
+### Example 2: User Analytics Dashboard
+
+**Incoming API Response:**
+
+```json
+{
+  "user_metrics": [
+    {
+      "user_id": "user_123",
+      "first_name": "john",
+      "last_name": "doe",
+      "email": "john.doe@company.com",
+      "registration_timestamp": 1671094200,
+      "last_login_timestamp": 1703544600,
+      "total_orders": 15,
+      "lifetime_value_cents": 245900,
+      "subscription_status": "active",
+      "preferences": {
+        "timezone": "America/New_York",
+        "notifications_enabled": true,
+        "marketing_consent": false
+      }
+    }
+  ],
+  "summary": {
+    "total_users": 1250,
+    "active_users": 1100,
+    "conversion_rate": 0.0876
+  }
+}
+```
+
+**Desired UI Format:**
+
+```typescript
+interface UiUserMetric {
+  userId: string;
+  fullName: string;
+  email: string;
+  registrationDate: string; // Human readable
+  lastLoginRelative: string; // "2 hours ago"
+  orderCount: number;
+  lifetimeValue: string; // "$2,459.00"
+  isActive: boolean;
+  timezone: string;
+  hasMarketingConsent: boolean;
+}
+
+interface UiDashboardSummary {
+  totalUsers: string; // "1,250"
+  activeUsers: string; // "1,100"
+  conversionRate: string; // "8.76%"
+}
+```
+
+**Transformation with Data Transform Kit:**
+
+```typescript
+import {
+  capitalize,
+  formatCurrency,
+  formatTimestampRelative,
+  formatDateHuman,
+  fromUnixTimestampSeconds,
+  formatPercentage,
+  mapItems,
+  keysToCamelCase,
+} from 'data-transform-kit';
+
+const userMetricsAdapter = {
+  toUi: (apiResponse) => {
+    const transformedUsers = mapItems(
+      (user: ApiUserMetric): UiUserMetric => ({
+        userId: user.user_id,
+        fullName: `${capitalize(user.first_name)} ${capitalize(
+          user.last_name
+        )}`,
+        email: user.email,
+        registrationDate: formatDateHuman()(
+          fromUnixTimestampSeconds(user.registration_timestamp)
+        ),
+        lastLoginRelative: formatTimestampRelative(true)(
+          user.last_login_timestamp
+        ),
+        orderCount: user.total_orders,
+        lifetimeValue: formatCurrency()(user.lifetime_value_cents / 100),
+        isActive: user.subscription_status === 'active',
+        timezone: user.preferences.timezone,
+        hasMarketingConsent: user.preferences.marketing_consent,
+      })
+    )(apiResponse.user_metrics);
+
+    const summary: UiDashboardSummary = {
+      totalUsers: apiResponse.summary.total_users.toLocaleString(),
+      activeUsers: apiResponse.summary.active_users.toLocaleString(),
+      conversionRate: formatPercentage(2)(apiResponse.summary.conversion_rate),
+    };
+
+    return { users: transformedUsers, summary };
+  },
+};
+```
+
+## 🏗️ Architecture & Design Patterns
+
+### Functional Programming Approach
+
+Data Transform Kit embraces functional programming principles:
+
+**1. Pure Functions**: All transformers are pure functions with no side effects
+
+```typescript
+// Always returns the same output for the same input
+const transformer = capitalize('hello'); // Always returns 'Hello'
+```
+
+**2. Immutability**: Original data is never modified
+
+```typescript
+const original = { name: 'john' };
+const transformed = transformField('name', capitalize)(original);
+// original remains unchanged: { name: 'john' }
+// transformed: { name: 'John' }
+```
+
+**3. Composability**: Transformers can be combined and chained
+
+```typescript
+const processUsers = mapItems(
+  pipe(
+    transformField('name', capitalize),
+    transformField('createdAt', isoDateToLocal),
+    pickFields(['id', 'name', 'createdAt'])
+  )
+);
+```
+
+### Type System Design
+
+The library uses advanced TypeScript patterns for type safety:
+
+**Core Transformer Type:**
+
+```typescript
+export type Transformer<TInput, TOutput> = (input: TInput) => TOutput;
+```
+
+**Specialized Types:**
+
+```typescript
+// For array transformations
+export type ArrayTransformer<TInput, TOutput> = Transformer<
+  TInput[],
+  TOutput[]
+>;
+
+// For object field transformations
+export type FieldTransformer<
+  TObject,
+  TKey extends keyof TObject,
+  TOutput
+> = Transformer<TObject[TKey], TOutput>;
+
+// For bidirectional data flow
+export interface BidirectionalAdapter<TApiData, TUiData> {
+  toUi: InboundAdapter<TApiData, TUiData>;
+  toApi: OutboundAdapter<TUiData, TApiData>;
+}
+```
+
+### Composition Patterns
+
+**1. Field-Level Transformation:**
+
+```typescript
+// Transform individual fields while preserving object structure
+const enhanceUser = pipe(
+  transformField('firstName', capitalize),
+  transformField('email', toLowerCase),
+  transformField('createdAt', isoDateToLocal)
+);
+```
+
+**2. Object Reshaping:**
+
+```typescript
+// Pick, rename, and transform in sequence
+const reshapeApiUser = pipe(
+  keysToCamelCase(), // snake_case → camelCase
+  pickFields(['id', 'firstName', 'lastName', 'email']),
+  transformField('firstName', capitalize)
+);
+```
+
+**3. Array Processing:**
+
+```typescript
+// Process collections with consistent transformations
+const processUserList = pipe(
+  filterItems((user) => user.isActive),
+  sortItems((user) => user.createdAt),
+  mapItems(enhanceUser)
+);
+```
+
+**4. Conditional Transformations:**
+
+```typescript
+// Apply transformations based on conditions
+const conditionalFormatter = (user) => {
+  const baseTransform = transformField('name', capitalize);
+  const conditionalTransform = user.isPremium
+    ? transformField('displayName', (name) => `⭐ ${name}`)
+    : (x) => x;
+
+  return pipe(baseTransform, conditionalTransform)(user);
+};
+```
+
+## 🔧 Powered by Industry Standards
+
+### Lodash Integration
+
+Data Transform Kit leverages Lodash's battle-tested utilities:
+
+**String Operations:**
+
+- `trim`, `capitalize`, `toUpper`, `toLower` use Lodash implementations
+- `slugify` combines Lodash's `kebabCase` with custom sanitization
+- `truncate` uses Lodash's robust truncation with ellipsis handling
+
+**Object Manipulation:**
+
+- `pickFields` and `omitFields` use Lodash's `pick` and `omit`
+- `keysToCamelCase` leverages `camelCase` for consistent naming
+- `flattenObject` uses Lodash's deep flattening algorithms
+
+**Array Processing:**
+
+- `mapItems`, `filterItems` use Lodash's optimized implementations
+- `sortItems` leverages `sortBy` for complex sorting scenarios
+- `groupBy` uses Lodash's efficient grouping algorithms
+
+### date-fns & date-fns-tz Integration
+
+Comprehensive date handling with timezone support:
+
+**Core Date Functions:**
+
+- `parseISO` for robust ISO string parsing
+- `format` for flexible date formatting
+- `formatDistanceToNow` for relative time displays
+
+**Timezone Handling:**
+
+- `formatInTimeZone` for timezone-aware formatting
+- `fromZonedTime` and `toZonedTime` for timezone conversions
+- Automatic user timezone detection via `Intl.DateTimeFormat`
+
+**Advanced Date Operations:**
+
+- `addDays`, `subDays` for date arithmetic
+- `getUnixTime`, `fromUnixTime` for timestamp handling
+- `isValid` for date validation
+
+## 🚀 Quick Start
+
+```bash
+npm install data-transform-kit
+```
+
+### Basic Usage
+
+```typescript
+import {
+  capitalize,
+  formatCurrency,
+  isoDateToLocal,
+  BidirectionalAdapter,
+} from 'data-transform-kit';
+
+// Simple transformations
+const title = capitalize('hello world'); // "Hello world"
+const price = formatCurrency()(29.99); // "$29.99"
+const date = isoDateToLocal('2023-12-25T10:30:00Z'); // Date object
+
+// Bidirectional adapter for API integration
+interface ApiUser {
+  id: string;
+  first_name: string;
+  created_at: string;
+  salary_cents: number;
+}
+
+interface UiUser {
+  id: string;
+  displayName: string;
+  joinedDate: Date;
+  salary: string;
+}
+
+const userAdapter: BidirectionalAdapter<ApiUser, UiUser> = {
+  toUi: (apiUser) => ({
+    id: apiUser.id,
+    displayName: capitalize(apiUser.first_name),
+    joinedDate: isoDateToLocal(apiUser.created_at),
+    salary: formatCurrency()(apiUser.salary_cents / 100),
+  }),
+
+  toApi: (uiUser) => ({
+    id: uiUser.id,
+    first_name: uiUser.displayName.toLowerCase(),
+    created_at: uiUser.joinedDate.toISOString(),
+    salary_cents: Math.round(
+      parseFloat(uiUser.salary.replace(/[$,]/g, '')) * 100
+    ),
+  }),
+};
+
+// Usage in your application
+const apiResponse = await fetchUser(userId);
+const uiUser = userAdapter.toUi(apiResponse);
+
+// When sending data back to API
+const formData = getFormData();
+const apiPayload = userAdapter.toApi(formData);
+await updateUser(apiPayload);
+```
+
+### Advanced Composition
+
+```typescript
+import {
+  mapItems,
+  filterItems,
+  transformField,
+  pickFields,
+  capitalize,
+  isoDateToLocal,
+} from 'data-transform-kit';
+
+// Compose multiple transformations
+const processApiUsers = pipe(
+  filterItems((user: ApiUser) => user.status === 'active'),
+  mapItems(
+    pipe(
+      transformField('first_name', capitalize),
+      transformField('created_at', isoDateToLocal),
+      pickFields(['id', 'first_name', 'email', 'created_at'])
+    )
+  )
+);
+
+const processedUsers = processApiUsers(apiUserList);
+```
+
+## 🎯 Next Steps
+
+- Explore the **String Transformers** for text processing
+- Learn about **Date Transformers** for timezone handling
+- Discover **Object Transformers** for data reshaping
+- Master **Array Transformers** for collection processing
+- Implement **Bidirectional Adapters** for API integration
+
+Data Transform Kit provides everything you need to handle data transformations efficiently, safely, and with full TypeScript support.
