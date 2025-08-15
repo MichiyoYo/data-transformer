@@ -26,14 +26,18 @@ const ArrayTransformerDemo = ({
   codeExample?: string;
   description?: string;
 }) => {
-  const [input, setInput] = useState(JSON.stringify(defaultInput || [], null, 2));
-  const [additional, setAdditional] = useState(JSON.stringify(additionalInput || '', null, 2));
-  
+  const [input, setInput] = useState(
+    JSON.stringify(defaultInput || [], null, 2)
+  );
+  const [additional, setAdditional] = useState(
+    JSON.stringify(additionalInput || '', null, 2)
+  );
+
   let output;
   try {
     const parsedInput = JSON.parse(input);
     let args: any[] = [];
-    
+
     if (additional && additional.trim() !== '""') {
       try {
         const parsedAdditional = JSON.parse(additional);
@@ -44,7 +48,7 @@ const ArrayTransformerDemo = ({
         args = [additional.replace(/^"|"$/g, '')];
       }
     }
-    
+
     output = transformer(parsedInput, ...args);
   } catch (error) {
     output = 'Error: ' + (error as Error).message;
@@ -79,7 +83,7 @@ const ArrayTransformerDemo = ({
             }}
           />
         </div>
-        
+
         {additionalInput !== undefined && (
           <div style={{ marginBottom: '10px' }}>
             <label>
@@ -102,7 +106,7 @@ const ArrayTransformerDemo = ({
             />
           </div>
         )}
-        
+
         <div style={{ marginBottom: '10px' }}>
           <strong>Output:</strong>
           <pre
@@ -119,7 +123,9 @@ const ArrayTransformerDemo = ({
               overflow: 'auto',
             }}
           >
-            {typeof output === 'object' ? JSON.stringify(output, null, 2) : String(output)}
+            {typeof output === 'object'
+              ? JSON.stringify(output, null, 2)
+              : String(output)}
           </pre>
         </div>
       </div>
@@ -208,22 +214,47 @@ export default meta;
 type Story = StoryObj<typeof ArrayTransformerDemo>;
 
 const sampleUsers = [
-  { id: 1, name: 'john doe', age: 25, department: 'engineering', salary: 75000 },
-  { id: 2, name: 'jane smith', age: 30, department: 'marketing', salary: 85000 },
-  { id: 3, name: 'bob johnson', age: 35, department: 'engineering', salary: 95000 },
+  {
+    id: 1,
+    name: 'john doe',
+    age: 25,
+    department: 'engineering',
+    salary: 75000,
+  },
+  {
+    id: 2,
+    name: 'jane smith',
+    age: 30,
+    department: 'marketing',
+    salary: 85000,
+  },
+  {
+    id: 3,
+    name: 'bob johnson',
+    age: 35,
+    department: 'engineering',
+    salary: 95000,
+  },
   { id: 4, name: 'alice brown', age: 28, department: 'design', salary: 70000 },
-  { id: 5, name: 'charlie wilson', age: 32, department: 'marketing', salary: 80000 }
+  {
+    id: 5,
+    name: 'charlie wilson',
+    age: 32,
+    department: 'marketing',
+    salary: 80000,
+  },
 ];
 
 export const MapItems: Story = {
   args: {
-    transformer: mapItems((user: any) => ({ 
-      ...user, 
+    transformer: mapItems((user: any) => ({
+      ...user,
       name: capitalize(user.name),
-      formattedSalary: `$${user.salary.toLocaleString()}`
+      formattedSalary: `$${user.salary.toLocaleString()}`,
     })),
     defaultInput: sampleUsers,
-    description: 'Transform each item in an array using a mapping function, perfect for data formatting and enrichment.',
+    description:
+      'Transform each item in an array using a mapping function, perfect for data formatting and enrichment.',
     codeExample: `import { mapItems } from 'data-transform-kit';
 import { capitalize } from 'data-transform-kit';
 
@@ -255,7 +286,8 @@ export const FilterItems: Story = {
   args: {
     transformer: filterItems((user: any) => user.age >= 30),
     defaultInput: sampleUsers,
-    description: 'Filter array items based on a predicate function, useful for data querying and validation.',
+    description:
+      'Filter array items based on a predicate function, useful for data querying and validation.',
     codeExample: `import { filterItems } from 'data-transform-kit';
 
 const getAdults = filterItems(user => user.age >= 18);
@@ -289,9 +321,11 @@ const getValidEntries = filterItems(entry =>
 
 export const SortItems: Story = {
   args: {
-    transformer: (items: any[]) => sortItems((user: any) => user.salary, false)(items),
+    transformer: (items: any[]) =>
+      sortItems((user: any) => user.salary, false)(items),
     defaultInput: sampleUsers,
-    description: 'Sort array items by a specified property or computed value, with ascending/descending control.',
+    description:
+      'Sort array items by a specified property or computed value, with ascending/descending control.',
     codeExample: `import { sortItems } from 'data-transform-kit';
 
 // Sort by salary (descending)
@@ -322,7 +356,8 @@ export const GroupBy: Story = {
   args: {
     transformer: groupBy((user: any) => user.department),
     defaultInput: sampleUsers,
-    description: 'Group array items by a specified key or computed value, creating organized data structures.',
+    description:
+      'Group array items by a specified key or computed value, creating organized data structures.',
     codeExample: `import { groupBy } from 'data-transform-kit';
 
 const groupByDepartment = groupBy(user => user.department);
@@ -358,7 +393,8 @@ export const UniqueBy: Story = {
   args: {
     transformer: uniqueBy((user: any) => user.department),
     defaultInput: sampleUsers,
-    description: 'Remove duplicate items from an array based on a specified key or computed value.',
+    description:
+      'Remove duplicate items from an array based on a specified key or computed value.',
     codeExample: `import { uniqueBy } from 'data-transform-kit';
 
 const uniqueByDepartment = uniqueBy(user => user.department);
@@ -388,7 +424,8 @@ export const FindItem: Story = {
   args: {
     transformer: findItem((user: any) => user.salary > 90000),
     defaultInput: sampleUsers,
-    description: 'Find the first item in an array that matches a predicate function.',
+    description:
+      'Find the first item in an array that matches a predicate function.',
     codeExample: `import { findItem } from 'data-transform-kit';
 
 const findHighEarner = findItem(user => user.salary > 90000);
@@ -421,12 +458,11 @@ const findAvailableSlot = findItem(slot =>
 
 export const ReduceItems: Story = {
   args: {
-    transformer: (items: any[]) => reduceItems(
-      (total: number, user: any) => total + user.salary,
-      0
-    )(items),
+    transformer: (items: any[]) =>
+      reduceItems((total: number, user: any) => total + user.salary, 0)(items),
     defaultInput: sampleUsers,
-    description: 'Reduce an array to a single value using an accumulator function, perfect for calculations and aggregations.',
+    description:
+      'Reduce an array to a single value using an accumulator function, perfect for calculations and aggregations.',
     codeExample: `import { reduceItems } from 'data-transform-kit';
 
 // Calculate total salary

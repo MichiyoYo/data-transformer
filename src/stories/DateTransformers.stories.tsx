@@ -30,7 +30,7 @@ const DateTransformerDemo = ({
   description?: string;
 }) => {
   const [input, setInput] = useState(defaultInput?.toString() || '');
-  
+
   let output;
   try {
     let processedInput;
@@ -41,7 +41,7 @@ const DateTransformerDemo = ({
     } else {
       processedInput = input;
     }
-    
+
     output = transformer(processedInput);
   } catch (error) {
     output = 'Error: ' + (error as Error).message;
@@ -174,7 +174,8 @@ export const FormatDate: Story = {
     transformer: formatDate('yyyy-MM-dd HH:mm'),
     defaultInput: defaultDateTime,
     inputType: 'datetime-local',
-    description: 'Custom date formatting with optional timezone support using date-fns format strings.',
+    description:
+      'Custom date formatting with optional timezone support using date-fns format strings.',
     codeExample: `import { formatDate } from 'data-transform-kit';
 
 const formatISO = formatDate('yyyy-MM-dd');
@@ -195,7 +196,8 @@ export const FormatUSDate: Story = {
     transformer: formatUSDate(),
     defaultInput: defaultDateTime,
     inputType: 'datetime-local',
-    description: 'US date format (MM/dd/yyyy) with Eastern timezone by default.',
+    description:
+      'US date format (MM/dd/yyyy) with Eastern timezone by default.',
     codeExample: `import { formatUSDate } from 'data-transform-kit';
 
 const formatEastern = formatUSDate();
@@ -217,7 +219,8 @@ export const FormatEUDate: Story = {
     transformer: formatEUDate(),
     defaultInput: defaultDateTime,
     inputType: 'datetime-local',
-    description: 'European date format (dd.MM.yyyy) with Berlin timezone by default.',
+    description:
+      'European date format (dd.MM.yyyy) with Berlin timezone by default.',
     codeExample: `import { formatEUDate } from 'data-transform-kit';
 
 const formatCET = formatEUDate();
@@ -237,7 +240,8 @@ export const FormatDateHuman: Story = {
     transformer: formatDateHuman(),
     defaultInput: defaultDateTime,
     inputType: 'datetime-local',
-    description: 'Human-readable format with timezone abbreviation for clear communication.',
+    description:
+      'Human-readable format with timezone abbreviation for clear communication.',
     codeExample: `import { formatDateHuman } from 'data-transform-kit';
 
 const formatFriendly = formatDateHuman();
@@ -257,9 +261,12 @@ const eventSchedule = timezones.map(tz => ({
 export const FormatRelative: Story = {
   args: {
     transformer: formatRelative(),
-    defaultInput: new Date(Date.now() - 2 * 60 * 60 * 1000).toISOString().slice(0, 16), // 2 hours ago
+    defaultInput: new Date(Date.now() - 2 * 60 * 60 * 1000)
+      .toISOString()
+      .slice(0, 16), // 2 hours ago
     inputType: 'datetime-local',
-    description: 'Relative time formatting like "2 hours ago" or "in 3 days" for social media and activity feeds.',
+    description:
+      'Relative time formatting like "2 hours ago" or "in 3 days" for social media and activity feeds.',
     codeExample: `import { formatRelative } from 'data-transform-kit';
 
 const formatRel = formatRelative();
@@ -283,9 +290,12 @@ const comments = discussion.map(comment => ({
 export const FormatDateSmart: Story = {
   args: {
     transformer: formatDateSmart(7),
-    defaultInput: new Date(Date.now() - 3 * 24 * 60 * 60 * 1000).toISOString().slice(0, 16), // 3 days ago
+    defaultInput: new Date(Date.now() - 3 * 24 * 60 * 60 * 1000)
+      .toISOString()
+      .slice(0, 16), // 3 days ago
     inputType: 'datetime-local',
-    description: 'Smart formatting that shows relative time for recent dates, full format for older dates.',
+    description:
+      'Smart formatting that shows relative time for recent dates, full format for older dates.',
     codeExample: `import { formatDateSmart } from 'data-transform-kit';
 
 const smartFormat = formatDateSmart(7); // 7-day cutoff
@@ -311,7 +321,8 @@ export const AddDays: Story = {
     transformer: addDays(7),
     defaultInput: defaultDateTime,
     inputType: 'datetime-local',
-    description: 'Add specified number of days to a date for scheduling and deadline calculations.',
+    description:
+      'Add specified number of days to a date for scheduling and deadline calculations.',
     codeExample: `import { addDays } from 'data-transform-kit';
 
 const nextWeek = addDays(7);
@@ -334,7 +345,8 @@ export const ToUnixTimestamp: Story = {
     transformer: toUnixTimestamp,
     defaultInput: defaultDateTime,
     inputType: 'datetime-local',
-    description: 'Convert Date to Unix timestamp (milliseconds) for database storage and API communication.',
+    description:
+      'Convert Date to Unix timestamp (milliseconds) for database storage and API communication.',
     codeExample: `import { toUnixTimestamp } from 'data-transform-kit';
 
 const timestamp = toUnixTimestamp(new Date());

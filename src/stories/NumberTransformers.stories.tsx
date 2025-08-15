@@ -24,10 +24,11 @@ const NumberTransformerDemo = ({
   description?: string;
 }) => {
   const [input, setInput] = useState(defaultInput?.toString() || '');
-  
+
   let output;
   try {
-    const processedInput = inputType === 'number' ? parseFloat(input) || 0 : input;
+    const processedInput =
+      inputType === 'number' ? parseFloat(input) || 0 : input;
     output = transformer(processedInput);
   } catch (error) {
     output = 'Error: ' + (error as Error).message;
@@ -151,7 +152,8 @@ export const ToFixed: Story = {
     transformer: toFixed(2),
     defaultInput: 3.14159,
     inputType: 'number',
-    description: 'Formats a number to a fixed number of decimal places with consistent rounding.',
+    description:
+      'Formats a number to a fixed number of decimal places with consistent rounding.',
     codeExample: `import { toFixed } from 'data-transform-kit';
 
 const formatPrice = toFixed(2);
@@ -169,7 +171,8 @@ export const ParseInt: Story = {
     transformer: parseInt,
     defaultInput: '123abc',
     inputType: 'string',
-    description: 'Parses a string and returns an integer using lenient parsing (stops at first non-numeric character).',
+    description:
+      'Parses a string and returns an integer using lenient parsing (stops at first non-numeric character).',
     codeExample: `import { parseInt } from 'data-transform-kit';
 
 parseInt('42'); // 42
@@ -187,7 +190,8 @@ export const ParseFloat: Story = {
     transformer: parseFloat,
     defaultInput: '3.14abc',
     inputType: 'string',
-    description: 'Parses a string and returns a floating point number with better edge case handling.',
+    description:
+      'Parses a string and returns a floating point number with better edge case handling.',
     codeExample: `import { parseFloat } from 'data-transform-kit';
 
 parseFloat('3.14'); // 3.14
@@ -204,7 +208,8 @@ export const ToInteger: Story = {
     transformer: toInteger,
     defaultInput: '123abc',
     inputType: 'string',
-    description: 'Converts to integer using strict parsing. Returns 0 if conversion fails (safe fallback).',
+    description:
+      'Converts to integer using strict parsing. Returns 0 if conversion fails (safe fallback).',
     codeExample: `import { toInteger } from 'data-transform-kit';
 
 toInteger('123'); // 123
@@ -221,7 +226,8 @@ export const FormatCurrency: Story = {
     transformer: formatCurrency(),
     defaultInput: 1234.56,
     inputType: 'number',
-    description: 'Formats a number as currency with proper locale formatting and currency symbols.',
+    description:
+      'Formats a number as currency with proper locale formatting and currency symbols.',
     codeExample: `import { formatCurrency } from 'data-transform-kit';
 
 const formatUSD = formatCurrency('USD');
@@ -243,7 +249,8 @@ export const FormatPercentage: Story = {
     transformer: formatPercentage(2),
     defaultInput: 0.1234,
     inputType: 'number',
-    description: 'Formats a decimal as a percentage with specified decimal places.',
+    description:
+      'Formats a decimal as a percentage with specified decimal places.',
     codeExample: `import { formatPercentage } from 'data-transform-kit';
 
 const formatPercent = formatPercentage(2);
