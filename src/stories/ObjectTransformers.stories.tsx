@@ -529,9 +529,7 @@ const ApiTransformationDemo = ({
   codeExample: string;
   description: string;
 }) => {
-  const [direction, setDirection] = useState<'api-to-ui' | 'ui-to-api'>(
-    'api-to-ui'
-  );
+  const [direction, setDirection] = useState('api-to-ui');
 
   // Sample API response (snake_case, raw timestamps, nested structure)
   const apiResponse = {

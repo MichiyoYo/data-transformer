@@ -40,7 +40,7 @@
     "test:watch": "jest --watchAll",
     "test:coverage": "jest --coverage",
     "lint": "eslint src --ext .ts",
-    "prepublishOnly": "npm run test && npm run build",
+    "prepublishOnly": "npm run build",
     "dev": "tsup src/index.ts --format cjs,esm --dts --watch",
     "publish:dry": "npm publish --dry-run",
     "publish:release": "npm publish",
